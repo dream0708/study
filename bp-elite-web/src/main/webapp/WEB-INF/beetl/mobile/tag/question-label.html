@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <!-- head.jade-->
+<% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+   <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"问题标签"}){} %>
+    <div id="content" class="content row favor">
+      <section class="media media-horizontal">
+        <dl class="list clearfix" data-block="list">
+             <%for(tag in tagList){%>
+                    <dd>
+                        <% include("/WEB-INF/beetl/mobile/units/tag.html",{tag:tag}){} %> 
+                        <div class="btn cancel-follow  <%if(tag.hasFollowed){%>active<%}%>" data-tag-id="${tag.tagId}" >
+                      <span class="follow">关注</span>
+                      <span class="followed">已关注</span>
+                      </div>
+                    </dd>
+                    <%}%>
+        </dl>
+      </section>
+    </div>
+     <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/question-label.js" charset="UTF-8"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

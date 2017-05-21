@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+     <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"问吧提问"}){} %>
+    <!-- 构建用交互，请忽略。-->
+    <div id="content" class="content row media-atten-ques">
+      <div class="tabs-occupy">
+        <div class="nav nav-tabs tab-two">
+        	<a href="/pqp"><div class="inner-tab">已通过</div></a>
+        	<a href="/pqr" class="active"><div class="inner-tab">被驳回</div></a></div>
+      </div>
+      <% if(bean.feedItemList!=null && bean.feedItemList.~size!=0){ %>
+      <section class="media ques-box">
+        <dl class="list clearfix" data-block="list" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+        		<% for(item in bean.feedItemList){ %>
+	        	<dd>
+		            <div class="cell" data-id="${item.itemId}">
+		              <div class="inner">
+                  <a href="javascript:;">
+                    <h4 class="heading">${item.title}</h4></a>
+                  <div class="pull-right right-icon">
+                    <div class="edit-box hide">
+                    <%if(item.specialType != 403){%>
+                              <a href="/q/${item.itemId}/up" class="edit">
+                                <i class="iconfont">&#xe62d;</i><i>编辑</i>
+                              </a>
+                          <%}%>
+                              <a href="javascript:;" class="cancel-ques" btn-action="cancel-follow" data-id="${item.itemId}">
+                                <i class="iconfont">&#xe62b;</i><i>删除</i>
+                              </a>           
+                            </div>
+                            <a href="javascript:;" class="cancel-atten"><i class="iconfont">&#xe619;</i></a>
+		                </div>
+		                    <%if(item.specialType != 403){%>
+                      <p class="info">
+                       <%if(item.answerNumHuman != '0'){%>
+                        <span class="pull-left"><i>${item.answerNumHuman}</i><span>回答</span></span>
+                        <%}%>
+                        <%if(item.fansNumHuman != '0'){%>
+                        <span class="pull-left zan"><i>${item.fansNumHuman}</i><span>关注</span></span>
+                        <%}%>
+                      </p>
+                      <%}%>
+		              </div>
+		            </div>
+	            </dd>
+	            <% }%>
+        </dl>
+      </section>
+       <% }else{%>
+       <section class="no-list"><i class="imgs-question-no"></i><p>这里什么都没有噢，快去问吧提问吧</p></section>
+       <%}%>
+    </div>
+  </body>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/center-reject-question.js" charset="UTF-8"></script>
+  <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</html>

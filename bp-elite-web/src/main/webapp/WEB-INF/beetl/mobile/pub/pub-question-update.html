@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <header id="header" class="header header-ask">
+      <nav class="navbar pos-fixed clearfix">
+        <div class="inner scale"><a href="javascript:;" class="pull-right btn-menu on"><span>下一步</span></a><a href="javascript:;" class="pull-left btn-arrowleft"><i class="iconfont icons-arrowleft">&#xe61f;</i></a>
+          <div class="nav-tit">提问</div>
+        </div>
+      </nav>
+    </header>
+    <div id="content" class="content row pub-question" data-option='${options!}'>
+      <div class="input-ques pos-fixed"> 
+        <textarea placeholder="请直接输入问题（10-40字为宜）" class="wr-tit" maxlength="40"  data-question-id="${questionId}" data-update="true">${title}</textarea>
+      </div>
+      <div class="pub-media pos-fixed"><a href="javascript:;" class="pub-box"><i class="iconfont">&#xe618;</i><span>图片</span><input type="file" class="uppicbtn"></a><a href="javascript:;" class="pub-box"><i class="iconfont">&#xe640;</i><span>视频</span><input type="file" class="upvideobtn"></a><a href="javascript:;" class="pub-box"><i class="iconfont">&#xe63f;</i><span></span></a><a href="javascript:;" class="pub-box vote <%if(options!'' != ''){%>active<%}%>"><i class="iconfont voting">&#xe645;</i><i class="iconfont voted">&#xe644;</i><span class="voting">投票</span><span class="voted">编辑</span></a></div>
+      <div class="input-ans done"  <%if(videoId!=null &&videoId!=0){%>data-video-id="${videoId}" data-vids="${vId}"<%}%>>
+    <!--   <div class="vedio" data-video-id="${videoId}" data-vid="${vId}">
+        <span>视频可能正在审核中</span><span class="check-video">查看视频</span>
+        <a href="javascript:;" class="vedio-cancel"><i class="iconfont">&#xe62b</i></a>
+      </div>
+      -->
+      <%if(content!=null &&content!=""){%>
+      <div contenteditable="true" class="wr-ans">${content}</div>
+      <%}else{%>
+        <div contenteditable="true" class="wr-ans"><div class="placeholder">【选填】问题较多，或需详细阐述时，可对问题进行补充</div></div>
+        <%}%>
+      </div>
+    </div>
+       <div class="content row list-label hide">
+      <div class="unit occupy-search">
+        <div class="search-unit active">
+          <section class="search-group"><a href="javascript:;" class="pull-right btn-tools">取消</a>
+            <div class="search-box">
+                <div class="inner"><span class="input-group"><a class="btn-clear"><i class="iconfont icons-close">&#xe62c;</i></a>
+                  <label class="search">
+                    <input type="search" placeholder="添加标签，让问题更快被关注和回答">
+                  </label></span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+       <div class="com-list"></div>
+      <div class="label-list">
+      <%for(tag in tagList){%>
+      <span class="label" tag-id="${tag.tagId}"><span>${tag.tagName}</span><a href="javascript:;" class="close"><i class="iconfont">&#xe60a;</i></a></span>
+      <%}%>
+      </div>
+    </div>
+    <div class="modal-error hide">
+          <div class="inner"><i class="iconfont">&#xe62a;</i><span class="error-txt"></span></div>
+          <a href="javascript:;" class="load-cancel">朕知道了</a>
+      </div>
+      <div class="modal-backdrop bg-black hide"></div>
+    <script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/pub-question-update.js"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

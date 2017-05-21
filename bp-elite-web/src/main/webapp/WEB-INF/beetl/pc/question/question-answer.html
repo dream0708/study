@@ -1,0 +1,211 @@
+${bean.pageWrapper.headerHtml}
+    <div id="content" class="content row article-detail">
+        <div class="left-side">
+            <div class="crumbs">
+                <ul>
+                    <li><a href="/" class="first-level">问吧首页</a></li>
+                    <li><span>&gt;</span></li>
+                    <li><a href="javascript:;">问答详情页</a></li>
+                </ul>
+            </div>
+            <section class="media media-article media-article-com" data-question-id="${bean.question.id}" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+                <dl class="list clearfix">
+                    <dd class="media-article-com-nopic">
+                        <div class="cell" >
+                            <div class="inner">
+                                <div class="artical-info">
+                                    <h1 class="heading" data-question-id="${bean.question.id}" data-question-type="${bean.question.specialType}">${bean.question.title}</h1>
+                                    <p class="info">
+                                        <a target="_blank" href="${bean.question.user.homeUrl}">
+                                         <img src="${bean.question.user.avatar}" class="img-circle"><%if(bean.question.user.identityString != "00"){%><i class="iconfont badge${bean.question.user.identityString}-m">&#xe63${bean.question.user.identityString};</i><%}%>
+                                        </a>
+                                        <a target="_blank" href="${bean.question.user.homeUrl}">${bean.question.user.nick}</a>
+                                        <span class="icon-time">
+                                          <i class="iconfont">&#xe633;</i>
+                                          <span>${bean.question.updateTimeHuman}</span>
+                                        </span>
+                                        <a href="javascript:;" class="share">
+                                          <i class="iconfont">&#xe60d;</i>
+                                        </a>
+                                          <%if(bean.question.owner){%>
+                                           <%if(bean.question.specialType != 403){%>
+                                          <a href="javascript:;" class="button pull-right modify">修改问题
+                                          </a>
+                                          <%}%>
+                                          <%}else{%>
+                                          <a href="javascript:;" class="button pull-right atten-ques  <%if(bean.question.hasFollowed){%>active<%}%>">关注问题
+                                          </a>
+                                          <%}%>             
+                                    </p>
+                                    <div class="inner-content">
+                                      <span>声明：本文由搜狐焦点家居问吧用户撰写，观点仅代表作者本人，未经授权，不得转载。</span>
+                                      <a href="http://quan.sohu.com/q/545c9b6bf6c43b5569fe64a2"  target="_blank" class="report">
+                                        <i class="iconfont">&#xe630;</i>
+                                        举报
+                                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </section>
+            <div class="label-list">
+            <%if(bean.question.tagList!=null && bean.question.tagList.~size!=0){%>
+            <%for(tag in bean.question.tagList){%>
+            <a target="_blank" href="/t/${tag.tagId}"  class="label">${tag.tagName}</a>
+            <%}%>
+            <%}%>
+            </div>
+            <%if(bean.question.content!=''|| bean.question.videoId!=0){%>
+            <section class="article-content" data-question-id="${bean.question.id}">
+            <%if(bean.question.videoId!=0){%>
+            <div href="javascript:;" class="vedio" data-video-id="${bean.question.videoId}">
+                </div>
+                    <%}%>
+                <div class="words-pics">
+                    <div class="words">
+                        ${bean.question.content}
+                </div>
+            </section>
+            <%}%>
+            <a href="javascript:;" class="load-more hide">查看全部内容</a>
+            <%if(bean.adMap[102] !=""){%>
+            <div class="ad-box ad-box2 ad-box-large hide"><a href="javascript:;" class="ad-delete"><i class="iconfont">&#xe60a;</i></a>${bean.adMap[102]}</div>
+            <%}%>
+            <%if(bean.answerList.~size!=0){%>     
+            <div class="heading-bar">
+                <h4 class="inline-head">回答</h4>
+                <div class="pull-right"><span>${bean.question.answerNumHuman}条</span></div>
+            </div>
+            <section class="media media-article answerlist">
+                <dl class="list clearfix" data-block="list">
+                <%for(answer in bean.answerList){%>
+                    <dd class="media-article-info" data-answer-id="${answer.itemId}" id="${answer.itemId}">
+                        <div class="cell" data-id="${answer.itemId}">
+                            <div class="inner">
+                                <a target="_blank" href="${answer.user.homeUrl}" class="pic">
+                                  <img class="img-circle" src="${answer.user.avatar}"><%if(answer.user.identityString != "00"){%><i class="iconfont badge${answer.user.identityString}-m">&#xe63${answer.user.identityString};</i><%}%>
+                                </a>
+                                <a target="_blank" href="${answer.user.homeUrl}" class="heading">
+                                  <span>${answer.user.nick}</span>
+                                   <%if(answer.user.description !=""){%><p>${answer.user.description}</p><%}%>
+                                </a>
+                                <div class="artical-info active">
+                                <%if(answer.coverImgListSmall!=null && answer.coverImgListSmall.~size!=0){%>
+                                <%if(answer.videoId!=0){%>
+                                        <div href="javascript:;" class="vedio" data-video-id="${answer.videoId}">
+                                        </div>
+                                        <%}%>
+                                    <div class="long-article">
+                                        <div class="inner-content">${answer.fullContent}</div>
+                                    </div>
+                                    <div class="short-article">
+                                        <div class="pic">
+                                          <img src="${answer.coverImgListSmall[0]}">
+                                        </div>
+                                        <div class="inner-content">${answer.content}</div>
+                                    </div>
+                                    <%}else{%>
+                                    <%if(answer.videoId!=null && answer.videoId!=0){%>
+                                        <div class="vedio" data-video-id="${answer.videoId}">
+                                        </div>
+                                        <%}%>
+                                        <div class="inner-content">${answer.fullContent}</div>
+                                        <%}%>
+                                    <p class="info">
+                                      <a href="javascript:;" class="pull-right share" title="分享">
+                                        <i class="iconfont">&#xe60d;</i>
+                                      </a>
+                                      <%if(!answer.owner){%> 
+                                      <a href="javascript:;" class="pull-right collection <%if(answer.hasFavorited){%>active <%}%>">
+                                        <i class="iconfont col" title="收藏">&#xe61e;</i>
+                                        <i class="iconfont collected" title="取消收藏">&#xe616;</i>
+                                      </a>
+                                      <%}%>
+                                      <a href="javascript:;" class="pull-left comment" title="评论数">
+                                        <i class="iconfont">${answer.commentNumHuman}</i>
+                                        <span>评论</span>
+                                      </a>
+                                      <a href="javascript:;" class="pull-left zan <%if(answer.hasLiked){%>active<%}%>" title="点赞">
+                                        <i class="iconfont">${answer.likeNumHuman}</i>
+                                        <span>点赞</span>
+                                      </a>
+                                      <span class="pull-left">
+                                        <i class="iconfont">&#xe633;</i>
+                                        <span>${answer.updateTimeHuman}</span>
+                                      </span>
+                                      <a href="javascript:;" class="show active hide">
+                                        <i class="iconfont">&#xe62d;</i>
+                                        <span class="text show-off">收起</span>
+                                       <span class="text show-on">显示全部</span>
+                                      <span class="floor"></span>
+                                      </a>
+                                    </p>
+                                    <div class="comment-content-wra hide" data-answer-id="${answer.itemId}" data-currpage="1" data-totalpage="1">
+                                        <div class="clearfix">
+                                          <div class="pagination hide" data-currpage="1" data-totalpage="1"></div>
+                                            <div class="input-comm">
+                                              <textarea type="text" placeholder="输入评论（长度不得超过70个汉字）"></textarea><span data-type="remainWord"><i>0</i>/70</span>
+                                            </div>
+                                            <span class="txt-alert" data-tip="comment"></span>
+                                            <a href="javascript:;" class="button-primary pull-right publish">发布</a>
+                                            <div class="angle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dd>
+                    <%}%>
+                </dl>
+            </section>
+            <a href="javascript:;" class="loadmore more-answer"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+            <%}%>
+            <div class="comment-table comment-after" id="pub-answer">
+                <div class="avatar">
+                    <img src="${bean.user.avatar}" class="img-circle"><%if(bean.user.identityString != "00"){%><i class="iconfont badge${bean.user.identityString}-m">&#xe63${bean.user.identityString};</i><%}%>
+                </div>
+                <div class="pub-media">
+                    <a href="javascript:;" class="pub-pic">
+                    <i class="iconfont">&#xe618;</i>
+                    <span>图片</span><form class="uppicformbtn"><input class="uppicbtnans" type="file"></form></a>
+                    <a href="javascript:;" class="pub-vedio">
+                    <i class="iconfont">&#xe62aa;</i>
+                    <span>视频</span><form class="upvideoformbtn" ><input class="upvideobtnans" type="file"></form></a>
+                    <a href="javascript:;" class="add-link"><i class="iconfont">&#xe63f;</i><span></span></a>
+                    <span class="txt-alert" data-tip="answer"></span>
+                </div>
+                <div class="txt-textarea" contenteditable="true">
+                 <div class="placeholder">请输入回答内容</div>
+                </div>
+                <div class="tools clearfix">
+                    <div class="pull-right">
+                        <a href="javascript:;" data-btn="pub-ans" class="button-primary" hasphoneno="${bean.hasPhoneNo}" answered="${bean.answered}" isrestrict="${bean.isAnswerRestrict}">发布回答</a>  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-side" data-right="right">
+            <div class="nofix-wra">
+                <div class="person-tags">
+                    <ul class="items-box">
+                        <li><span class="num">${bean.question.answerNumHuman}</span>
+                            <br><span>回答</span></li>
+                        <li class="last-li"><a target="_blank" href="/qf/${bean.question.id}"><span class="num">${bean.question.fansNumHuman}</span><br><span>关注</span></a></li>
+                    </ul><a href="#pub-answer" class="button-primary"><i class="iconfont">&#xe612;</i><span>我要回答</span></a>
+                    <a href="javascript:;" class="button invite-ans" btn-action="invite-ans"><i class="iconfont">&#xe613;</i><span>邀请回答</span></a>
+                </div>
+            </div>
+            <div class="ad-box-right">${bean.adMap[101]}</div>
+        </div>
+    </div>
+      <% include("/WEB-INF/beetl/pc/units/modal-pub.html"){} %>
+ ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/question-answer.js"></script>
+  </body>
+  </html>
+  

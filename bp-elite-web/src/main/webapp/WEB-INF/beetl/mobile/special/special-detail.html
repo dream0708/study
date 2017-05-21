@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<!-- head.jade-->
+<head>
+    <title>${name}_问吧_搜狐焦点家居</title>
+    <meta name="keywords" content="<%for(list in detail){%>${list.section_name}、<%}%>问吧、装修问答、装修知识、装修攻略">
+    <meta name="description" content="${brief}, 搜狐焦点家居问吧是互动型家居知识分享社区，汇聚海量真实的装修用户群体，集合最受装修业主关注的问题和需求，分享真实、专业的装修经验和装修攻略。">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!--－ 当网站添加到主屏幕后再点击进行启动时，可隐藏地址栏（从浏览器跳转或输入链接进入并没有此效果）-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="apple-mobile-web-app-title" content="家居问答">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="icon" href="//${ux_domain!}/bphomewap/focus.ico" mce_href="//${ux_domain!}/bphomewap/focus.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//${ux_domain!}/bpelite/${staticVersionCode!}/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="//${ux_domain!}/bpelite/${staticVersionCode!}/styles/page.css">
+    <script  src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/jquery.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" charset="UTF-8"></script>
+    <script>
+        $(function(){
+          (function(){
+            if($('[data-finish]').length==0){
+              var url = window.location.href.split('?');
+              if(url[1]){
+                var reg = /^bpdebug=/;
+                if(reg.test(url[1])){
+                  return;
+                }
+              }
+             $.post('/common/error?errorUrl='+url[0]);
+            window.location.href = '/common/404?errorUrl='+url[0];
+          }
+          })()   
+    });
+</script>
+</head>
+<body class="main">
+    <!-- header-->
+    <% include("/WEB-INF/beetl/mobile/units/header.html",{share:true}){} %>
+    <!-- 构建用交互，请忽略。-->
+    <div id="content" class="content row">
+        <section class="media media-article">
+            <dl class="list clearfix">
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                            <h4 data-brief="${brief}" class="heading">${name}</h4>
+                            <div class="date"><span class="spe-tab">专题</span><span>${update_time}</span></div>
+                            <div class="pic"><img src="${cover_small}" data-origin-image="${cover_medium}"></div>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </section>
+        <%if(detail!=null && detail.~size!=0){%>
+      <%for(list in detail){%>
+        <div class="special-title">
+            <p class="tit-con">${list.section_name}</p><span>${list.section_brief}</span></div>
+        <section class="media media-horizontal media-spec-hori">
+            <dl class="list clearfix">
+            <%for(item in list.section_detail){%>
+            <dd><a href="/q/${item.question_id}"><h4 class="heading"><span class="txt">${item.question_title}</span></h4></a>
+                <a href="/a/${item.answer_id}" class="cell">
+                    <div class="inner">
+                        <div class="pic"><img src="${item.answer_img_small}" data-origin-image="${item.answer_img_medium}"></div>
+                        <p class="info"><span class="txt">${item.answer_content}</span><span class="pull-left img-head"><img src="${item.user.avatar}" class="img-circle"><span>${item.user.nick}</span></span>
+                        </p>
+                    </div>
+                </a>
+            </dd>
+            <%}%>
+            </dl>
+        </section>
+        <%}%>
+        <%}%>
+       <%if(recentSubject!=null && recentSubject.~size!=0){%>
+        <div class="main-title"><span class="tit-con">专题精选</span></div>
+        <section class="media media-selec-special">
+            <div class="nav-wra">
+                <dl class="list clearfix">
+                <%for(recent in recentSubject){%>
+                    <dd>
+                        <a class="cell" href="/fs/${recent.id}">
+                            <div class="inner">
+                                <div class="pic"><img src="${recent.cover_small}"></div>
+                                <h4 class="heading">${recent.title}</h4>
+                                <!-- <p class="info"><span class="txt"></span></p> -->
+                                <div class="date"><span class="spe-tab <%if(recentLP.first){%>active<%}%>">专题</span><span>${recent.date}</span></div>
+                                <div class="pull-right article-num"><i class="iconfont">&#xe61a;</i><span>${recent.num}</span></div>
+                            </div>
+                        </a>
+                    </dd>
+                    <%}%>
+                </dl>
+            </div>
+        </section>
+        <%}%>
+        <a href="/fs" class="spread-p more">查看全部专题</a></div>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/special-detail.js"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

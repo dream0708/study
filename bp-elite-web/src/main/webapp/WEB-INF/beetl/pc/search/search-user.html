@@ -1,0 +1,45 @@
+${bean.pageWrapper.headerHtml}
+    <div id="content" class="content row search">
+      <div class="left-side">
+        <div class="crumbs" data-keywords="${bean.keywords}">
+          <ul>
+            <li><a href="/" class="first-level">问吧首页</a></li>
+            <li><span>&gt;</span></li>
+            <li><a href="javascript:;">关于"${bean.keywords}"的问吧用户</a></li>
+          </ul>
+        </div>
+        <div class="nav nav-tabs search-tag"><a href="javascript:;">
+            <div class="inner-tab">全部</div></a><a href="javascript:;">
+            <div class="inner-tab">回答</div></a><a href="javascript:;">
+            <div class="inner-tab">问题</div></a><a href="javascript:;">
+            <div class="inner-tab">标签</div></a><a href="javascript:;" class="active">
+            <div class="inner-tab">问吧用户</div></a>
+          <div class="pull-right">
+            <label><i class="iconfont">&#xe607;</i>
+              <span class="placeholder">大家正在搜: 日式装修</span>
+              <input type="text" class="ipt" maxlength="40">
+            </label><a href="javascript:void(0)" class="search">搜索</a>
+          </div>
+        </div>
+         <%if(bean.userList!=null && bean.userList.~size!=0){%>
+            <section class="media media-article media-fans">
+                <dl class="list clearfix" data-block="list">
+                     <% include("/WEB-INF/beetl/pc/units/userlist.html",{userList:bean.userList}){} %>
+                </dl>
+            </section>
+            <div class="pagination" data-currpage="${bean.currPageNo}" data-totalpage="${bean.totalPage}"></div> 
+            <%}else{%>
+         <div class="nothing">
+                <div class="no-user"></div>
+                <p>这里什么都没有</p>
+            </div>
+            <%}%>     
+      </div>     
+    </div>
+   ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/search-user.js" charset="UTF-8"></script>
+    
+    </body>
+</html> 

@@ -1,0 +1,26 @@
+<div class="right-side" page-name="person">
+            <div class="nofix-wra">
+                <div class="person-tags" data-user-id="<%if(has(companyid)){%>${companyid}<%}else{%>${user.bpId}<%}%>">
+                    <ul class="items-box">
+                        <li>
+                            <a href="/p${type}q/<%if(has(companyid)){%>${companyid}<%}else{%>${user.bpId}<%}%>" target="_self">
+                            <span class="num">${user.questionNumHuman}</span>
+                            <br><span>提问</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/p${type}a/<%if(has(companyid)){%>${companyid}<%}else{%>${user.bpId}<%}%>" target="_self">
+                            <span class="num">${user.answerNumHuman}</span>
+                            <br><span>回答</span>
+                            </a>
+                        </li>
+                        <li class="last-li">
+                            <a href="/uf/${user.bpId}" target="_self">
+                            <span class="num">${user.fansNumHuman}</span>
+                            <br><span>粉丝</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>

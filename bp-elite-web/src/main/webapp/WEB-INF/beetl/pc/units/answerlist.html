@@ -1,0 +1,54 @@
+<%for(answer in answerList){%>
+  <dd <%if(answer.coverImgListSmall.~size == 0){%>class="media-article-nopic"<%}%>>
+      <div class="cell" data-feedtype="2" data-id="${answer.itemId}">
+          <div class="inner">
+              <div class="pic-mixin clearfix">
+                  <a target="_blank" href="${answer.user.homeUrl}">
+                   <img src="${answer.user.avatar}" class="img-circle"><%if(answer.user.identityString != "00"){%><i class="iconfont badge${answer.user.identityString}-s">&#xe63${answer.user.identityString};</i><%}%>
+                  </a>
+                  <div class="name">
+                    <span>${answer.user.nick} 回答了</span>
+                  </div>
+                </div>
+                <% if(answer.coverImgListSmall != null && answer.coverImgListSmall.~size!=0){%>
+              <a target="_blank" href="/q/${answer.questionId}#${answer.itemId}" class="pic"><img src="${answer.coverImgListSmall[0]}"></a>
+              <%}%>
+              <div class="artical-info">
+              <a target="_blank" href="/q/${answer.questionId}" class="heading">${answer.title}</a>
+              <a target="_blank" href="/q/${answer.questionId}#${answer.itemId}" class="inner-content">${answer.content}</a>
+                 <p class="info">
+                    <a href="javascript:;" class="pull-right share" title="分享">
+                      <i class="iconfont">&#xe60d;</i>
+                    </a>
+                    <!-- <%if(!answer.owner){%>
+                    <a href="javascript:;" class="pull-right collection <%if(answer.hasFavorited){%>active<%}%>">         
+                      <i class="iconfont col" title="收藏">&#xe61e;</i>
+                     <i class="iconfont collected" title="取消收藏">&#xe616;</i>
+                    </a>
+                    <%}%> -->
+                    <span class="pull-left">
+                        <i class="iconfont">&#xe633;</i>
+                        <span>${answer.updateTimeHuman}</span>
+                    </span>
+                    <%if(answer.specialType != 403){%>
+                    <%if(answer.content != ""){%>
+                      <%if(answer.commentNumHuman !="0"){%>
+                        <span class="pull-left">
+                          <i>${answer.commentNumHuman}</i>
+                          <span>评论</span>
+                        </span>
+                      <%}%>
+                      <%if(answer.likeNumHuman !="0"){%>
+                        <span  class="pull-left zan">
+                          <i class="nozan">${answer.likeNumHuman}</i>
+                          <span>点赞</span>
+                        </span>
+                      <%}%>
+                    <%}%>
+                    <%}%>
+                  </p>
+              </div>
+          </div>
+      </div>
+  </dd>
+<%}%>

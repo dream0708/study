@@ -1,0 +1,35 @@
+${bean.pageWrapper.headerHtml}
+    <div id="content" class="content row personal-center">
+ 	${bean.pageWrapper.sidebarHtml}
+      <div class="pull-right context">
+        <!--问吧粉丝-->
+        <div class="tab-buttons">
+          <div class="heading"><i class="iconfont">&#xe60b;</i>
+            <h3>问吧粉丝</h3>
+          </div>
+        </div>
+        <%if(bean.userList!=null && bean.userList.~size!=0){%>
+            <section class="media media-article media-fans" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+                <dl class="list clearfix" data-block="list">
+                     <% include("/WEB-INF/beetl/pc/units/userlist.html",{userList:bean.userList}){} %>
+                </dl>
+                <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+            </section>
+                  <div class="nothing hide">
+                <div class="no-user"></div>
+                <p>这里什么都没有</p>
+            </div>
+         <%}else{%>
+         <div class="nothing">
+                <div class="no-user"></div>
+                <p>这里什么都没有</p>
+            </div>
+            <%}%>
+      </div>
+    </div>
+    ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/center-fans.js" charset="UTF-8"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+ <%for (user in userList){%>
+<%if(userLP.odd ){%>
+                 <dd>
+                            <div class="cell">
+                   <%}%>
+                        <div class="inner pull-left" data-user-id="${user.bpId}">
+                                    <a target="_blank" href="${user.homeUrl}" class="pic"><img src="${user.avatar}"><%if(user.identityString != "00"){%><i class="iconfont badge${user.identityString}-p">&#xe63${user.identityString};</i><%}%></a>
+                                    <div class="artical-info" data-id="${user.bpId}">
+                                    <a target="_blank" href="${user.homeUrl}" class="heading">${user.nick}
+                                 </a>
+                                        <div class="right-side">
+                                            <div class="nofix-wra">
+                                                <div class="person-tags" data-user-id="${user.bpId}">
+                                                    <ul class="items-box">
+                                                    <%switch(user.bpUserType){%>
+                                                        <%case 1:%>
+                                                        <li><a target="_blank" href="/puq/${user.bpId}"><span class="num">${user.questionNumHuman}</span><br><span>提问</span></a></li>
+                                                    <li><a target="_blank" href="/pua/${user.bpId}"><span class="num">${user.answerNumHuman}</span><br><span>回答</span></a></li>
+                                                        <%break;%>
+                                                          <%case 11:%>
+                                                        <li><a target="_blank" href="/psq/${user.bpId}"><span class="num">${user.questionNumHuman}</span><br><span>提问</span></a></li>
+                                                    <li><a target="_blank" href="/psa/${user.bpId}"><span class="num">${user.answerNumHuman}</span><br><span>回答</span></a></li>
+                                                        <%break;%>
+                                                          <%case 21:%>
+                                                        <li><a target="_blank" href="/pdq/${user.bpId}"><span class="num">${user.questionNumHuman}</span><br><span>提问</span></a></li>
+                                                    <li><a target="_blank" href="/pda/${user.bpId}"><span class="num">${user.answerNumHuman}</span><br><span>回答</span></a></li>
+                                                        <%break;%>
+                                                          <%case 22:%>
+                                                       <li><a target="_blank" href="/pfq/${user.bpId}"><span class="num">${user.questionNumHuman}</span><br><span>提问</span></a></li>
+                                                    <li><a target="_blank" href="/pfa/${user.bpId}"><span class="num">${user.answerNumHuman}</span><br><span>回答</span></a></li>
+                                                        <%break;%>
+                                                          <%case 60:%>
+                                                        <li><a target="_blank" href="/pcq/${user.companyId}"><span class="num">${user.questionNumHuman}</span><br><span>提问</span></a></li>
+                                                    <li><a target="_blank" href="/pca/${user.companyId}"><span class="num">${user.answerNumHuman}</span><br><span>回答</span></a></li>
+                                                        <%break;%>
+                                                    <%}%>
+                                                        <li class="last-li"><a target="_blank" href="/uf/${user.bpId}"><span class="num">${user.fansNumHuman}</span><br><span>粉丝</span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:;" class="btn atten-user <%if(user.hasFollowed){%>active<%}%>">
+                                        <span class="atten">关注</span>
+                                        <span class="attened">已关注</span>
+                                        </a>
+                                    </div>                                
+                                </div>      
+                               <%if(userLP.even || userLP.last){%>
+                             </div>
+                           </dd>
+                           <%}%>
+                              <%}%>

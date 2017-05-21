@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <!-- head.jade-->
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <!-- header-->
+   <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"专题列表"}){} %>
+    <!-- 构建用交互，请忽略。-->
+    <div id="content" class="content row">
+     <%if(subject_list!=null && subject_list.~size!=0){%>
+        <section class="media-special" data-currpage="${totalPage}" data-nextpage="${currPageNo}">
+            <div class="clearfix" data-list="block">
+            <%for(list in subject_list){%>
+                <dd>
+                    <a href="/fs/${list.id}" class="cell">
+                        <div class="heading"><span>${list.name}</span>
+                            <p>-</p>
+                        </div>
+                        <div class="date">
+                        	<span class="spe-tab  <%if(listLP.first){%>active <%}%>">专题</span><span>${list.date}</span>
+                          </div>
+                        <div class="article-num"><i class="iconfont">&#xe61a;</i><span>${list.num}</span></div>
+                    </a><img src="${list.smallCover}"></dd>
+                <%}%>
+            </div>
+        </section>
+        <%}%>
+    </div>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/special.js" charset="UTF-8"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

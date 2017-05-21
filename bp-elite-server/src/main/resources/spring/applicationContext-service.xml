@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	  http://www.springframework.org/schema/beans/spring-beans.xsd 
+	  http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean id="springUtil" class="com.sohu.bp.elite.util.SpringUtil"/>
+
+	<bean id="thriftServiceRegister" class="com.sohu.suc.thrift.regist.ThriftServiceRegisterImpl"/>
+
+	<bean id="eliteQuestionService" class="com.sohu.bp.elite.service.impl.EliteQuestionServiceImpl">
+		<property name="questionDao" ref="eliteQuestionDao"/>
+		<property name="questionBybpidDao" ref="eliteQuestionBybpidDao"/>
+		<property name="searchService" ref="eliteSearchService"/>
+		<property name="notifyService" ref="notifyService"/>
+		<property name="questionBySpecialDao" ref="eliteQuestionBySpecialDao"/>
+		<property name="optionsDao" ref="eliteOptionsDao"/>
+	</bean>
+	<bean id="eliteAnswerService" class="com.sohu.bp.elite.service.impl.EliteAnswerServiceImpl">
+		<property name="answerByBpIdDao" ref="eliteAnswerByBpIdDao"/>
+		<property name="answerByQuestionIdDao" ref="eliteAnswerByQuestionIdDao"/>
+		<property name="answerDao" ref="eliteAnswerDao"/>
+		<property name="searchService" ref="eliteSearchService"/>
+		<property name="notifyService" ref="notifyService"/>
+	</bean>
+	<bean id="eliteUserService" class="com.sohu.bp.elite.service.impl.EliteUserServiceImpl">
+		<property name="userDao" ref="eliteUserDao"/>
+		<property name="searchService" ref="eliteSearchService"/>
+		<property name="notifyService" ref="notifyService"/>
+		<property name="expertTeamService" ref="eliteExpertTeamService"/>
+	</bean>
+
+	<bean id="eliteSearchService" class="com.sohu.bp.elite.service.impl.EliteSearchServiceImpl">
+		<property name="searchHost" value="${elite.search.host}"/>
+	</bean>
+	
+	<!-- 多媒体 -->
+	<bean id="eliteMediaService" class="com.sohu.bp.elite.service.impl.EliteMediaServiceImpl">
+		<property name="mediaDao" ref="eliteMediaDao"/>
+		<property name="mediaByQuestionIdDao" ref="eliteMediaByQuestionIdDao"/>
+		<property name="mediaByAnswerIdDao" ref="eliteMediaByAnswerIdDao"/>
+	</bean>	
+	
+	<bean id="eliteTopicService" class="com.sohu.bp.elite.service.impl.EliteTopicServiceImpl">
+		<property name="eliteTopicDao" ref="eliteTopicDao"/>
+	</bean>
+	
+	<bean id="eliteSubjectService" class="com.sohu.bp.elite.service.impl.EliteSubjectServiceImpl">
+		<property name="eliteSubjectDao" ref="eliteSubjectDao"/>
+	</bean>	
+	
+	<bean id="eliteFragmentService" class="com.sohu.bp.elite.service.impl.EliteFragmentServiceImpl">
+		<property name="eliteFragmentDao" ref="eliteFragmentDao"/>
+	</bean>
+	
+	<bean id="eliteFollowService" class="com.sohu.bp.elite.service.impl.EliteFollowServiceImpl">
+		<property name="eliteFollowDao" ref="eliteFollowDao"/>
+	</bean>
+	
+	<bean id="eliteColumnService" class="com.sohu.bp.elite.service.impl.EliteColumnServiceImpl">
+		<property name="eliteColumnDao" ref="eliteColumnDao"/>
+	</bean>
+	
+	<bean id="eliteExpertTeamService" class="com.sohu.bp.elite.service.impl.EliteExpertTeamServiceImpl">
+	   <property name="eliteExpertTeamDao" ref="eliteExpertTeamDao"/>
+	   <property name="notifyService" ref="notifyService"/>
+	</bean>
+	
+	<bean id="eliteExpertTeamInfoService" class="com.sohu.bp.elite.service.impl.EliteExpertTeamInfoServiceImpl">
+	   <property name="eliteExpertTeamInfoDao" ref="eliteExpertTeamInfoDao"/>
+	</bean>
+	
+	<bean id="notifyService" class="com.sohu.bp.elite.service.impl.NotifyServiceImpl" init-method="init">
+		<property name="topic" value="${elite.notify.kafka.topic}"/>
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+		<property name="userInfoService" ref="userInfoService" />
+	</bean>
+
+	<bean id="userInfoService" class="com.sohu.bp.elite.service.impl.UserInfoServiceImpl">
+	</bean>
+
+    <!-- 管理员 -->
+	<bean id="eliteAdminService" class="com.sohu.bp.elite.service.impl.EliteAdminServiceImpl">
+		<property name="eliteAdminDao" ref="eliteAdminDao"/>
+	</bean>
+	
+	<bean id="eliteUserActionService" class="com.sohu.bp.elite.service.impl.EliteUserActionServiceImpl">
+	   <property name="userInfoService" ref="userInfoService"/>
+	   <property name="questionService" ref="eliteQuestionService"/>
+	   <property name="answerService" ref="eliteAnswerService"/>
+	   <property name="askDomain" value="${elite.ask.host}"/>
+	</bean>
+    
+    <bean id="eliteFeedService" class="com.sohu.bp.elite.service.impl.EliteFeedServiceImpl"/>
+    
+    <bean id="eliteSquareService" class="com.sohu.bp.elite.service.impl.EliteSquareServiceImpl">
+        <property name="squareDao" ref="eliteSquareDao"/>
+        <property name="questionService" ref="eliteQuestionService"/>
+        <property name="answerService" ref="eliteAnswerService"/>
+        <property name="squareTopic" value="${kafka.topic.square}"/>
+        <property name="zombieTopic" value="${zombie.producer.topic}"/>
+    </bean>   
+    
+	<bean id="eliteThriftService" class="com.sohu.bp.elite.thrift.service.impl.EliteThriftServiceImpl">
+		<property name="questionService" ref="eliteQuestionService"/>
+		<property name="answerService" ref="eliteAnswerService"/>
+		<property name="userService" ref="eliteUserService"/>
+		<property name="searchService" ref="eliteSearchService"/>
+		<property name="subjectService" ref="eliteSubjectService"/>
+		<property name="topicService" ref="eliteTopicService"/>
+		<property name="mediaService" ref="eliteMediaService"/>
+		<property name="eliteFragmentService" ref="eliteFragmentService"/>
+		<property name="eliteFollowService" ref="eliteFollowService"/>
+		<property name="notifyService" ref="notifyService"/>
+		<property name="columnService" ref="eliteColumnService"/>
+		<property name="expertTeamService" ref="eliteExpertTeamService"/>
+		<property name="expertTeamInfoService" ref="eliteExpertTeamInfoService"/>
+		<property name="eliteAdminService" ref="eliteAdminService"/>
+		<property name="userActionService" ref="eliteUserActionService"/>
+		<property name="squareService" ref="eliteSquareService"/>
+	</bean>
+
+ 	<bean id="eliteThriftServiceRegister" class="com.sohu.bp.elite.thrift.service.impl.EliteThriftServiceRegisterImpl" init-method="init">
+		<property name="serviceName" value="bpEliteService"/>
+		<property name="servicePort" value="14114"/>
+	</bean>  	 
+</beans>

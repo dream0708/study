@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <!-- head.jade-->
+  <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <!-- header-->
+    <header id="header" class="header header-ask">
+      <nav class="navbar pos-fixed clearfix">
+        <div class="inner scale"><a href="javascript:;" class="pull-right btn-menu on"><span>发布</span></a><a href="javascript:;" class="pull-left btn-arrowleft"><i class="iconfont icons-arrowleft">&#xe61f;</i></a>
+          <div class="nav-tit">回答</div>
+        </div>
+      </nav>
+    </header>
+    <!-- 构建用交互，请忽略。-->
+    <div id="content" class="content row pub-question">
+      <div class="input-ques pos-fixed">
+        <div class="wr-tit">${title}</div>
+      </div>
+      <div class="pub-media pos-fixed pub-ans"><a href="javascript:;" class="pub-box"><i class="iconfont">&#xe618;</i><span>图片</span><input type="file" class="uppicbtn"></a><a href="javascript:void(0);" class="pub-box"><i class="iconfont">&#xe640;</i><span>视频</span><input type="file" class="upvideobtn"></a><a href="javascript:;" class="pub-box"><i class="iconfont">&#xe63f;</i><span></span></a></div>
+      <div class="input-ans done"  <%if(videoId!=null &&videoId!=0){%>data-video-id="${videoId}" data-vids="${vId}"<%}%>>
+<!--      
+       <div class="vedio" >
+        <span>视频可能正在审核中</span><span class="check-video">查看视频</span>
+        <a href="javascript:;" class="vedio-cancel"><i class="iconfont">&#xe62b</i></a>
+      </div>
+    -->
+        <div contenteditable="true" class="wr-ans" data-update="true" data-answer-id="${answerId}">${content}</div>
+      </div>
+      <div class="modal-error hide">
+      		<div class="inner"><i class="iconfont">&#xe62a;</i><span class="error-txt"></span></div>
+      		<a href="javascript:;" class="load-cancel">朕知道了</a>
+      </div>
+      <div class="modal-backdrop bg-black hide"></div>
+    </div>   
+    <script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/pub-answer-update.js"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

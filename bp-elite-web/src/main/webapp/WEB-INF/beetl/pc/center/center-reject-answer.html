@@ -1,0 +1,40 @@
+${bean.pageWrapper.headerHtml}
+<div id="content" class="content row personal-center">
+    ${bean.pageWrapper.sidebarHtml}
+    <div class="pull-right context">
+        <!--问吧回答-->
+        <section>
+            <div class="tab-buttons">
+                <a href="/pap" class="tab-btn">已通过</a>
+                <a href="/par" class="tab-btn tab-on">被驳回</a>
+            </div>
+        </section>
+        <% if(bean.feedItemList!=null && bean.feedItemList.~size!=0){ %>
+            <section class="media media-article">
+                <dl class="list clearfix" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}" data-block="list">
+                    <% include("/WEB-INF/beetl/pc/center/lists/answers.html",{List:bean.feedItemList}){} %>
+                </dl>
+                <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+            </section>
+            <div class="nothing hide">
+                <div class="no-question"></div>
+                <p>这里什么都没有</p>
+            </div>
+            <% }else{ %>
+                <div class="nothing">
+                    <div class="no-question"></div>
+                    <p>这里什么都没有</p>
+                </div>
+                <% } %>
+    </div>
+</div>
+<% include("/WEB-INF/beetl/pc/units/modal-pub-ans.html"){} %>
+<!-- footer-->
+${bean.pageWrapper.footerHtml}
+<script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/center-reject-answer.js" charset="UTF-8"></script>
+</body>
+
+</html>

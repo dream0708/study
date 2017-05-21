@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+    <context:component-scan base-package="com.sohu.bp.elite"/>
+    <bean id="defaultJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">common/error</prop>
+                <prop key="java.lang.Throwable">common/error</prop>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <props>
+                <prop key="common/error">500</prop>
+                <prop key="common/404">404</prop>
+            </props>
+        </property>
+        <property name="warnLogCategory" value="WARN"></property>
+        <property name="defaultErrorView" value="common/error"></property>
+
+        <property name="defaultStatusCode" value="500"></property>
+    </bean>
+
+    <!-- hive client -->
+    <bean id="hiveClient" class="com.sohu.bp.elite.hive.HiveClientThriftImpl">
+    </bean>
+
+    <bean id="emailService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="http://s1.life.sohuno.com/email/remoting/emailService"/>
+        <property name="serviceInterface" value="com.sohu.bp.elite.data.statistic.service.EmailService"/>
+        <property name="chunkedPost" value="false" />
+    </bean>
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+
+    <bean id="userInfoService" class="com.sohu.bp.elite.data.statistic.service.impl.UserInfoServiceImpl">
+        <property name="apiHost" value=""/>
+    </bean>
+
+    <bean id="dailyReporterService" class="com.sohu.bp.elite.data.statistic.service.impl.DailyReportServiceImpl">
+        <property name="userInfoService" ref="userInfoService"/>
+        <property name="emailService" ref="emailService"/>
+        <property name="hiveClient" ref="hiveClient" />
+        <property name="velocityEngine" ref="velocityEngine" />
+        <property name="runningServer" value="${running.server}" />
+        <property name="mailSendTo" value="${mail.to}" />
+    </bean>
+
+    <bean id="overallDailyReporterService" class="com.sohu.bp.elite.data.statistic.service.impl.OverallDailyReportServiceImpl">
+        <property name="emailService" ref="emailService"/>
+        <property name="hiveClient" ref="hiveClient" />
+        <property name="velocityEngine" ref="velocityEngine" />
+        <property name="mailSendTo" value="${overall.mail.to}" />
+        <property name="dailyReportService" ref="dailyReporterService"/>
+    </bean>
+
+    <!--调度器-->
+    <bean id="simpleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="dailyReporterService" />
+        <property name="targetMethod" value="dailyOverallReport" />
+        <property name="concurrent" value="false" />
+    </bean>
+    <bean id="simpleTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="simpleJobDetail" />
+        <property name="cronExpression">
+            <value>${mail.sendfrequency}</value>
+        </property>
+    </bean>
+
+    <bean id="simpleJobDetailOverall" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="overallDailyReporterService" />
+        <property name="targetMethod" value="dailyOverallReport" />
+        <property name="concurrent" value="false" />
+    </bean>
+    <bean id="simpleTriggerOverall"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="simpleJobDetailOverall" />
+        <property name="cronExpression">
+            <value>${overall.mail.sendfrequency}</value>
+        </property>
+    </bean>
+
+    <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="waitForJobsToCompleteOnShutdown">
+            <value>true</value>
+        </property>
+        <property name="triggers">
+            <list>
+                <ref bean="simpleTrigger" />
+                <ref bean="simpleTriggerOverall" />
+            </list>
+        </property>
+    </bean>
+</beans>

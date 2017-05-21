@@ -1,0 +1,26 @@
+  <div class="right-side">
+            <div class="nofix-wra" data-block="relatetag">
+                <div class="rightside-atten-label">
+                    <div class="atten-label" data-tag-id="${tag.tagId}">
+                        <h4>#${tag.tagName}#</h4>                  
+                    </div>
+                    <div class="person-tags">
+                        <ul class="items-box">
+                            <li><a href="/tq/${tag.tagId}"><span class="num">${tag.questionNum}</span><br><span>问题</span></a></li>
+                            <li><a href="/ta/${tag.tagId}"><span class="num">${tag.answerNum}</span><br><span>回答</span></a></li>
+                            <li class="last-li"><a target="_blank" href="/tf/${tag.tagId}"><span class="num">${tag.fansNum}</span><br><span>关注度</span></a></li>
+                        </ul>   
+                          <a href="javascript:;" class="button-primary btn-label  <%if(tag.hasFollowed){%>active<%}%>">
+                            <div class="attention">
+<!--                               <i class="iconfont">&#xe606;</i> -->
+                              <span>关注标签</span>
+                            </div>
+                            <div class="attened">
+                              <!-- <i class="iconfont">&#xe62ee;</i> -->
+                            <span>已关注</span>
+                            </div>
+                            </a>                
+                    </div>
+                </div>
+            </div>
+        </div>

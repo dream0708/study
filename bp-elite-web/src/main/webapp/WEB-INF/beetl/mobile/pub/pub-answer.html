@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <header id="header" class="header header-ask">
+      <nav class="navbar pos-fixed clearfix">
+        <div class="inner scale"><a href="javascript:;" class="pull-right btn-menu"><span>发布</span></a><a href="javascript:;" class="pull-left btn-arrowleft"><i class="iconfont icons-arrowleft">&#xe61f;</i></a>
+          <div class="nav-tit">回答</div>
+        </div>
+      </nav>
+    </header>
+    <div id="content" class="content row pub-question">
+      <div class="input-ques pos-fixed">
+        <div class="wr-tit" data-question-id="${question.id}">${question.title}</div>
+      </div>
+      <div class="pub-media pos-fixed pub-ans"><a href="javascript:;" class="pub-box"><i class="iconfont">&#xe618;</i><span>图片</span><input type="file" class="uppicbtn"></a><a href="javascript:;" class="pub-box"><i class="iconfont">&#xe640;</i><span>视频</span><input type="file" class="upvideobtn"></a><a href="javascript:;" class="pub-box"><i class="iconfont">&#xe63f;</i><span></span></a></div>
+      <div class="input-ans done">
+        <div contenteditable="true" class="wr-ans" ><div class="placeholder">请填写回答内容</div></div>
+      </div>
+      <div class="modal-error hide">
+      		<div class="inner"><i class="iconfont">&#xe62a;</i><span class="error-txt"></span></div>
+      		<a href="javascript:;" class="load-cancel">朕知道了</a>
+      </div>
+      <div class="modal-backdrop bg-black hide"></div>
+    </div>   
+    <script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/pub-answer.js"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

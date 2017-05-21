@@ -1,0 +1,47 @@
+${bean.pageWrapper.headerHtml}
+    <div id="content" class="content row all-special">
+      <div class="crumbs">
+        <ul>
+          <li><a href="/" class="first-level">问吧首页</a></li>
+          <li><span>&gt;</span></li>
+          <li><a href="javascript:;">全部专栏</a></li>
+        </ul>
+      </div>
+      <div class="heading-bar noborder">
+        <h4 class="inline-head">全部专栏</h4>
+        <div class="pull-right"><span>当前共有${bean.total}个专栏</span></div>
+      </div>
+      <%if(bean.columnList!=null && bean.columnList.~size!=0){%>
+      <section class="media media-article media-special">
+        <dl class="list clearfix" data-block="list">
+        <%for(list in bean.columnList){%>
+        <dd class="pull-left">
+          <div class="cell">
+              <div class="inner">
+                  <a href="javascript:;" class="pic"><img src="${list.cover}">
+                      <div class="special-date <%if(listLP.first){%>active<%}%>">${list.publishTime}
+                          <div class="angle"></div>
+                      </div>
+                  </a>
+                  <div class="artical-info"><a target="_blank" href="/fc/${list.id}" class="heading">${list.name}</a><a href="javascript:;" class="inner-content">${list.description}</a>
+                      <p class="info"><a target="_blank" href="/fc/${list.id}" class="pull-right"><span>进入专栏</span><i class="iconfont">&#xe614;</i></a>
+                      <!-- <a href="javascript:;" class="pull-left"><i class="iconfont">&#xe6366;</i><span>共篇内容</span></a> -->
+                      </p>
+                  </div>
+              </div>
+          </div>
+        </dd>
+         <%}%>
+        </dl>
+      </section>
+      <div class="pagination" data-currpage="${bean.currPageNo}" data-totalpage="${bean.totalPage}">             
+      </div>     
+      <%}%>
+    </div>
+    <!-- footer-->
+    ${bean.pageWrapper.footerHtml}
+   <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+   <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/column-list.js" charset="UTF-8"></script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>问吧_搜狐焦点家居_装修知识分享社区</title>
+  <meta name="keywords" content="问吧、装修问答、装修知识、装修攻略">
+  <meta name="description" content="搜狐焦点家居问吧是互动型家居知识分享社区，汇聚海量真实的装修用户群体，集合最受装修业主关注的问题和需求，分享真实、专业的装修经验和装修攻略。">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <!--－ 当网站添加到主屏幕后再点击进行启动时，可隐藏地址栏（从浏览器跳转或输入链接进入并没有此效果）-->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-title" content="家居问答">
+  <meta name="screen-orientation" content="portrait">
+  <meta name="x5-orientation" content="portrait">
+  <meta name="browsermode" content="application">
+  <meta name="x5-page-mode" content="app">
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="icon" href="//s0.life.itc.cn/bphomewap/focus.ico" mce_href="//s0.life.itc.cn/bphomewap/focus.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="//s0.life.itc.cn/bpelite/v201703171644/styles/vendors.css">
+</head>
+<body>
+<div class="notfound">
+  <div class="img-wra img-wra-diff"></div>
+  <p class="waiting">
+    <span class="ic-404"></span>
+    <span>服务器被外星人劫持了，请稍后再试</span>
+  </p>
+  <p class="help">正在努力营救中......</p>
+  <p class="help"><span id="countDown"></span>秒后回到首页</p>
+  <a href="javascript:location.reload()" class="refresh">
+    <span class="refresh-ic"></span>
+  </a>
+</div>
+</body>
+<script>
+  var countDownSecs = 5;
+  var si;
+  document.getElementById("countDown").innerHTML = countDownSecs;
+  function countDown(){
+    if(--countDownSecs == 0){
+      clearInterval(si);
+      location.href = "/";
+    } else{
+      document.getElementById("countDown").innerHTML = countDownSecs;
+    }
+  }
+  si = setInterval(countDown, 1000);
+</script>
+</html>

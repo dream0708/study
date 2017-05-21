@@ -1,0 +1,62 @@
+${bean.pageWrapper.headerHtml}
+        <div id="content" class="content row personal-center">
+            ${bean.pageWrapper.sidebarHtml}
+            <!-- context-->
+            <div class="pull-right context">
+                <!--我关注的问吧人-->
+                <section>
+                <div class="tab-buttons">
+                <a href="/cq" class="tab-btn">问吧问题</a>
+                <a href="/cu" class="tab-btn tab-on">问吧达人</a>
+                <a href="/ct" class="tab-btn">问吧标签</a></div>
+            </section>
+                <%if(bean.userList!=null && bean.userList.~size!=0){%>
+                    <div class="designer-sec person-list">
+                        <div class="list clearfix" data-block="list" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+                            <%for(user in bean.userList){%>
+                                <div class="item">
+                                    <div class="inner-box clearfix">
+                                      <a target="_blank" href="${user.homeUrl}" class="header-block">
+                                        <span class="name">${user.nick}</span>
+                                        <span class="header">
+                                          <img src="${user.avatar}">
+                                        </span>
+                                      </a>
+                                      <div class="company">
+                                        <i class="iconfont">&#xe62f;</i>
+                                        <span>已关注</span>
+                                      </div>
+                                      <div class="info">
+                                        <a href="javascript:;" class="experience">
+                                          <i class="iconfont">&#xe6366;</i>
+                                          <span>${user.answerNumHuman}</span>
+                                        </a>
+                                        <a href="javascript:;" class="fans">
+                                          <i class="iconfont">&#xe60c;</i>
+                                          <span>${user.fansNumHuman}</span>
+                                        </a>
+                                      </div>
+                                    </div><a href="javascript:;" class="cancel" data-id="${user.bpId}"><i class="iconfont">&#xe62ba;</i></a>
+                                </div>
+                              <%}%>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+                    <div class="nothing hide">
+                <div class="no-user"></div>
+                <p>这里什么都没有</p>
+            </div>
+                    <%}else{%>
+                    <div class="nothing">
+                        <div class="no-user"></div>
+                        <p>这里什么都没有</p>
+                    </div>
+                    <%}%>
+            </div>
+        </div>
+        ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+     <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/center-attenman.js" charset="UTF-8"></script>
+</body>
+</html>

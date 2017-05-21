@@ -1,0 +1,83 @@
+${bean.pageWrapper.headerHtml}
+<div id="content" class="content row personal-center">
+     	${bean.pageWrapper.sidebarHtml}
+        <div class="pull-right context">
+            <section>
+                <div class="tab-buttons">
+                  <a href="javascript:;" class="tab-btn tab-on">问吧回答</a>
+                </div>
+            </section>
+            <%if(bean.answerList.~size!=0){%>
+        <section class="media media-article" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+            <dl class="list clearfix" data-block="list">
+               <%for(answer in bean.answerList){%>
+                        <dd <%if(answer.coverImgListSmall.~size == 0){%>class="media-article-nopic"<%}%>>
+                    <div class="cell" data-type="2" data-id="${answer.itemId}">
+                        <div class="inner">
+                            <div class="pic-mixin clearfix">
+                                <a target="_blank" href="${answer.user.homeUrl}">
+                                 <img src="${answer.user.avatar}" class="img-circle"><%if(answer.user.identityString != "00"){%><i class="iconfont badge${answer.user.identityString}-s">&#xe63${answer.user.identityString};</i><%}%>
+                                </a>
+                                <div class="name">
+                                <span>${answer.user.nick} 回答了</span></div>
+                              </div>
+                              <% if(answer.coverImgListSmall != null && answer.coverImgListSmall.~size!=0){%>
+                            <a target="_blank" href="/q/${answer.questionId}#${answer.itemId}" class="pic"><img src="${answer.coverImgListSmall[0]}"></a>
+                            <%}%>
+                            <div class="artical-info">
+                            <a target="_blank" href="/q/${answer.questionId}" class="heading">${answer.title}</a>
+                            <a target="_blank" href="/q/${answer.questionId}#${answer.itemId}" class="inner-content">${answer.content}</a>
+                                <p class="info">
+                                  <a href="javascript:void(0)" class="pull-right share" title="分享">
+                                    <i class="iconfont">&#xe60d;</i>
+                                  </a>
+                                  <a href="javascript:;" class="pull-right cancel" title="取消收藏">
+                                      <i class="iconfont">&#xe62ba;</i>
+                                  </a>
+                                  <span class="pull-left" title="更新时间">
+                                      <i class="iconfont">&#xe633;</i>
+                                      <span>${answer.updateTimeHuman}</span>
+                                  </span>
+                                  <%if(answer.specialType != 403){%>
+                                   <%if(answer.content != ""){%>
+                                    <%if(answer.commentNumHuman != "0"){%>
+                                      <span class="pull-left">
+                                        <i>${answer.commentNumHuman}</i>
+                                        <span>评论</span>
+                                      </span>
+                                    <%}%>
+                                    <%if(answer.likeNumHuman != "0"){%>
+                                      <span class="pull-left zan">
+                                        <i class="nozan">${answer.likeNumHuman}</i>
+                                        <span>点赞</span>
+                                      </span>
+                                    <%}%>
+                                    <%}%>
+                                  <%}%>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+                <%}%>
+            </dl>
+            <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+        </section>
+        <div class="nothing hide">
+        <div class="no-question"></div>
+        <p>这里什么都没有</p>
+      </div>
+        <% } else {%>
+         <div class="nothing">
+                <div class="no-question"></div>
+                <p>这里什么都没有</p>
+         </div>
+        <%}%>
+   </div>
+</div>
+${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/collection-answer.js" charset="UTF-8"></script>
+  </body>
+</html>

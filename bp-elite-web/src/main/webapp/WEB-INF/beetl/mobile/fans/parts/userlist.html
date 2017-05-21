@@ -1,0 +1,9 @@
+<% for(fan in list){ %>
+        	<dd>
+        		 <% include("/WEB-INF/beetl/mobile/units/user.html",{user:fan}){} %>
+                  <div class="btn cancel-follow <% if(fan.hasFollowed){%>active<%}%>" data-user-id="${fan.bpId}">
+              		<span class="follow">关注</span>
+              		<span class="followed">已关注</span>
+              	</div>
+            </dd>
+            <%}%>

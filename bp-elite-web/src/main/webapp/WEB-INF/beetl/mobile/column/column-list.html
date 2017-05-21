@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <!-- head.jade-->
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <!-- header-->
+   <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"专栏列表"}){} %>
+    <!-- 构建用交互，请忽略。-->
+    <div id="content" class="content row">
+     <%if(bean.columnList!=null && bean.columnList.~size!=0){%>
+        <section class="media-special" data-currpage="${bean.totalPage}" data-nextpage="${bean.currPageNo}">
+            <div class="clearfix" data-list="block">
+            <%for(list in bean.columnList){%>
+                <dd>
+                    <a href="/fc/${list.id}" class="cell">
+                        <div class="heading"><span>${list.name}</span>
+                            <p>-</p>
+                        </div>
+                        <div class="date">
+                        	<span class="spe-tab  <%if(listLP.first){%>column<%}%>">专栏</span><span>${list.publishTime}</span>
+                          </div>
+                    </a><img src="${list.wapCover}"></dd>
+                <%}%>
+            </div>
+        </section>
+        <%}%>
+    </div>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/column-list.js" charset="UTF-8"></script>  
+       <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

@@ -1,0 +1,57 @@
+${bean.pageWrapper.headerHtml}
+<div id="content" class="content row fanslist">
+    <div class="left-side">
+        <div class="crumbs">
+            <ul>
+                <li><a href="/" class="first-level">问吧首页</a></li>
+                <li><span>&gt;</span></li>
+                <li><a href="javascript:;">全部关注人</a></li>
+            </ul>
+        </div>
+        <%if(bean.userList!=null && bean.userList.~size!=0){%>
+            <section class="media media-article media-fans">
+                <dl class="list clearfix">
+                     <% include("/WEB-INF/beetl/pc/units/userlist.html",{userList:bean.userList}){} %>
+                </dl>
+            </section>
+            <div class="pagination" data-currpage="${bean.currPageNo}" data-totalpage="${bean.totalPage}"></div>    
+                 <%}else{%>
+         <div class="nothing">
+                <div class="no-user"></div>
+                <p>这里什么都没有</p>
+            </div>
+            <%}%>
+    </div>
+      <div class="right-side">
+            <div class="nofix-wra">
+                <div class="rightside-atten-label">
+                    <div class="atten-label">
+                        <h4>#${bean.tag.tagName}#</h4>
+                    </div>
+                    <div class="person-tags">
+                        <ul class="items-box">
+                            <li><a target="_blank" href="/tq/${bean.tag.tagId}"><span class="num">${bean.tag.questionNum}</span><br><span>问题</span></a></li>
+                            <li><a target="_blank" href="/ta/${bean.tag.tagId}"><span class="num">${bean.tag.answerNum}</span><br><span>回答</span></a></li>
+                            <li class="last-li"><a href="/tf/${bean.tag.tagId}"><span class="num">${bean.tag.fansNum}</span><br><span>关注度</span></a></li>
+                        </ul>
+                          <a href="javascript:;" class="button-primary btn-label  <%if(bean.tag.hasFollowed){%>active<%}%>" btn-action="attention" data-id="${bean.tag.tagId}">
+                            <div class="attention">
+                              <i class="iconfont">&#xe606;</i>
+                              <span>关注标签</span>
+                            </div>
+                            <div class="attened">
+                              <i class="iconfont">&#xe62ee;</i>
+                            <span>已关注</span>
+                            </div>
+                            </a>                
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+ ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+     <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/fanslist-tag.js" charset="UTF-8"></script>
+  </body>
+</html>

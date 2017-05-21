@@ -1,0 +1,49 @@
+<html>
+<style type="text/css">
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size:11px;
+        color:#333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+    }
+</style>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+<body>
+<h1 align="center">PV／UV统计-流量数据</h1>
+<div width="100%" align="center">
+    <p><h2 align="center">总体数据</h2></p>
+    <table class="gridtable" width="99%">
+        <tr>
+            <th>test</th>
+            <th>test2</th>
+        </tr>
+        <tr bgcolor="#ffffff">
+            #if($b == 0)
+                <td align="center">123 </td>
+            #else
+                #set($result = $a * 1.0 / $b)
+                <td align="center">$number.format("#0.00", $result)</td>
+            #end
+
+        </tr>
+    </table>
+    </div>
+</body>
+</html>

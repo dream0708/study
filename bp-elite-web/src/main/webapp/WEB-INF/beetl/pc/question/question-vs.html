@@ -1,0 +1,23 @@
+${bean.pageWrapper.headerHtml}
+<div id="content" class="content row">
+	<div class="left-side">
+		<div class="crumbs">
+			<ul>
+                <li><a href="/" class="first-level">问吧首页</a></li>
+                <li><span>&gt;</span></li>
+                <li><a href="javascript:;">问答详情页</a></li>
+            </ul>
+		</div>
+		<div class="modal modal-qrcode"  data-question-id="${bean.question.id}">
+			<div class="inner">
+				<img src="" alt="二维码"><p>扫码查看晒图详情</p></div></div>
+		<div class="modal-backdrop bg-black"></div>
+	</div>
+</div>
+    <% include("/WEB-INF/beetl/pc/units/modal-pub.html"){} %>
+ ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/question-vs.js"></script>
+  </body>
+  </html>

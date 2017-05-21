@@ -1,0 +1,112 @@
+${bean.pageWrapper.headerHtml}
+<div id="content" class="content row search">
+    <div class="left-side">
+        <div class="crumbs" data-keywords="${bean.keywords}">
+            <ul>
+             <li><a href="/" class="first-level">问吧首页</a></li>
+            <li><span>&gt;</span></li>
+                <li><a href="javascript:;" class="first-level">您要找包含"<em>${bean.keywords}</em>"的：</a></li>
+            </ul>
+        </div>
+        <div class="nav nav-tabs search-tag">
+            <a href="javascript:;" class="active">
+                <div class="inner-tab">全部</div>
+            </a>
+            <a href="javascript:;">
+                <div class="inner-tab">回答</div>
+            </a>
+            <a href="javascript:;">
+                <div class="inner-tab">问题</div>
+            </a>
+            <a href="javascript:;">
+                <div class="inner-tab">标签</div>
+            </a>
+            <a href="javascript:;">
+                <div class="inner-tab">问吧用户</div>
+            </a>
+            <div class="pull-right">
+                <label><i class="iconfont">&#xe607;</i>
+                    <span class="placeholder">大家正在搜: 日式装修</span>
+              <input type="text" class="ipt" maxlength="40">
+                </label><a href="javascript:void(0)" class="search">搜索</a>
+            </div>
+        </div>
+        <%if(bean.totalCounts.answer!=0||bean.totalCounts.question!=0||bean.totalCounts.tag!=0||bean.totalCounts.user!=0){%>
+        <%if(bean.totalCounts.answer!=0){%>
+        <div class="head-bar">
+          <span class="txt">回答</span>
+          <span class="pull-right info">含“${bean.keywords}”的搜索结果约
+            <em class="red">${bean.totalCounts.answer}</em>条
+          </span>
+        </div>
+        <section class="media media-article">
+            <dl class="list clearfix">
+               <% include("/WEB-INF/beetl/pc/units/answerlist.html",{answerList:bean.answerList}){} %>
+            </dl>
+        </section>
+        <a href="javascript:;" class="checkmore" data-search-type="answer">查看更多回答</a>
+        <%}%>
+        <%if(bean.totalCounts.question!=0){%>
+        <div class="head-bar"><span class="txt">问题</span><span class="pull-right info">含“${bean.keywords}”的搜索结果约<em class="red">${bean.totalCounts.question}</em>条</span></div>
+        <section class="media media-article">
+            <dl class="list clearfix">
+                 <% include("/WEB-INF/beetl/pc/units/questionlist.html",{questionList:bean.questionList}){} %>
+            </dl>
+        </section>
+        <a href="javascript:;" class="checkmore" data-search-type="question">查看更多问题</a>
+        <%}%>
+        <!--标签-->
+        <%if(bean.totalCounts.tag!=0){%>
+        <div class="head-bar">
+          <span class="txt">标签</span>
+          <span class="pull-right info">含“${bean.keywords}”的搜索结果约
+          <em class="red">${bean.totalCounts.tag}</em>条</span>
+        </div>
+        <div class="search-label">
+            <div class="right-side">
+                <div class="nofix-wra">
+                    <% include("/WEB-INF/beetl/pc/units/taglist.html",{tagList:bean.tagList}){} %>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="checkmore" data-search-type="tag">查看更多标签</a>
+        <%}%>
+        <%if(bean.totalCounts.user!=0){%>
+        <div class="head-bar">
+          <span class="txt">问吧用户</span>
+          <span class="pull-right info">含“${bean.keywords}”的搜索结果约
+          <em class="red">${bean.totalCounts.user}</em>条</span>
+        </div>
+            <section class="media media-article media-fans">
+                <dl class="list clearfix">
+                 <% include("/WEB-INF/beetl/pc/units/userlist.html",{userList:bean.userList}){} %>                     
+                </dl>
+            </section>
+        <a href="javascript:;" class="checkmore" data-search-type="user">查看更多用户</a>
+        <%}%>
+       <%}else{%>
+       <div class="search-nothing">
+                <div class="no-inner">
+                    <div class="no-question"></div>
+                    <div class="no-text">
+                        <p>暂时没有您要搜索的内容，</p>
+                        <p>您可以尝试对"<a href="javascript:;"  class="write-ques sea-con" data-keywords="${bean.keywords}">${bean.keywords}</a>"提问</p>
+                    </div>
+                </div>
+        </div>
+         <!-- <div class="nothing">
+                <div class="no-question"></div>
+                <p>这里什么都没有</p>
+            </div> -->
+            <%}%>
+    </div>
+    <div class="right-side">
+        <!--感兴趣的人-->   
+    </div>
+</div>
+  ${bean.pageWrapper.footerHtml}
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/search-all.js" charset="UTF-8"></script> 
+    </body>
+</html> 

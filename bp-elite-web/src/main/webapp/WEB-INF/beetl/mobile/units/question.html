@@ -1,0 +1,14 @@
+<a href="/q/${item.itemId}">
+	<h4 class="heading">${item.title}</h4>
+	  <%if(item.specialType != 403){%>
+	<p class="info">
+	 <span class="pull-right" data-time="time"><span>${item.updateTimeHuman}</span></span>
+	 <%if(item.answerNumHuman != '0'){%>
+	 <span class="pull-left"><i>${item.answerNumHuman}</i><span>回答</span></span>
+	 <%}%>
+	  <%if(item.fansNumHuman != '0'){%>
+	 <span class="pull-left zan"><i>${item.fansNumHuman}</i><span>关注</span></span>
+	 <%}%>
+	</p>
+	<%}%>
+</a>

@@ -1,0 +1,45 @@
+${pageWrapper.headerHtml}
+    <div id="content" class="content row all-special">
+      <div class="crumbs">
+        <ul>
+          <li><a href="/" class="first-level">问吧首页</a></li>
+          <li><span>&gt;</span></li>
+          <li><a href="javascript:;">全部专题</a></li>
+        </ul>
+      </div>
+      <div class="heading-bar noborder">
+        <h4 class="inline-head">全部专题</h4>
+        <div class="pull-right"><span>当前共有${total}个专题</span></div>
+      </div>
+      <%if(subject_list!=null && subject_list.~size!=0){%>
+      <section class="media media-article media-special">
+        <dl class="list clearfix" data-block="list">
+          <%for(list in subject_list){%>
+          <dd class="pull-left">
+         <div class="cell">
+             <div class="inner">
+                 <a href="javascript:;" class="pic"><img src="${list.cover}">
+                     <div class="special-date <%if(listLP.first){%>active<%}%>">${list.date}
+                         <div class="angle"></div>
+                     </div>
+                 </a>
+                 <div class="artical-info"><a target="_blank" href="/fs/${list.id}" class="heading">${list.name}</a><a href="javascript:;" class="inner-content">${list.brief}</a>
+                     <p class="info"><a target="_blank" href="/fs/${list.id}" class="pull-right"><span>进入专题</span><i class="iconfont">&#xe614;</i></a><a href="javascript:;" class="pull-left"><i class="iconfont">&#xe6366;</i><span>共${list.num}篇内容</span></a></p>
+                 </div>
+             </div>
+         </div>
+     </dd>               
+        <%}%>
+        </dl>
+      </section>
+      <div class="pagination" data-currpage="${currPageNo}" data-totalpage="${totalPage}">             
+      </div>     
+      <%}%>
+    </div>
+    <!-- footer-->
+    ${pageWrapper.footerHtml}
+   <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+   <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/all-special.js" charset="UTF-8"></script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+        <body class="main">
+            <!-- header-->
+            <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"专家申请"}){} %>
+                <div id="content" class="content row my-box my-account">
+                    <form>
+                        <a href="javascript:;" class="account-box sideline">
+                            <input type="file" class="file-mask">
+                            <div class="con"><img src="${avatar}" class="avatar">
+                                <h2 class="edit-avator">头像</h2></div>
+                        </a>
+                        <section class="query-list clearfix">
+                            <a href="javascript:;" class="sideline">
+                                <input type="text" placeholder="用户昵称不能超过十个字" maxlength="10" class="file-text" value="${nick}" name="nick">昵称
+                            </a>
+                            <a href="javascript:;" class="sideline">
+                            		<% var num = "";if (mobile!=""){num = strutil.subStringTo(mobile,0,3) + "****" + strutil.subStringTo(mobile,7,11);}
+                            		%>
+                                <input type="text" placeholder="绑定手机，更多曝光机会" maxlength="11" class="file-text" value="${num}" name="mobile" <%if(mobile != ""){%> disabled="disabled" <%}%> >手机
+                            </a>
+                            <div class="bind-mobile sideline hide">
+                                <!-- <a href="javascript:;">
+                                    <input type="text" placeholder="验证码" class="file-text" name="mobileCaptcha"><img src="http://home.focus.cn/captcha/picture/get?pageToken=gr8ls3xq5m&amp;time=0.25131621315931874" class="pull-right" >
+                                </a> -->
+                                <a href="javascript:;">
+                                    <input type="text" placeholder="填写验证码" class="file-text" name="mobileCaptcha">
+                                    <div class="btn pull-right verifica" btn-action="mobileCaptcha">获取验证码</div>
+                                </a>
+                                <div class="btn-info btn-full btn-bind" btn-action="mobilesubmit">绑定</div>
+                                <div class="assist clearfixspan"><span>点击绑定，即表示同意并接受</span><a href="http://home.focus.cn/article/ce38s">用户协议</a>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="sideline">
+                                <select required="required" name="provinceId" data-proValue="${provinceId!}">
+                                    <option disabled="disabled" selected="selected">请选择您擅长的城市</option>
+                                    <%for (province in provinces!){%>
+                                        <option value="${province.id}">${province.name}</option>
+                                    <%}%>
+                                </select>服务省市
+                            </a>
+                            <a href="javascript:;" class="sideline">
+                                <select required="required" data-locaValue="${locationId!}" name="locationId">
+                                    <option disabled="disabled" selected="selected" >请选择您擅长的地区</option>
+                                    <%if(has(locationId)){%>
+                                    		<%for (location in locations!){%>
+                                        		<option value="${location.id}">${location.name}</option>
+                                    		<%}%>
+                                    <%}%>
+                                </select>服务地区
+                            </a>
+                        </section>
+                        <section class="module-title sideline">
+                            <div class="inner">
+                                <div class="title">简介</div>
+                                <textarea rows="1" placeholder="一句话介绍一下自己吧~" maxlength="20" class="file-intro" name="description">${description!}</textarea><span class="txt-len pull-right">&nbsp;</span></div>
+                        </section>
+                        <section class="module-title sideline">
+                            <div class="inner">
+                                <div class="title">擅长<i class="iconfont pull-right edit-label" btn-action="addTag">&#xe62d;</i></div>
+                                <%if(selectedTaglist.~size==0){%>
+                                		<div class="add-label" btn-action="addTag"><i class="iconfont">&#xe606;</i></div>
+                                <%}%>
+                                <%else{%>
+                                <div class="tag-box">
+                                    <div class="tag-bottom">
+                                    		<%for (selectedTag in selectedTaglist){%>
+                                        		<label class="single-tag">
+                                            		<input type="checkbox" checked="checked" value="${selectedTag.id}" name="tag"><span>${selectedTag.name}</span></label>
+                                        <%}%>
+                                    </div>
+                                </div>
+                                <%}%>
+                                <div class="tag-box hide" block-name="taglist">
+                                    <div class="tag-bottom">
+                                    		<%for (tag in Taglist){%>
+                                        		<label class="single-tag">
+                                            		<input type="checkbox" value="${tag.id}" name="tag"><span>${tag.name}</span></label>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                    <div class="complete">
+                        <div class="btn-info btn-full">完成
+                            <input type="submit">
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+                <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/expert-apply.js"></script>
+                   <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+        </body>
+
+</html>

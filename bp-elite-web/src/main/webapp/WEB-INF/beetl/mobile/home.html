@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+ <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+<body class="main">
+<header id="header" class="header head-feed">
+      <nav class="navbar pos-fixed clearfix">
+            <div class="union occupy-search">
+                <div class="search-unit">
+                    <section class="search-group"><a href="javascript:;" class="pull-right btn-menu"><i class="iconfont pull-right">&#xe609;</i><i class="red-bubble hide"></i></a>
+                        <div class="nav-drop hide">
+                            <section class="home-drop"><a href="//${main_domain}" class="drop-menu"><i class="iconfont">&#xe60b;</i><span>首页</span></a><a href="//${main_domain}/decoration/profile.html" class="drop-menu"><i class="iconfont">&#xe605;</i><span>我的</span></a><a href="//${main_domain}/decoration/profile/message.html" class="drop-menu"><i class="iconfont">&#xe60f;</i><i class="red-bubble hide"></i><span>消息</span></a></section>
+                        </div>
+                        <div class="search-box"><a href="/s" class="inner"><span class="placeholder"><i class="iconfont icons-search">&#xe607;</i>一键搜索各类家装问题</span><span class="input-group"><label class="search"><input type="text"></label></span></a></div>
+                    </section>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="content" class="content row home">
+      <section class="carousel carousel-four">
+            <ul class="bxslider">
+            </ul>
+        </section>
+         <div class="tabs-occupy">
+            <div class="nav nav-tabs tab-two" data-tab="tab">
+                <a href="javascript:;" data-btn="feedlist">
+                    <div class="inner-tab">我的关注</div>
+                </a>
+                <a href="javascript:;" data-btn="answerlist" class="active">
+                    <div class="inner-tab">问吧广场</div>
+                </a>
+            </div>
+        </div>
+        <section class="media media-question">
+            <dl class="list clearfix feedlist hide" data-block="feedlist">
+            </dl>
+          </section>
+           <section class="media media-question">
+            <dl class="list clearfix answerlist" data-block="answerlist">
+            </dl>
+          </section>
+</div>
+<div class="label-circle pubing">
+    <div class="btn-pubques">
+        <div class="btn-normal btn-circle"><i class="iconfont">&#xe606;</i></div>
+    </div>
+    <ul>
+        <li><a href="/q/go" class="btn-pub pub-question"><i class="iconfont">&#xe64a;</i><span>提问</span></a></li>
+        <li><a href="/q/go?specialType=403&specialId=1" class="btn-pub pub-picture"><i class="iconfont">&#xe648;</i><span>分享</span></a></li>
+        <li><a href="/q/go?specialType=403&specialId=2" class="btn-pub pub-picture"><i class="iconfont">&#xe649;</i><span>吐槽</span></a></li>
+    </ul>
+</div>
+<div class="modal-error hide">
+          <div class="inner"><i class="iconfont">&#xe62a;</i><span class="error-txt"></span></div>
+          <a href="javascript:;" class="load-cancel">朕知道了</a>
+      </div>
+      <div class="modal-backdrop bg-black hide"></div>
+      <div class="modal-backpublish bg-black hide"></div>
+      <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+       <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/socketIo.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/home.js" charset="UTF-8"></script>
+<% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

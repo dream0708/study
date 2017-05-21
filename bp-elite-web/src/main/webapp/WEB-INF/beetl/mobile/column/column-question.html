@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+ <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+<body class="main">
+    <!-- header-->
+    <% include("/WEB-INF/beetl/mobile/units/header.html",{share:true}){} %>
+    <div id="content" class="content row column-detail" data-column-id="${bean.id}">
+    <div class="expert-intro hide" data-block="expert">
+            <div class="inner">
+                <div class="intro-box">
+                    <a href="${bean.userInfo.homeUrl}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-m">&#xe63${bean.userInfo.identityString};</i><%}%></a>
+                    <div class="info"><a href="javascript:;" class="heading">${bean.userInfo.nick}</a>
+                        <p class="major">搜狐焦点家居问吧专家</p>
+                    </div><a target="_blank" href="/q/go?invitedUserId=${bean.userInfo.bpId}&specialType=471&specialId=${bean.id}" class="btn-big write-question"><span>我要提问</span></a></div>
+            </div>
+        </div>
+        <section class="media-special">
+            <div class="clearfix">
+                <dd>
+                    <a href="javascript:;" class="cell">
+                        <div class="heading" data-brief="${bean.description}"><span>${bean.name}</span>
+                            <p>-</p>
+                        </div>
+                        <div class="date"><span class="spe-tab column">专栏</span><span>${bean.publishTime}</span></div>
+                    </a><img src="${bean.wapCover}"></dd>
+            </div>
+        </section>
+        <section class="colu-detail">
+            <div class="inner"><a href="/fc/${bean.id}" class="info"><span class="txt">${bean.brief}</span><i class="iconfont pull-right">&#xe614;</i></a></div>
+        </section>
+         <div class="expert-intro" data-column-fix="fix">
+            <div class="inner">
+                <div class="intro-box">
+                    <a href="${bean.userInfo.homeUrl}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-m">&#xe63${bean.userInfo.identityString};</i><%}%></a>
+                    <div class="info"><a href="${bean.userInfo.homeUrl}" class="heading">${bean.userInfo.nick}</a>
+                        <p class="major">搜狐焦点家居问吧专家</p>
+                    </div><a target="_blank" href="/q/go?invitedUserId=${bean.userInfo.bpId}&specialType=471&specialId=${bean.id}" class="btn-big write-question"><span>我要提问</span></a></div>
+            </div>
+        </div>
+         <%if(bean.feedItemList!=null && bean.feedItemList.~size>0){%>
+        <div class="main-title"><span class="tit-con">专栏互动问答</span></div>
+        <section class="media media-question bg-border">
+            <dl class="list clearfix" data-block="list" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+                  <%for(question in bean.feedItemList){%>
+                <dd>
+                    <div class="cell" data-id="${question.itemId}">
+                        <div class="inner">
+                            <div class="pic-mixin user-info clearfix">
+                                <a href="${question.user.homeUrl}"><img src="${question.user.avatar}" class="img-circle"><%if(question.user.identityString != "00"){%><i class="iconfont badge${question.user.identityString}-s">&#xe63${question.user.identityString};</i><%}%><span>${question.user.nick} 提问了</span></a>
+                            </div>  
+                             <% include("/WEB-INF/beetl/mobile/units/question.html",{item:question}){} %>
+                            </div>
+                    </div>
+                </dd>
+                <%}%>
+            </dl>
+        </section>
+        <%}%>
+    </div>
+   <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/column-question.js" charset="UTF-8"></script>
+     <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

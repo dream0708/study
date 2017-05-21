@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+ <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+<body class="main">
+    <!-- header-->
+    <% include("/WEB-INF/beetl/mobile/units/header.html",{share:true}){} %>
+    <div id="content" class="content row column">
+        <div class="expert-intro hide" data-block="expert">
+            <div class="inner">
+                <div class="intro-box">
+                    <a href="${bean.userInfo.homeUrl}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-m">&#xe63${bean.userInfo.identityString};</i><%}%></a>
+                    <div class="info"><a href="javascript:;" class="heading">${bean.userInfo.nick}</a>
+                        <p class="major">搜狐焦点家居问吧专家</p>
+                    </div><a target="_blank" href="/q/go?invitedUserId=${bean.userInfo.bpId}&specialType=471&specialId=${bean.id}" class="btn-big write-question"><span>我要提问</span></a></div>
+            </div>
+        </div>
+        <section class="column-head">
+            <div class="clearfix">
+                <div class="column-pic"><img src="${bean.wapCover}"></div>
+                <div class="column-user" data-column-fix="fix">
+                    <div class="inner">
+                        <a href="${bean.userInfo.homeUrl}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-p">&#xe63${bean.userInfo.identityString};</i><%}%></a><a href="${bean.userInfo.homeUrl}" class="name">${bean.userInfo.nick}</a>
+                        <div class="info"><span class="txt">${bean.userInfo.description}</span>
+                            <div class="pull-right"><a target="_blank" href="/q/go?invitedUserId=${bean.userInfo.bpId}&specialType=471&specialId=${bean.id}" class="btn-big pub-question"><span>我要提问</span></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="the-front" id="column0" data-column="0">
+                    <div class="heading">
+                        <h4 data-brief="${bean.description}">${bean.name}</h4></div>
+                    <div class="date"><span class="spe-tab">专栏</span><span>${bean.publishTime}</span></div>
+                   ${bean.brief}
+                </div>
+                <div class="column-txt">
+                 <%if(bean.content!=null && bean.content.~size>0){%>
+                 <%for(column in bean.content){%>
+                    <div class="colu-heading" id="column${columnLP.index}" data-column="${columnLP.index}">
+                        <h4>${column.title}</h4></div>
+                    <div class="inner">
+                        <div class="colu-txt">
+                            ${column.wapDetail}
+                        </div>
+                    </div>
+                    <%}%>
+                    <%}%>
+                </div>
+                   <%if(bean.tags!=null && bean.tags.~size>0){%>
+                <div class="tag-box">
+                    <div class="tag-bottom">
+                    <%for(tag in bean.tags){%>
+                    <a href="/t/${tag.id}" class="single-tag">${tag.name}</a>
+                    <%}%>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+        </section>
+        <!--全部发问-->
+      <%if(bean.questionList.~size>0){%>
+        <div class="main-title"><span class="tit-con">大家都在问</span></div>
+        <section class="media media-question bg-border">
+            <dl class="list clearfix">
+            <%for(question in bean.questionList){%>
+            <%if(questionLP.index<3){%>
+                <dd>
+                    <div class="cell" data-id="${question.itemId}">
+                        <div class="inner">
+                            <div class="pic-mixin user-info clearfix">
+                                <a href="${question.user.homeUrl}"><img src="${question.user.avatar}" class="img-circle"><%if(question.user.identityString != "00"){%><i class="iconfont badge${question.user.identityString}-s">&#xe63${question.user.identityString};</i><%}%><span>${question.user.nick} 提问了</span></a>
+                            </div>  
+                             <% include("/WEB-INF/beetl/mobile/units/question.html",{item:question}){} %>
+                            </div>
+                    </div>
+                </dd>
+                <%}%>
+                <%}%>
+            </dl><a href="/fc/${bean.id}/q" class="spread-p">查看全部</a></section>
+            <%}%>
+        <%if(bean.recentList!=null && bean.recentList.~size>0){%>
+        <div class="main-title"><span class="tit-con">专栏推荐</span></div>
+        <section class="media media-selec-special">
+            <div class="nav-wra">
+                <dl class="list clearfix">
+                <%for(list in bean.recentList){%>
+                    <dd>
+                        <a class="cell" href="/fc/${list.id}">
+                            <div class="inner">
+                                <div class="pic"><img src="${list.wapCover}"></div>
+                                <h4 class="heading">${list.name}</h4>
+                                <div class="date"><span class="spe-tab <%if(listLP.first){%>column<%}%>">专栏</span><span>${list.publishTime}</span></div>
+                            </div>
+                        </a>
+                    </dd>
+                    <%}%>
+                </dl>
+            </div>
+        </section>
+        <a href="/fc" class="spread-p more">查看全部专栏</a>
+        <%}%>
+        <a href="javascript:;" class="pos-fixed catalog" btn-action="catalog"><i class="iconfont">&#xe63e;</i>目录</a>
+        </div>
+         <section class="progress-step hide">
+        <div class="inner">
+            <div class="title"><span>目录</span><a href="javascript:;" class="pull-right" btn-action="hide"><i class="iconfont">&#xe60a;</i></a></div>
+            <dl>
+                <div class="clearfix">
+                    <dd class="active"><span class="dot"><i class="iconfont">&#xe61a;</i></span><a href="#column0">前言</a></dd>
+                      <%if(bean.content!=null && bean.content.~size>0){%>
+                        <%for(title in bean.content){%>
+                    <dd><span class="dot"><i class="iconfont">&#xe61a;</i></span><a href="#column${titleLP.index}">${title.title}</a></dd>
+                    <%}%>
+                    <%}%>
+                </div>
+            </dl>
+        </div>
+    </section>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/column.js" charset="UTF-8"></script>
+     <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <!-- head.jade-->
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+     <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"收藏回答"}){} %>
+    <!-- 构建用交互，请忽略。-->
+    <div id="content" class="content row">
+      <% if(bean.answerList!=null && bean.answerList.~size!=0){ %>
+      <section class="media media-question">
+        <dl class="list clearfix" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}" data-block="list">
+        		<% for(item in bean.answerList){ %>
+	        	<dd>
+	        		<div class="cell">
+                        <div class="inner">
+                            <div class="pic-mixin user-info clearfix">
+                                <div class="pull-right txt-date">
+                                	<a href="javascript:;" class="uninterested hide" btn-action="cancel-follow" data-id="${item.itemId}"><i class="iconfont">&#xe62b;</i><i>删除</i></a>
+                                	<a href="javascript:;" class="cancel-atten"><i class="iconfont">&#xe619;</i></a>
+                                </div>
+                                <a href="${item.user.homeUrl}">
+                                    <img src="${item.user.avatar}" class="img-circle"><%if(item.user.identityString != "00"){%><i class="iconfont badge${item.user.identityString}-s">&#xe63${item.user.identityString};</i><%}%>
+                                    <span>${item.user.nick} 回答了</span>
+                                </a>
+                            </div>
+                         <% include("/WEB-INF/beetl/mobile/units/answer.html",{item:item}){} %>
+                        </div>
+                    </div>
+	         	</dd>
+	         	<% } %>
+        </dl>
+      </section>
+      <% }else{%>
+      <section class="no-list"><i class="imgs-question-no"></i><p>这里什么都没有哦，快去问吧收藏回答吧</p></section>
+      <%}%>
+    </div>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/collection-answer.js" charset="UTF-8"></script>
+     <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

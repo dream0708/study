@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <!-- header-->
+    <% include("/WEB-INF/beetl/mobile/units/header.html",{person:true}){} %>
+    <div id="content" class="content row foreman-intro" data-user-id="${bean.user.bpId}" data-oldtime="${bean.oldestTime}">
+      <section class="header-avatar">
+      	<div class="inner-box">
+        	<img src="${bean.user.avatar}">
+          	<p><span>${bean.user.nick}</span></p>
+	        <div class="headavatar-info">
+	        	<span><i class="iconfont">&#xe61a;</i><span class="size">${bean.user.workTotalNumHuman}</span></span>
+            <span><i class="iconfont icon-score">&#xe60c;</i><span>${bean.user.fansNum}</span></span>
+	        </div>
+        </div>
+      </section>
+      <div class="tabs-occupy">
+        <div class="nav nav-tabs tab-two">
+        	<a href="${bean.selfUrl}">文章</a>
+        	<a href="javascript:;" class="active">问吧</a>
+        </div>
+      </div>
+      <section class="media media-question">
+        <dl class="list clearfix" data-block="list">
+        </dl>
+      </section>
+      <div class="btn-occupy occupy-new-meida">
+        <div class="bottom-box">
+          <div class="contact-box">
+           <a href="javascript:;" class="attention <% if(bean.user.hasFollowed || bean.user.isOwner){%>active<%}%>" isowner="${bean.user.isOwner}">
+          <span><i class="iconfont atten-icon">&#xe613;</i><span class="atten">关注</span><span class="atten-after">已关注</span></span></a>   
+          	<a href="javascript:;" class="share">
+	          	<span>
+	          		<i class="iconfont">&#xe60d;</i>
+	          		<span>分享</span>
+	          	</span>
+          	</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/self-home.js" charset="UTF-8"></script>
+   <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</html>

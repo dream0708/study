@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+<body>
+<div class="content row feedback">
+    <div class="jump"></div>
+    <div class="feed-txt" data-url='${bean.ru}'>
+        <p><i class="jump-time">${bean.waitSec}</i>秒后跳转</p>
+        <span>正在准备数据，请稍候...</span>
+    </div>
+</div>
+<div data-finish='finish' style="display:none"></div>
+<script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js"></script>
+<script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/jump-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+  ${bean.pageWrapper.headerHtml}
+    <div id="content" class="content row column" data-column-id="${bean.id}">
+     <div class="crumbs">
+            <ul>
+                <li><a href="/" class="first-level">问吧首页</a></li>
+                <li><span>&gt;</span></li>
+                <li><a href="/fc/${bean.id}">专栏详情页</a></li>
+                <li><span>&gt;</span></li>
+                <li><a href="javascript:;">大家都在问</a></li>
+            </ul>
+        </div>
+        <section class="column-head">
+            <div class="clearfix">
+                <div class="column-pic"><img src="${bean.cover}">
+                    <a class="heading">
+                        <h4 data-brief="${bean.description}">${bean.name}</h4></a>
+                    <div class="column-txt">
+                        <div class="inner"><a target="_blank" href="${bean.userInfo.homeUrl}"  class="name">${bean.userInfo.nick}</a><span class="txt">${bean.userInfo.description}</span><a target="_blank" href="javascript:;" data-inviteduserid="${bean.userInfo.bpId}" data-specialtype="471" data-specialid="${bean.id}" class="button-primary write-ques"><span>我要提问</span></a>
+                            <a target="_blank" href="${bean.userInfo.homeUrl}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-p">&#xe63${bean.userInfo.identityString};</i><%}%></a>
+                        </div><span class="floor"></span></div>
+                    </div>
+            </div>
+        </section>
+        <!--左侧-->
+        <div class="left-side">
+            <%if(bean.feedItemList!=null && bean.feedItemList.~size>0){%>
+            <div class="column-ask top">
+                <div class="head-bar"><span>大家都在问</span></div>
+                <section class="media media-article">
+                    <dl class="list clearfix" data-block="list" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+                  <% include("/WEB-INF/beetl/pc/units/questionlist.html",{questionList:bean.feedItemList}){} %>  
+                    </dl><a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a></section>
+            </div>
+            <%}%>
+        </div>
+        <!--右侧-->
+        <div class="right-side">
+            <div class="nofix-wra">
+                <div class="front-intro">
+                    <div class="inner">
+                        <div class="head-bar"><span>专栏简述</span><a href="/fc/${bean.id}" class="pull-right colu-more"><span>查看全部</span><i class="iconfont off">&#xe61a;</i><i class="iconfont on">&#xe63dd;</i></a></div>
+                        <div class="intro-txt">
+                           ${bean.brief}
+                        </div>
+                    </div>
+                </div>
+                <div class="expert-intro hide">
+                    <div class="inner">
+                        <div class="intro-box">
+                            <a href="${bean.userInfo.homeUrl}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-m">&#xe63${bean.userInfo.identityString};</i><%}%></a>
+                            <div class="info"><a href="javascript:;" class="heading">${bean.userInfo.nick}</a>
+                                <p class="major">搜狐焦点家居问吧专家</p>
+                            </div>
+                        </div><a href="/q/go?invitedUserId=${bean.userInfo.bpId}&specialType=471&specialId=${bean.id}" class="button-primary write-ques"><span>我要提问</span></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+     ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+   <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/column-question.js" charset="UTF-8"></script>
+</body>
+</html>

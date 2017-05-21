@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <div class="occupy-search">
+      <div class="search-unit active">
+        <section class="search-group"><a href="javascript:;" class="pull-right btn-tools">取消</a>
+          <div class="search-box">
+            <div class="inner"><span class="input-group"><a class="btn-clear"><i class="iconfont icons-close">&#xe62c;</i></a>
+                <label class="search">
+                  <input type="search" placeholder="搜索全部" autofocus="autofocus" maxlength="40">
+                </label></span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div id="content" class="content row mainhome">
+      <div class="home-part"><a href="javascript:;" class="icon-part" data-type="answer">
+          <div class="circle"><i class="iconfont">&#xe604;</i></div>
+          <div class="part-txt"><span>回答</span></div></a><a href="javascript:;" class="icon-part" data-type="question">
+          <div class="circle"><i class="iconfont">&#xe601;</i></div>
+          <div class="part-txt"><span>问题</span></div></a><a href="javascript:;" class="icon-part" data-type="tag">
+          <div class="circle"><i class="iconfont">&#xe603;</i></div>
+          <div class="part-txt"><span>标签</span></div></a><a href="javascript:;" class="icon-part" data-type="user">
+          <div class="circle"><i class="iconfont">&#xe60c;</i></div>
+          <div class="part-txt"><span>问吧用户</span></div></a></div>
+    </div>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/search-home.js" charset="UTF-8"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

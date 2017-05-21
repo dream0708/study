@@ -1,0 +1,75 @@
+${bean.pageWrapper.toolbarHtml}
+    <!-- header.jade-->
+    <header id="header" class="header">
+      <div class="wrap-head-big">
+        <div class="wrap-inner">
+          <div class="pull-left"><a target="_blank" href="http://home.focus.cn"><i class="img-logo"></i></a></div>
+          <div class="com-info"><img src="${bean.company.avatar}">
+            <div class="com-tit">
+              <p class="com-title">${bean.company.name}</p>
+              <% if(bean.user.serviceAreaList.~size > 0){ %>
+              	<p class="service-area">服务地区：
+              	<% for (serviceArea in bean.user.serviceAreaList){ %>	
+	              <span>${serviceArea}</span>
+	            <% }%>
+	            </p>
+	          <% } %>
+            </div>
+            <div class="com-botton pull-right">
+                    <a href="javascript:;" class="attention <%if(bean.user.isOwner || bean.user.hasFollowed){%>active<%}%>" data-user-id="${bean.user.bpId}" isowner="${bean.user.isOwner}">
+                    <i class="iconfont">&#xe606;</i>
+                    <span class="atten">关注</span>
+                    <span class="atten-after" >已关注</span>
+                </a>
+            	<a href="javascript:;" class="share">
+            		<i class="iconfont">&#xe60d;</i><span>分享</span>
+            	</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-occupy">
+        <div class="nav tab-head tab-head-bar">
+          <div class="tab-inner">
+            <a href="${bean.descHomeUrl}" class="link"><span>首页</span></a>
+            <a href="${bean.designUrl}" class="link"><span>设计作品</span></a>
+            <a href="${bean.instanceUrl}" class="link"><span>装修实例</span></a>
+            <a href="${bean.designerUrl}" class="link"><span>设计师</span></a>
+            <a href="${bean.foremanUrl}" class="link"><span>工长</span></a>
+            <a href="javascript:;" class="link active"><span>问吧</span></a>
+            <a href="${bean.commentUrl}" class="link"><span>评价</span></a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- content-->
+    <div id="content" class="content row">
+        <div class="left-side">
+            <div class="nav nav-tabs tab-three">
+                <a href="/pc/${bean.company.id}" target="_self">
+                    <div class="inner-tab">问吧动态</div>
+                </a>
+                <a href="/pcq/${bean.company.id}" target="_self"  class="active">
+                    <div class="inner-tab">TA的提问</div>
+                </a>
+                <a href="/pca/${bean.company.id}" target="_self">
+                    <div class="inner-tab">TA的回答</div>
+                </a>
+            </div>
+            <% if(bean.feedItemList!=null && bean.feedItemList.~size!=0){ %>
+            <section class="media media-article" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+                <dl class="list clearfix">
+                     <% include("/WEB-INF/beetl/pc/units/questionlist.html",{questionList:bean.feedItemList}){} %>   
+                </dl>
+                <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+            </section>
+           <%}else{%>
+        <div class="nothing"><div class="no-question"></div><p>这里什么都没有</p></div>
+        <%}%>
+        </div>
+        <% include("/WEB-INF/beetl/pc/home/parts/right-side.html",{type:"c",user:bean.user,companyid:bean.company.id}){} %>
+    </div>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/company-question-home.js" charset="UTF-8"></script>
+${bean.pageWrapper.footerHtml}

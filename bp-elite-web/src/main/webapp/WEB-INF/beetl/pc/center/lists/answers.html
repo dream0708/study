@@ -1,0 +1,44 @@
+	<%for(item in List) { %>
+           <dd  <%if(item.coverImgListSmall.~size == 0){%>class="media-article-nopic"<%}%>>
+	          <div class="cell" data-type="2" data-id="${item.itemId}">
+	            <div class="inner">
+	              <div class="pic-mixin clearfix">
+	              	<a href="javascript:;" class="pull-right cancel"><i class="iconfont">&#xe62ba;</i><span>删除</span></a>
+	              	<%if(item.specialType != 403){%><a href="javascript:;" class="pull-right edit"><i class="iconfont">&#xe63e;</i><span>编辑</span></a><%}%>
+	              	<a target="_blank" href="${item.user.homeUrl}"><img src="${item.user.avatar}" class="img-circle"/><%if(item.user.identityString != "00"){%><i class="iconfont badge${item.user.identityString}-s">&#xe63${item.user.identityString};</i><%}%></a>
+	              	<div class="name"><span> 回答</span></div>
+	              </div>
+	              <%if(item.coverImgListSmall != null && item.coverImgListSmall.~size > 0) {%>
+	              <a target="_blank" href="/q/${item.questionId}#${item.itemId}" class="pic"><img src="${item.coverImgListSmall[0]}"/></a>
+	              <%}%>
+	              <div class="artical-info">
+	              	<a target="_blank" href="/q/${item.questionId}" class="heading">${item.title}</a>
+	              	<a target="_blank" href="/q/${item.questionId}#${item.itemId}" class="inner-content">${item.content}</a>
+	                <p class="info">
+	                	<a href="javascript:;" title="分享" class="pull-right share"><i class="iconfont">&#xe60d;</i></a>
+	                	<span title="更新时间" class="pull-left"><i class="iconfont">&#xe633;</i><span>${item.updateTimeHuman}</span>
+	                  </span>
+	                	<%if(item.specialType != 403){%>
+	                	<%if(item.content != ""){%>
+	                	<!-- <%if(!item.owner){%>
+	                		<a href="javascript:;" class="pull-right collection  <% if(item.hasFavorited){%>active<%}%>"><i title="取消收藏" class="iconfont collected">&#xe616;</i><i title="收藏" class="iconfont col">&#xe61e;</i>
+	                		</a>
+	                	<%}%> -->
+	                	<%if(item.commentNumHuman != '0'){%>
+		                	<span class="pull-left comment"><i>${item.commentNumHuman}</i><span>评论</span></span>
+		                <%}%>
+		                <%if(item.likeNumHuman != '0'){%>
+	                		<span class="pull-left zan">
+	                			<i class="nozan">${item.likeNumHuman}</i>
+	                			<span>点赞</span>
+	                    </span>
+	                  <%}%>
+	                  <%}%>
+	                  <%}%>
+	                </p>
+
+	              </div>
+	            </div>
+	          </div>
+	        </dd>
+	        <% } %>

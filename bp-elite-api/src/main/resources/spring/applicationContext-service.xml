@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	
+	<bean id="eliteFeatureService" class="com.sohu.bp.elite.api.service.impl.EliteFeatureServiceImpl">
+		<property name="eliteFeatureDao" ref="eliteFeatureDao"/>
+	</bean>
+	
+	<bean id="interactionService" class="com.sohu.bp.elite.api.service.impl.InteractionServiceImpl">
+	</bean>
+	
+	<bean id="userInfoService" class="com.sohu.bp.elite.api.service.impl.UserInfoServiceImpl">
+		<property name="apiHost" value=""/>
+	</bean>
+	
+	<bean id="identityService" class="com.sohu.bp.elite.api.service.impl.IdentityServiceImpl">
+		<property name="identityDao" ref="identityDao"/>
+	</bean>
+	
+	<bean id="eliteUserService" class="com.sohu.bp.elite.api.service.impl.EliteUserServiceImpl"/>
+    
+    <bean id="eliteExpertTeamService" class="com.sohu.bp.elite.api.service.impl.EliteExpertTeamServiceImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="eliteUserService" ref="eliteUserService"/>
+    </bean>
+    
+    <bean id="eliteDataService" class="com.sohu.bp.elite.api.service.impl.EliteDataServiceImpl">
+        <property name="dataDao" ref="dataDao"/>
+    </bean>
+    
+    <bean id="eliteAdminService" class="com.sohu.bp.elite.api.service.impl.EliteAdminServiceImpl">
+    	<property name="adminDao" ref="adminDao"/>
+    </bean>
+
+</beans>

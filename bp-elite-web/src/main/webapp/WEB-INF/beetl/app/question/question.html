@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+ <% include("/WEB-INF/beetl/app/units/head.html"){} %>
+<body class="main" data-json-id="${id!}">
+ <div class="content row question">
+     <%if(bean.question.tagList!=null && bean.question.tagList.~size!=0){%>
+        <div class="taglist">
+            <div class="tag-box">
+                <div class="nav-wra">
+                  <%for(tag in bean.question.tagList){%>
+                    <a href="javascript:;" data-tag-id="${tag.tagId}" class="label">${tag.tagName}</a>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+        <%}%>
+        <section class="media media-article">
+            <dl class="list clearfix">
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                            <h4 class="heading" data-question-id="${bean.question.id}">${bean.question.title}</h4>
+                            <%if(bean.question.content != ""){%>
+                            <div class="answer" block-name="anscontent">
+                                <div class="ans-inner">${bean.question.content}
+                                </div>
+                            </div>
+                            <%}%>
+                            <a href="javascript:;" class="close hide" btn-action="scale"><span class="off">全部展开</span><span class="on">收起</span><i class="iconfont icon-down off"></i><i class="iconfont icon-up on"></i></a>
+                        </div>
+                        <div class="report" btn-action="report">举报</div>
+                    </div>
+                </dd>
+                <div class="atten-box">
+                    <div class="clearfix">
+                        <div class="follow-box">
+                            <span class="atten-num">${bean.question.fansNumHuman}</span><span>人关注</span>
+                        </div>
+                        <div class="pic-box" block-name="userlist">
+                         <%if(bean.question.followUsers != null &&  bean.question.followUsers.~size>0){%>
+                         <%for(user in bean.question.followUsers){%>
+                        	<img src="${user.avatar}" class="img-circle">
+                            <%}%>
+                            <%}%>
+                        </div>
+                        <%var modifyText = "";%>
+                       <%switch(bean.question.specialType){%>
+                         <% case 0:%>
+                           <% modifyText = "问题";%>
+                           <% break;%>
+                          <%default:%>
+                           <% modifyText = "描述";%>
+                                <%break;%>
+                       <% }%>
+                         <%if(bean.question.owner){%>
+                          <a href="javascript:;" class="btn-primary attention pull-right" btn-action="modify"><span class="atten">修改${modifyText}</span></a>
+                          <%}else{%>
+                        <a href="javascript:;" class="btn-primary attention pull-right  <%if(bean.question.hasFollowed){%>active<%}%>" btn-action="attention"><span class="atten">+ 关注</span><span class="atten-after">已关注</span></a>
+                        <%}%>
+                    </div>
+                </div>
+                <div class="btn-occupy occupy-one">
+                    <div class="bottom-box">
+                        <div class="contact-box">
+                        	<a href="javascript:;" class="share" btn-action="share"><span><i class="iconfont icon-share"></i><span>立即分享</span></span></a>
+                        	<a href="javascript:;" class="invite-ans" btn-action="invite"><span><i class="iconfont icon-friendadd"></i><span>邀请回答</span></span></a>
+                        	<a href="javascript:;" class="contact-btn" btn-action="answer"><span><i class="iconfont icon-write"></i><span>我要回答</span></span></a>
+                        </div>
+                        <div class="ans-tip">投票成功，还可以补充回答哟</div>
+                    </div>
+                </div>
+            </dl>
+        </section>
+        <%if(bean.question.options !=null && bean.question.options.~size!=0){%>
+        <section class="media media-horizontal">
+            <div class="title">
+                <div class="inner no-border">
+                    <p class="tit-con">帮我做选择</p>
+                </div>
+            </div>
+            <dl class="list clearfix" block-name="votelist" data-total-count="${bean.question.totalChoosedNum}" data-has-vote="${bean.choosedOption}">
+            <%for(option in bean.question.options){%>
+               <dd>
+                    <div class="cell">
+                        <div class="inner">
+                              <%if(option.img!=null && option.img != ""){%><div class="pic"><img src="${option.imgSmall}" data-big-img="${option.img}" data-count="${option.count}"></div><%}%>
+                            <label>
+                                <div class="heading" data-count="${option.count}"><span class="txt">${option.description}</span>
+                                    <input type="radio" value="${optionLP.index}" name="vote" class="pull-right">
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </dd>
+                <%}%>
+            </dl>
+            <div class="btn-voting" btn-action="vote">
+                <div class="inner"><i class="iconfont icon-vote"></i><span>投票</span></div>
+            </div>
+        </section>
+        <%}%>
+        <%if(bean.answerList!=null&&bean.answerList.~size!=0){%>
+        <div class="tit-space">${bean.question.answerNumHuman}个回答</div>
+        <section class="media media-question">
+            <dl class="list clearfix" data-currpage="1" data-nextpage="${bean.nextPageNo}" data-block="list">
+             <% for(answerData in bean.answerList){%>
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                            <div class="pic-mixin user-info clearfix">
+                                <a href="javascript:;" data-user-id="${answerData.user.bpId}" data-user-originid="${answerData.user.bpIdOrigin}" data-user-type="${answerData.user.bpUserType}"><img src="${answerData.user.avatar}" class="img-circle"><%if(answerData.user.identityString != "00"){%><i class="iconfont icon-vip badge${answerData.user.identityString}-m"></i><%}%><span>${answerData.user.nick}</span></a>
+                                <span class="txt-date pull-right">${answerData.updateTimeHuman}</span>
+                            </div>
+                            <a href="/app/a/${answerData.itemId}">
+                                <div class="txt">${answerData.imgContent}</div>
+                            </a>
+                        </div>
+                    </div>
+                </dd>
+                <%}%>
+            </dl>
+        </section>
+        <%}%>
+    </div> 
+         <% include("/WEB-INF/beetl/app/units/tail.html"){} %>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteapp/${appStaticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="//${ux_domain!}/bpeliteapp/${appStaticVersionCode!}/scripts/question.js" charset="UTF-8"></script>
+</body>
+</html>

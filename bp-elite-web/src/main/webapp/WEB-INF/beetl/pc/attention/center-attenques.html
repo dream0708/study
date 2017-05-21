@@ -1,0 +1,76 @@
+${bean.pageWrapper.headerHtml}
+        <div id="content" class="content row personal-center">
+            ${bean.pageWrapper.sidebarHtml}
+            <div class="pull-right context">
+                <section>
+                <div class="tab-buttons">
+                   <a href="/cq" class="tab-btn tab-on">问吧问题</a>
+                <a href="/cu" class="tab-btn">问吧达人</a>
+                <a href="/ct" class="tab-btn">问吧标签</a></div>
+            </section>
+                <% if(bean.questionList!=null && bean.questionList.~size!=0){%>
+                <section class="media media-article">
+                    <dl class="list clearfix" data-block="list" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+                    <% for(question in bean.questionList){%>
+                        <dd class="media-article-nopic">
+                            <div class="cell" data-type="1">
+                                <div class="inner">
+                                    <div class="pic-mixin clearfix">
+	                                    <div class="name">
+	                                      <span>提问</span>
+	                                    </div>
+                                    </div>
+                                    <div class="artical-info">
+                                      <a target="_blank" href="/q/${question.itemId}" class="heading">${question.title}</a>
+                                      <p class="info">
+                                        <a href="javascript:;" class="pull-right share" title="分享">
+                                          <i class="iconfont">&#xe60d;</i>
+                                        </a>
+                                        <a href="javascript:;" class="pull-right cancel" title="取消关注" data-id="${question.itemId}">
+                                          <i class="iconfont">&#xe62ba;</i>
+                                        </a>
+                                        <span class="pull-left" title="更新时间">
+                                          <i class="iconfont">&#xe633;</i>
+                                          <span>${question.updateTimeHuman}</span>
+                                        </span>
+                                        <%if(question.specialType != 403){%>
+                                          <%if(question.answerNumHuman != '0'){%>
+                                            <span class="pull-left">
+                                              <i>${question.answerNumHuman}</i>
+                                              <span>回答</span>
+                                            </span>
+                                          <%}%>
+                                          <%if(question.fansNumHuman != '0'){%>
+                                            <span class="pull-left">
+                                              <i>${question.fansNumHuman}</i>
+                                              <span>关注</span>
+                                            </span>
+                                          <%}%>
+                                        <%}%>
+                                      </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </dd>
+                       <%}%>
+                    </dl><a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+                </section>
+                <div class="nothing hide">
+                <div class="no-label"></div>
+                <p>这里什么都没有</p>
+            </div>
+                <%}else{%>
+                <div class="nothing">
+                    <div class="no-question"></div>
+                    <p>这里什么都没有</p>
+                </div>
+                <%}%>
+            </div>
+        </div>
+        <!-- footer-->
+         ${bean.pageWrapper.footerHtml}
+        <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/center-attenques.js" charset="UTF-8"></script>
+</body>
+</html>

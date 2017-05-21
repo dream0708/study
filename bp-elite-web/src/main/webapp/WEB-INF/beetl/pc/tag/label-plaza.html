@@ -1,0 +1,33 @@
+${bean.pageWrapper.headerHtml}
+    <div id="content" class="content row">
+        <div class="left-side">
+            <div class="crumbs">
+                <ul>
+                    <li><a href="/" class="first-level">问吧首页</a></li>
+                    <li><span>&gt;</span></li>
+                    <li><a href="javascript:;">标签广场</a></li>
+                </ul>
+            </div>
+            <div class="nav nav-tabs tab-three">
+                <a href="javascript:;" class="active">
+                    <div class="inner-tab">全部动态</div>
+                </a>
+                <a href="/tq/${bean.tag.tagId}">
+                    <div class="inner-tab">问题</div>
+                </a>
+                <a href="/ta/${bean.tag.tagId}">
+                    <div class="inner-tab">回答</div>
+                </a>
+            </div>    
+            <section class="media media-article">
+                <dl class="list clearfix" data-block="list">
+                </dl>
+                <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+            </section>
+        </div>
+       <% include("/WEB-INF/beetl/pc/tag/parts/right-side.html",{tag:bean.tag}){} %>  
+    </div>
+     <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+   <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/label-plaza.js" charset="UTF-8"></script>
+${bean.pageWrapper.footerHtml}

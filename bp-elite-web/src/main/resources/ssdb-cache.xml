@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GBK" standalone="yes"?>
+<!-- 数据缓存的配置 -->
+<CacheConfigs>
+    <client id="client-1">
+        <factory>com.sohu.bp.cache.ssdb.impl.SsdbCacheClientFactory</factory>
+        <properties>
+			<property key="clusterName" value="bp_cluster" />
+			<property key="ssdbConfigFile" value="ssdbj.xml" />
+        </properties>
+    </client>
+
+	<!-- feed event queue  -->
+	<cache name="FEED_EVENT_TASK_QUEUE" client="client-1" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+
+	<!-- first follow -->
+	<cache name="CACHE_FIRST_FOLLOW" client="client-1" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+</CacheConfigs>

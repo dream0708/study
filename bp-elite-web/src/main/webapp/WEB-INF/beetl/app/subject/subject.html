@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<% include("/WEB-INF/beetl/app/units/head.html"){} %>
+    <body class="main" data-json-id="${id!}">
+      <section class="header-avatar">
+            <div class="clearfix">
+                <div class="pic"><img src="${cover_small}" data-origin-image="${cover_medium}">
+                    <div class="inner">
+                        <div class="heading" data-subject-id="${subjectId}">${name}</div>
+                        <div class="txt">${num}个回答</div>
+                        <div class="btn-box">
+                            <div class="btn-trans collection <%if(hasFavorited){%>active<%}%>" btn-action="collection">
+                                <span class="col">收藏</span>
+                                <span class="colled">已收藏</span>
+                            </div>
+                            <div class="btn-trans share" btn-action="share">分享</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="content row special">
+            <section class="media media-article">
+                <dl class="list clearfix">
+                    <dd>
+                        <div class="cell">
+                            <div class="inner">
+                                <div class="answer active">${brief}</div>
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </section>
+            <%if(detail!=null && detail.~size!=0){%>
+            <%for(list in detail){%>
+            <section class="media media-horizontal media-spec-hori">
+                <div class="title">
+                    <div class="inner">
+                        <p class="tit-con">${list.section_name}</p>
+                        <%if(list.section_brief != ''){%>
+                            <span>${list.section_brief}</span>
+                        <%}%>
+                    </div>
+                </div>
+                <dl class="list clearfix">
+                    <%for(item in list.section_detail){%>
+                    <dd>
+                        <a href="/app/q/${item.question_id}">
+                            <h4 class="heading"><span class="txt">${item.question_title}</span></h4>
+                        </a>
+                        <a href="/app/a/${item.answer_id}" class="cell">
+                            <div class="inner">
+                                <div class="pic"><img src="${item.answer_img_small}" data-origin-image="${item.answer_img_medium}">
+                                </div>
+                                <p class="info">
+                                    <span class="txt">${item.answer_content}</span>
+                                    <span class="pull-left img-head"><img src="${item.user.avatar}" class="img-circle">
+                                    <span>${item.user.nick}</span>
+                                    <%if(item.user.identityString != '00'){%>
+                                    <i class="iconfont badge${item.user.identityString}-m icon-vip"></i>
+                                    <%}%>
+                                    </span>
+                                </p>
+                            </div>
+                        </a>
+                    </dd>
+                    <%}%>
+                </dl>
+                <%if(listLP.last){%>
+                    <div class="report" btn-action="report">举报</div>
+                <%}%>
+            </section>
+            <%}%>
+            <%}%>
+            <%if(recentSubject!=null && recentSubject.~size!=0){%>
+            <section class="media media-selec-special">
+                <div class="title">
+                    <div class="inner no-border">
+                        <p class="tit-con">专题推荐</p>
+                    </div>
+                </div>
+                <div class="nav-wra">
+                    <dl class="list clearfix">
+                        <%for(recent in recentSubject){%>
+                        <dd>
+                            <a class="cell" href="/app/fs/${recent.id}">
+                                <div class="inner">
+                                    <div class="pic"><img src="${recent.cover_small}"></div>
+                                    <h4 class="heading">${recent.title}</h4>
+                                </div>
+                            </a>
+                        </dd>
+                        <%}%>
+                    </dl>
+                </div>
+            </section>
+            <%}%>
+        </div> 
+             <% include("/WEB-INF/beetl/app/units/tail.html"){} %>
+        <script type="text/javascript" src="//${ux_domain!}/bpeliteapp/${appStaticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="//${ux_domain!}/bpeliteapp/${appStaticVersionCode!}/scripts/special.js" charset="UTF-8"></script>
+    </body>
+</html>

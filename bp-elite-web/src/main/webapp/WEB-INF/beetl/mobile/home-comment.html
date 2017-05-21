@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <!-- header-->
+     <% include("/WEB-INF/beetl/mobile/units/header.html"){} %>
+    <div id="content" class="content row" data-question-id="${answer.questionId}"  data-answer-id="${answer.id}">
+      <!-- form-comment-->
+      <div class="union occupy-comment">
+        <section class="comment-group">
+          <div class="comm-blank scale">
+            <textarea placeholder="请输入评论（不得超过70个汉字）" maxlength="70" class="wr-comm"></textarea>
+            <span class="remainWord"><i>0</i>/70</span>
+          </div>
+          <div class="commit-comm"><a href="javascript:;" class="btn btn-primary btn-full">提交评论</a></div>
+        </section>
+      </div>
+    </div> 
+     <div class="modal-error hide">
+          <div class="inner"><i class="iconfont">&#xe62a;</i><span class="error-txt"></span></div>
+          <a href="javascript:;" class="load-cancel">朕知道了</a>
+      </div>
+      <div class="modal-backdrop bg-black hide"></div>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/home-comment.js" charset="UTF-8"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

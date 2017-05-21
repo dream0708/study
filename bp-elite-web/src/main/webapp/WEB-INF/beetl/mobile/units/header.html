@@ -1,0 +1,18 @@
+<header id="header" class="header <%if(!isEmpty(person)){%>transparent<%}%>">
+      <nav class="navbar pos-fixed clearfix">
+        <div class="inner scale">
+        <a href="javascript:;" class="pull-right btn-menu">
+        <i class="iconfont icons-more">&#xe609;</i>
+        <i class="red-bubble hide"></i>
+        </a>
+        <%if(!isEmpty(share)){%><a href="javascript:;" class="pull-right share"><i class="iconfont icons-share">&#xe60d;</i></a><%}%>
+        <a href="javascript:;" class="pull-left btn-arrowleft">
+        <i class="iconfont icons-arrowleft">&#xe61f;</i>
+        </a>
+          <div class="nav-tit">${text!}</div>
+          <div class="nav-drop hide">
+            <section class="home-drop"><a href="//${main_domain}" class="drop-menu"><i class="iconfont">&#xe60b;</i><span>首页</span></a><a href="//${main_domain}/decoration/profile.html" class="drop-menu"><i class="iconfont">&#xe605;</i><span>我的</span></a><a href="//${main_domain}/decoration/profile/message.html" class="drop-menu"><i class="iconfont">&#xe60f;</i><i class="red-bubble hide"></i><span>消息</span></a></section>
+          </div>
+        </div>
+      </nav>
+    </header>

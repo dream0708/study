@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+    <header id="header" class="header header-ask">
+      <nav class="navbar pos-fixed clearfix">
+        <div class="inner scale"><a href="/q/${questionId}" class="pull-right btn-menu on"><span>跳过</span></a>
+        <a href="javascript:;" class="pull-left btn-arrowleft">
+        <i class="iconfont icons-arrowleft">&#xe61f;</i>
+        </a>
+          <div class="nav-tit">邀请</div>
+        </div>
+      </nav>
+    </header>
+    <div class="occupy-search">
+      <div class="search-unit active">
+        <section class="search-group"><a href="javascript:;" class="pull-right btn-tools" btn-action="search">搜索</a>
+          <div class="search-box">
+            <div class="inner"><span class="input-group"><a class="btn-clear"><i class="iconfont icons-close">&#xe62c;</i></a>
+                <label class="search">
+                  <input type="search" placeholder="搜索全部">
+                </label></span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div id="content" class="content row search-media favor" data-question-id="${questionId}">
+     <div class="downRefresh hide"><div class="down-load"><i class="load-pic"></i><p>正在努力搜索</p></div></div>
+      <section class="media media-horizontal" data-list="recommend">
+        <dl class="list clearfix">
+        </dl>
+        <a href="javascript:;" class="change-group" btn-action="change"><i class="iconfont">&#xe632;</i><span>换一组看看</span></a>
+      </section>
+      <section class="media media-horizontal" data-list="search">
+        <dl class="list clearfix">
+        </dl>
+      </section>
+    </div>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/invite-answer.js" charset="UTF-8"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

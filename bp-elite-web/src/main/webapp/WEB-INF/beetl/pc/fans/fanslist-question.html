@@ -1,0 +1,51 @@
+${bean.pageWrapper.headerHtml}
+<div id="content" class="content row fanslist">
+    <div class="left-side">
+        <div class="crumbs">
+            <ul>
+                <li><a href="/" class="first-level">问吧首页</a></li>
+                <li><span>&gt;</span></li>
+                <li><a href="javascript:;">全部关注人</a></li>
+            </ul>
+        </div>
+        <%if(bean.userList!=null && bean.userList.~size!=0){%>
+            <section class="media media-article media-fans">
+                <dl class="list clearfix" data-block="list">
+                     <% include("/WEB-INF/beetl/pc/units/userlist.html",{userList:bean.userList}){} %>
+                </dl>
+            </section>
+            <div class="pagination" data-currpage="${bean.currPageNo}" data-totalpage="${bean.totalPage}"></div>     
+                 <%}else{%>
+         <div class="nothing">
+                <div class="no-user"></div>
+                <p>这里什么都没有</p>
+            </div>
+            <%}%>
+    </div>
+    <div class="right-side" data-right="right">
+        <div class="nofix-wra">
+            <div class="person-tags">
+                <div class="instrested">
+                    <h4>${bean.question.title}</h4>
+                </div>
+                <ul class="items-box items-two">
+                <a href="/q/${bean.question.id}">
+                    <li><span class="num">${bean.question.answerNumHuman}</span>
+                    <br><span>回答</span></a></li>
+                    <li class="last-li"><span class="num">${bean.question.fansNumHuman}</span>
+                        <br><span>关注</span></li>
+                </ul>
+                <a href="javascript:;" class="button-primary atten-ques <%if(bean.question.hasFollowed){%>active<%}%>" btn-action="attention" data-id="${bean.question.id}">
+                    <div class="attention"><i class="iconfont">&#xe606;</i><span>我也想问</span></div>
+                    <div class="attened"><i class="iconfont">&#xe62ee;</i><span>我也想问</span></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+ ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/fanslist-question.js" charset="UTF-8"></script>
+  </body>
+</html>

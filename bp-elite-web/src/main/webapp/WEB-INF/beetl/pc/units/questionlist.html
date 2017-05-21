@@ -1,0 +1,39 @@
+<%for(question in questionList){%>
+  <dd class="media-article-nopic">
+    <div class="cell" data-feedtype="1" data-id="${question.itemId}">
+        <div class="inner">
+            <div class="pic-mixin clearfix">
+                <a target="_blank" href="${question.user.homeUrl}">
+                <img src="${question.user.avatar}" class="img-circle"><%if(question.user.identityString != "00"){%><i class="iconfont badge${question.user.identityString}-s">&#xe63${question.user.identityString};</i><%}%></a>
+                <div class="name">
+                <span>${question.user.nick} 提问了</span></div></div>
+            <div class="artical-info">
+              <a target="_blank" href="/q/${question.itemId}" class="heading">${question.title}</a>
+                <p class="info">
+                     <a href="javascript:;" class="pull-right share" title="分享">
+                       <i class="iconfont">&#xe60d;</i>
+                      </a>
+                    <span class="pull-left">
+                      <i class="iconfont">&#xe633;</i><span>${question.updateTimeHuman}
+                    </span>
+                    </span>
+                    <%if(question.specialType != 403){%>
+                      <%if(question.answerNumHuman != "0"){%>
+                        <span class="pull-left">
+                          <i>${question.answerNumHuman}</i>
+                          <span>回答</span>
+                        </span>
+                      <%}%>
+                      <%if(question.fansNumHuman != "0"){%>
+                        <span class="pull-left">
+                         <i>${question.fansNumHuman}</i>
+                         <span>关注</span>
+                        </span>
+                      <%}%>
+                    <%}%>
+                </p>
+            </div>
+        </div>
+    </div>
+  </dd>
+<%}%>

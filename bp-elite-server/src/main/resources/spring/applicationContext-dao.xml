@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${bp.connection.url}"/>
+        <property name="username" value="${bp.connection.username}"/>
+        <property name="password" value="${bp.connection.password}"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="5"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat"/>
+    </bean>
+    <bean id="dataSource1" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${bp.connection1.url}"/>
+        <property name="username" value="${bp.connection1.username}"/>
+        <property name="password" value="${bp.connection1.password}"/>
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="5"/>
+        <property name="maxWait" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+        <property name="filters" value="stat"/>
+    </bean>
+    <bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${bp.connection2.url}"/>
+        <property name="username" value="${bp.connection2.username}"/>
+        <property name="password" value="${bp.connection2.password}"/>
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="5"/>
+        <property name="maxWait" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+        <property name="filters" value="stat"/>
+    </bean>
+    <bean id="dataSource3" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${bp.connection3.url}"/>
+        <property name="username" value="${bp.connection3.username}"/>
+        <property name="password" value="${bp.connection3.password}"/>
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="5"/>
+        <property name="maxWait" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+        <property name="filters" value="stat"/>
+    </bean>
+    <bean id="multiDataSource" class="com.sohu.bp.elite.db.TransDataSourceWrapper">
+        <property name="dataSourceMap">
+            <map>
+                <entry key="bp_decorate_0">
+                    <ref bean="dataSource"/>
+                </entry>
+                <entry key="bp_decorate_1">
+                    <ref bean="dataSource1"/>
+                </entry>
+                <entry key="bp_decorate_2">
+                    <ref bean="dataSource2"/>
+                </entry>
+                <entry key="bp_decorate_3">
+                    <ref bean="dataSource3"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="bpAssistSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${bp_assist.connection.url}"/>
+        <property name="username" value="${bp_assist.connection.username}"/>
+        <property name="password" value="${bp_assist.connection.password}"/>
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="5"/>
+        <property name="maxWait" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+        <property name="filters" value="stat"/>
+    </bean>
+
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="multiDataSource"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="dataSource"></ref>
+        </property>
+    </bean>
+
+    <bean id="subjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="dataSource2"></ref>
+        </property>
+    </bean>
+    <bean id="eliteAdminjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="dataSource1"></ref>
+        </property>
+    </bean>
+
+    <bean id="multiJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="multiDataSource"></ref>
+        </property>
+    </bean>
+
+    <bean id="assitJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="bpAssistSource"></ref>
+        </property>
+    </bean>
+
+
+    <!--
+    <bean id="configuration" class="com.sohu.bp.Configuration" init-method="init">
+    </bean>
+    -->
+
+    <!-- redis缓存数据存储服务  -->
+    <bean id="redisCacheManager" class="com.sohu.bp.cache.redis.impl.RedisCacheManagerImpl" init-method="init"
+          destroy-method="destroy">
+        <property name="configFile" value="redis-cache.xml"/>
+    </bean>
+
+    <!-- ssdb缓存数据存储服务,主要用于存储列表id  -->
+    <bean id="ssdbCacheManager" class="com.sohu.bp.cache.ssdb.impl.SsdbCacheManagerImpl" init-method="init"
+          destroy-method="destroy">
+        <property name="configFile" value="ssdb-cache.xml"/>
+    </bean>
+
+    <bean id="nameHandler" class="com.sohu.bp.elite.jdbc.namehandler.DefaultNameHandler"/>
+
+
+    <!--问题及关联表-->
+    <bean id="eliteQuestionDao" class="com.sohu.bp.elite.dao.impl.EliteQuestionDaoImpl" init-method="init">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="ssdbCacheManager" ref="ssdbCacheManager"/>
+        <property name="partitioner" ref="eliteQuestionPartitioner"/>
+        <property name="sequence" ref="eliteQuestionSequence"/>
+        <property name="questionBybpIdDao" ref="eliteQuestionBybpidDao"/>
+        <property name="questionBySpecialDao" ref="eliteQuestionBySpecialDao"/>
+        <property name="optionsDao" ref="eliteOptionsDao"/>
+    </bean>
+
+    <bean id="eliteQuestionBybpidDao" class="com.sohu.bp.elite.dao.impl.EliteQuestionBybpIdDaoImpl">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="partitioner" ref="eliteQuestionBybpidPartitioner"/>
+    </bean>
+	
+	<bean id="eliteQuestionBySpecialDao" class="com.sohu.bp.elite.dao.impl.EliteQuestionBySpecialDaoImpl">
+    	<property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+    	<property name="partitioner" ref="eliteQuestionBySpecialPartitioner"/>
+    </bean>
+    <!--回答-->
+    <bean id="eliteAnswerDao" class="com.sohu.bp.elite.dao.impl.EliteAnswerDaoImpl" init-method="init">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="ssdbCacheManager" ref="ssdbCacheManager"/>
+        <property name="partitioner" ref="eliteAnswerPartitioner"/>
+        <property name="sequence" ref="eliteAnswerSequence"/>
+        <property name="answerByBpIdDao" ref="eliteAnswerByBpIdDao"/>
+        <property name="answerByQustionIdDao" ref="eliteAnswerByQuestionIdDao"/>
+        <property name="optionsDao" ref="eliteOptionsDao"/>
+    </bean>
+    <bean id="eliteAnswerByBpIdDao" class="com.sohu.bp.elite.dao.impl.EliteAnswerByBpIdDaoImpl">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="partitioner" ref="eliteAnswerByBpIdPartitioner"/>
+    </bean>
+    <bean id="eliteAnswerByQuestionIdDao" class="com.sohu.bp.elite.dao.impl.EliteAnswerByQuestionIdDaoImpl">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="partitioner" ref="eliteAnswerByQuestionIdPartitioner"/>
+    </bean>
+
+    <!-- 多媒体 -->
+    <bean id="eliteMediaDao" class="com.sohu.bp.elite.dao.impl.EliteMediaDaoImpl" init-method="init">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="partitioner" ref="eliteMediaPartitioner"/>
+        <property name="sequence" ref="eliteMediaSequence"/>
+
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="mediaByQuestionIdDao" ref="eliteMediaByQuestionIdDao"/>
+        <property name="mediaByAnswerIdDao" ref="eliteMediaByAnswerIdDao"/>
+    </bean>
+    <bean id="eliteMediaByQuestionIdDao" class="com.sohu.bp.elite.dao.impl.EliteMediaByQuestionIdDaoImpl"
+          init-method="init">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="partitioner" ref="eliteMediaByQuestionIdPartitioner"/>
+
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="ssdbCacheManager" ref="ssdbCacheManager"/>
+    </bean>
+    <bean id="eliteMediaByAnswerIdDao" class="com.sohu.bp.elite.dao.impl.EliteMediaByAnswerIdDaoImpl"
+          init-method="init">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="partitioner" ref="eliteMediaByAnswerIdPartitioner"/>
+
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="ssdbCacheManager" ref="ssdbCacheManager"/>
+    </bean>
+
+    <!--用户-->
+    <bean id="eliteUserDao" class="com.sohu.bp.elite.dao.impl.EliteUserDaoImpl" init-method="init">
+        <property name="jdbcTemplate" ref="multiJdbcTemplate"/>
+        <property name="partitioner" ref="eliteUserPartitioner"/>
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="ssdbCacheManager" ref="ssdbCacheManager"/>
+        <property name="expertTeamDao" ref="eliteExpertTeamDao"/>    
+   </bean>
+    <!--专题-->
+    <bean id="eliteSubjectDao" class="com.sohu.bp.elite.dao.impl.EliteSubjectDaoImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="jdbcTemplate" ref="subjdbcTemplate"/>
+    </bean>
+    <!--话题-->
+    <bean id="eliteTopicDao" class="com.sohu.bp.elite.dao.impl.EliteTopicDaoImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="jdbcTemplate" ref="subjdbcTemplate"/>
+    </bean>
+    <!--碎片 -->
+    <bean id="eliteFragmentDao" class="com.sohu.bp.elite.dao.impl.EliteFragmentDaoImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="jdbcTemplate" ref="subjdbcTemplate"/>
+    </bean>
+    <!-- 关注 -->
+    <bean id="eliteFollowDao" class="com.sohu.bp.elite.dao.impl.EliteFollowDaoImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="ssdbCacheManager" ref="ssdbCacheManager"/>
+        <property name="jdbcTemplate" ref="subjdbcTemplate"/>
+    </bean>
+	<!-- 专栏  -->
+	<bean id="eliteColumnDao" class="com.sohu.bp.elite.dao.impl.EliteColumnDaoImpl" init-method="init">
+	    <property name="redisCacheManager" ref="redisCacheManager"/>
+	    <property name="jdbcTemplate" ref="subjdbcTemplate"/>
+	</bean>
+	<!-- 专家团 -->
+    <bean id="eliteExpertTeamDao" class="com.sohu.bp.elite.dao.impl.EliteExpertTeamDaoImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="jdbcTemplate" ref="subjdbcTemplate"/>
+    </bean>
+    <bean id="eliteExpertTeamInfoDao" class="com.sohu.bp.elite.dao.impl.EliteExpertTeamInfoDaoImp" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="jdbcTemplate" ref="subjdbcTemplate"/>
+    </bean>
+    <!-- 管理员 -->
+    <bean id="eliteAdminDao" class="com.sohu.bp.elite.dao.impl.EliteAdminDaoImpl" init-method="init">
+        <property name="jdbcTemplate" ref="eliteAdminjdbcTemplate"/>
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+    </bean>
+    <bean id="eliteOptionsDao" class="com.sohu.bp.elite.dao.impl.EliteOptionsDaoImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="eliteSearchService" ref="eliteSearchService"/>
+        <property name="questionDao" ref="eliteQuestionDao"/>
+    </bean>
+    <bean id="eliteSquareDao" class="com.sohu.bp.elite.dao.impl.EliteSquareDaoImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+        <property name="questionDao" ref="eliteQuestionDao"/>
+        <property name="answerDao" ref="eliteAnswerDao"/>
+    </bean>
+</beans>

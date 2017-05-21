@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${bean.question.title}_问吧_搜狐焦点家居</title>
+    <meta name="keywords" content="<%if(bean.question.tagList!=null && bean.question.tagList.~size!=0){%><%for(tag in bean.question.tagList){%>${tag.tagName}、<%}%><%}%>装修问答、装修知识、装修攻略">
+    <meta name="description" content="${bean.question.title}:${bean.question.plainText}">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!--－ 当网站添加到主屏幕后再点击进行启动时，可隐藏地址栏（从浏览器跳转或输入链接进入并没有此效果）-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="apple-mobile-web-app-title" content="家居问答">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="icon" href="//${ux_domain!}/bphomewap/focus.ico" mce_href="//${ux_domain!}/bphomewap/focus.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//${ux_domain!}/bpelite/${staticVersionCode!}/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="//${ux_domain!}/bpelite/${staticVersionCode!}/styles/page.css">
+    <script  src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/jquery.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" charset="UTF-8"></script>
+      <script>
+      $(function(){
+          (function(){
+            if($('[data-finish]').length==0){
+              var url = window.location.href.split('?');
+              if(url[1]){
+                var reg = /^bpdebug=/;
+                if(reg.test(url[1])){
+                  return;
+                }
+              }
+             $.post('/common/error?errorUrl='+url[0]);
+             window.location.href = '/common/404?errorUrl='+url[0];
+          }
+          })()   
+    });
+</script>
+</head>
+<body class="main">
+    <% include("/WEB-INF/beetl/mobile/units/header.html",{text:'共'+bean.question.answerNumHuman+'个回答'}){} %>
+    <div id="content" class="content row answer" data-question-id="${bean.question.id}" data-answerNum="${bean.question.answerNumHuman}">
+      <a class="ans-tit" href="/q/${bean.question.id}">
+        <h4 class="heading">${bean.question.title}</h4>
+      </a>
+      <div class="ans-man">
+      <a href="${bean.answer.user.homeUrl}">
+          <div class="pic"><img src="${bean.answer.user.avatar}" class="img-circle"><%if(bean.answer.user.identityString != "00"){%><i class="iconfont badge${bean.answer.user.identityString}-m">&#xe63${bean.answer.user.identityString};</i><%}%></div>
+          <div class="info <%if(bean.answer.user.description ==''){%>active<%}%>">
+            <p class="heading" data-user-id="${bean.answer.user.bpId}">${bean.answer.user.nick}</p>
+            <%if(bean.answer.user.description !=""){%><span>${bean.answer.user.description}</span><%}%>
+          </div></a>
+          <%if(bean.answer.owner){%>
+          <a href="/a/${bean.answer.id}/up" class="btn modify">编辑回答</a>
+          <%}else{%>
+          <div class="btn atten  <%if(bean.answer.user.hasFollowed){%>active<%}%>">
+        <span class="attention">关注</span><span class="attened">已关注</span></div>
+        <%}%>
+      </div>
+      <% if(bean.answer.videoId!=null && bean.answer.videoId!=0){%>
+      <section class="ans-context"><a href="javascript:void(0);" class="vedio" data-video-id="${bean.answer.videoId}">
+          </a>
+      </section>
+      <%}%>
+      <section class="media media-article">
+        <dl class="list clearfix">
+                    <dd>
+                      <div class="cell">
+                        <div class="inner">
+                          <div class="answer">
+                          ${bean.answer.content}
+                          </div>
+                          <p class="ans-date"><span>创建于 ${bean.answer.updateTimeHuman}</span></p>
+                      </div>
+                    </dd>
+        </dl>
+      </section>
+       <%if(bean.commentList!=null&&bean.commentList.~size!=0){%>
+      <div class="main-title">
+      <span class="tit-con" data-question-id="${bean.question.id}" data-answer-id="${bean.answer.id}" data-currpage="1" data-nextpage="${bean.nextPageNo}">评论</span></div>
+      <!-- comment-->
+      <section class="media media-horizontal comment">
+        <dl class="list clearfix" >
+             <%for (comment in bean.commentList){%>
+                    <dd data-user-id="${comment.user.bpId}"><div class="cell">
+                        <div class="inner">
+                          <a class="pic" href="${comment.user.homeUrl}"><img class=" img-circle" src="${comment.user.avatar}"><%if(comment.user.identityString != "00"){%><i class="iconfont badge${comment.user.identityString}-m">&#xe63${comment.user.identityString};</i><%}%></a>
+                          <h4 class="heading"><span class="txt">${comment.user.nick}</span><span class="icon-box">
+                              <p class="comment-time top">${comment.updateTimeHuman}</p></span></h4>
+                          <p class="info"><span class="txt" data-commentId="${comment.itemId}">${comment.content}</span></p>
+                        </div></div></dd>
+                  <%}%>
+        </dl>
+      </section>
+      <%}%>  
+      <div class="btn-occupy">
+        <div class="write-comment comm-icon">
+        <a href="/a/${bean.answer.id}/com/go" class="write-content">写评论...</a>
+        <span>
+        <a href="javascript:;" class="collect <%if(bean.answer.hasLiked){%>active<%}%>"><i class="iconfont">&#xe617;</i><div class="message-num"><span>+1</span></div></a>
+        <a href="javascript:;" class="collect <%if(bean.answer.hasFavorited){%>active<%}%>" data-answer-id="${bean.answer.id}" ><i class="iconfont collected">&#xe616;</i><i class="iconfont col">&#xe61e;</i></a>
+        <a href="javascript:;"><i class="iconfont share">&#xe60d;</i></a>
+        </span>
+        </div>
+      </div>
+      <a href="/decoration/iwantdec.html?signupType=2" class="label-circle free-design"></a>
+    </div>
+    <%if (bean.admin == 10){%>
+    <div class="admin">
+        <div class="btn-admin">管理</div>
+        <div class="btn-box">
+            <div btn-action="adminDelete" class="btn">删帖</div>
+            <div btn-action="adminKickOut" class="btn">封号</div>
+            <div btn-action="adminAll" class="btn">删帖封号</div>
+            <div class="admin-close"><i class="iconfont">&#xe661;</i></div>
+
+        </div>
+    </div>
+    <%}%>
+    <script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/answer.js" charset="UTF-8"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

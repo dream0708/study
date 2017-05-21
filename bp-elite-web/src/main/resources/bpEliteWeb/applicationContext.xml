@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="gbk"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop
+      	http://www.springframework.org/schema/aop/spring-aop.xsd ">
+    
+    <bean id="springUtil" class="com.sohu.bp.elite.util.SpringUtil"/>
+    <bean id="convertUtil" class="com.sohu.bp.elite.util.ConvertUtil">
+        <property name="bpUserService" ref="bpUserService"/>
+        <property name="columnService" ref="columnService"/>
+        <property name="userInfoService" ref="userInfoService"/>
+    </bean>
+
+    <bean id="feedAsyncTaskPool" class="com.sohu.bp.elite.task.FeedAsyncTaskPool" init-method="init"/>
+    
+    <!-- service regist -->
+    <bean id="userInfoService" class="com.sohu.bp.elite.service.external.impl.UserInfoServiceImpl">
+        <property name="apiHost" value=""/>
+    </bean>
+    <bean id="bpUserService" class="com.sohu.bp.elite.service.web.impl.BpUserServiceImpl" init-method="init">
+        <property name="userInfoService" ref="userInfoService"/>
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+    </bean>
+    
+    <bean id="configuration" class="com.sohu.bp.elite.Configuration" init-method="init" />
+    
+    <!-- 下面的service和listener要配对使用 -->
+    <bean id="staticVCService" class="com.sohu.bp.elite.zookeeper.StaticVCService" init-method="init">
+    	<property name="node">
+    	    <value>${zookeeper.staticVC.node}</value>
+    	</property>
+    </bean>
+
+    <bean id="appStaticVCService" class="com.sohu.bp.elite.zookeeper.AppStaticVCService" init-method="init">
+        <property name="node">
+            <value>${zookeeper.staticVC.node.app}</value>
+        </property>
+    </bean>
+    
+    <!-- redis缓存数据存储服务  -->
+    <bean id="redisCacheManager" class="com.sohu.bp.cache.redis.impl.RedisCacheManagerImpl" init-method="init" destroy-method="destroy">
+    	<property name="configFile" value="redis-cache.xml"/>
+    </bean>
+
+    <!-- ssdb缓存数据存储服务,主要用于存储列表id  -->
+    <bean id="ssdbCacheManager" class="com.sohu.bp.cache.ssdb.impl.SsdbCacheManagerImpl" init-method="init" destroy-method="destroy">
+        <property name="configFile" value="ssdb-cache.xml"/>
+    </bean>
+
+
+    <bean id="feedService" class="com.sohu.bp.elite.service.web.impl.FeedServiceImpl" init-method="init">
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+		<property name="feedCacheTopic" value="${feed.cache.topic}"/>
+	</bean>
+
+
+	<!-- 专题等内容的service -->
+	<bean id="featureService" class="com.sohu.bp.elite.service.web.impl.FeatureServiceImpl" init-method="init">
+	<property name="redisCacheManager" ref="redisCacheManager"/>
+	<property name="bpUserService" ref="bpUserService"/>
+	<property name="host" value="${achelous.api.host}"/>
+	<property name="columnService" ref="columnService"/>
+	<property name="identityService" ref="identityService"/>
+	</bean>
+	
+	<!-- 页面碎片获取service -->
+	<bean id="wrapperPageService" class="com.sohu.bp.elite.service.web.impl.WrapperPageServiceImpl" init-method="init">
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+		<property name="indexHeaderFetchUrl" value="${index.header.fetch.url}"/>
+		<property name="indexFooterFetchUrl" value="${index.footer.fetch.url}"/>
+	</bean>
+	
+	<!-- 首次登录关注的service -->
+	<bean id="firstFollowService" class="com.sohu.bp.elite.service.web.impl.FirstFollowServiceImpl" init-method="init">
+		<property name="ssdbCacheManager" ref="ssdbCacheManager"/>
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+		<property name="host" value="${elite.api.host}"/>
+	</bean>
+	
+    <bean id="eliteCacheService" class="com.sohu.bp.elite.service.web.impl.EliteCacheServiceImpl" init-method="init">
+        <property name="cacheManager" ref="redisCacheManager"/>
+    </bean>
+    
+    <bean id="userRestrictService" class="com.sohu.bp.elite.service.web.impl.UserRestrictServiceImpl" init-method="init">
+        <property name="cacheManager" ref="redisCacheManager"/>
+    </bean>
+    
+    <!-- 清洗富文本的服务 -->
+    <bean id="washerService" class="com.sohu.bp.elite.service.web.impl.WasherServiceImpl">
+        <property name="downloadDir" value="/opt/data/images/"/>
+    </bean>
+    
+    
+    <bean id="adDisplayService" class="com.sohu.bp.elite.service.web.impl.AdDisplayServiceImpl" init-method="init">
+        <property name="redisCacheManager" ref="redisCacheManager"/>
+    </bean>
+    
+    <bean id="notifyService" class="com.sohu.bp.elite.service.web.impl.NotifyServiceImpl" init-method="init">
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+    	<property name="environment" value="${elite.environment}"/>
+    </bean>
+    
+    <!-- 邀请回答的service -->
+    <bean id="inviteService" class="com.sohu.bp.elite.service.web.impl.InviteServiceImpl" init-method="init">
+    	<property name="redisCacheManager" ref="redisCacheManager"/>
+    </bean>
+    
+    <!-- 问答广场service -->
+    <bean id="squareService" class="com.sohu.bp.elite.service.web.impl.SquareServiceImpl"/>
+    
+    <!-- 专家推荐service -->
+    <bean id="identityService" class="com.sohu.bp.elite.service.web.impl.IdentityServiceImpl" init-method="init">
+    	<property name="redisCacheManager" ref="redisCacheManager"/>
+    </bean>
+    
+    <!-- 专栏service -->
+    <bean id="columnService" class="com.sohu.bp.elite.service.web.impl.ColumnServiceImpl" init-method="init">
+   		<property name="redisCacheManager" ref="redisCacheManager"/>
+    </bean>
+    <!-- 推送service -->
+    <bean id="elitePushService" class="com.sohu.bp.elite.service.web.impl.ElitePushServiceImpl" init-method="init" destroy-method="destroy">
+    	<property name="squareService" ref="squareService"/>
+    </bean>
+    <!-- kafka service -->
+    <bean id="kafkaService" class="com.sohu.bp.elite.service.web.impl.KafkaServiceImpl" init-method="init" destroy-method="destroy">
+		<property name="zkConnect" value="${kafka.zk.con}"/>
+		<property name="zkNode" value="${kafka.zk.node}"/>
+		<property name="threadNum" value="${kafka.consume.threadnum}"/>
+		<property name="groupId" value="${kafka.consume.groupid}"/>
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+		<property name="address" value="${kafka.push.address}"/>
+		<property name="zombieTopic" value="${zombie.producer.topic}"/>
+	</bean>
+	<!-- square kafka 消息监听者 -->
+	<bean id="squareListener" class="com.sohu.bp.elite.listener.SquareListener" init-method="init">
+		<property name="kafkaService" ref="kafkaService"/>
+		<property name="topicName" value="${kafka.topic.square}"/>
+		<property name="elitePushService" ref="elitePushService"/>
+		<property name="address" value="${kafka.push.address}"/>
+		<property name="consumeType" value="1"/>
+	</bean>
+	<!-- 运营上传的消息监听者 -->
+	<bean id="eliteExpertTeamListener" class="com.sohu.bp.elite.listener.EliteExpertTeamListener" init-method="init">
+	   <property name="kafkaService" ref="kafkaService"/>
+	   <property name="topicName" value="${kafka.topic.expertTeam}"/>
+	   <property name="groupId" value="${kafka.groupId.expertTeam}"/>
+	   <property name="consumeType" value="2"/>
+	</bean>
+
+	<!-- 运营上传的消息监听者 -->
+	<bean id="feedListener" class="com.sohu.bp.elite.listener.FeedListener" init-method="init">
+		<property name="kafkaService" ref="kafkaService"/>
+		<property name="feedService" ref="feedService"/>
+		<property name="topicName" value="${feed.cache.topic}"/>
+		<property name="groupId" value="${feed.cache.consumer.groupid}"/>
+		<property name="consumeType" value="2"/>
+	</bean>
+
+	<!-- 微信服务类 -->
+	<bean id="wechatService" class="com.sohu.bp.elite.service.external.impl.WechatServiceImpl"/>
+	
+	<!-- 专家团推送类 -->
+	<bean id="expertTeamService" class="com.sohu.bp.elite.service.web.impl.ExpertTeamServiceImpl" init-method="init">
+	   <property name="redisCacheManager" ref="redisCacheManager"/>
+	</bean>
+	
+	<!-- forkjoinpool -->
+	<bean id="eliteParallelPool" class="com.sohu.bp.elite.task.EliteParallelPool" init-method="init"/>
+	
+</beans>

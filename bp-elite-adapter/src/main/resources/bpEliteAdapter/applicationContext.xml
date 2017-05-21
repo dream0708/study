@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <bean id="eliteServiceConnectionPool" class="com.sohu.suc.thrift.pool.internal.ThriftConnectionPool"
+          lazy-init="true">
+        <property name="serverName" value="bpEliteService"/>
+        <property name="maxActive" value="200"/>
+        <property name="maxIdle" value="100"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="conTimeOut" value="4000"/>
+    </bean>
+
+    <bean id="eliteServiceConnectionManager" class="com.sohu.suc.thrift.pool.ThriftConnectionManager" lazy-init="true">
+        <property name="connectionPool" ref="eliteServiceConnectionPool"/>
+    </bean>
+
+    <bean id="eliteThriftServiceAdapter" class="com.sohu.bp.elite.adapter.EliteThriftServiceAdapter" lazy-init="true">
+        <property name="thriftConnectionManager" ref="eliteServiceConnectionManager" />
+    </bean>
+
+</beans>

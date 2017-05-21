@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${bean.question.title}_问吧_搜狐焦点家居</title>
+    <meta name="keywords" content="<%if(bean.question.tagList!=null && bean.question.tagList.~size!=0){%><%for(tag in bean.question.tagList){%>${tag.tagName}、<%}%><%}%>装修问答、装修知识、装修攻略">
+    <meta name="description" content="${bean.question.title}:${bean.question.plainText}">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!--－ 当网站添加到主屏幕后再点击进行启动时，可隐藏地址栏（从浏览器跳转或输入链接进入并没有此效果）-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="apple-mobile-web-app-title" content="家居问答">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="icon" href="//${ux_domain!}/bphomewap/focus.ico" mce_href="//${ux_domain!}/bphomewap/focus.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//${ux_domain!}/bpelite/${staticVersionCode!}/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="//${ux_domain!}/bpelite/${staticVersionCode!}/styles/page.css">
+    <script  src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/jquery.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" charset="UTF-8"></script>
+    <script>
+      $(function(){
+          (function(){
+            if($('[data-finish]').length==0){
+              var url = window.location.href.split('?');
+              if(url[1]){
+                var reg = /^bpdebug=/;
+                if(reg.test(url[1])){
+                  return;
+                }
+              }
+             $.post('/common/error?errorUrl='+url[0]);
+            window.location.href = '/common/404?errorUrl='+url[0];
+          }
+          })()   
+    });
+</script>
+</head>
+<body class="main">
+<% include("/WEB-INF/beetl/mobile/units/header.html",{share:true}){} %>
+<div id="content" class="content row qes-ans">
+<%if(bean.question.tagList!=null && bean.question.tagList.~size!=0){%>
+    <div class="tag-box">
+        <div class="tag-bottom">
+            <%for(tag in bean.question.tagList){%>
+            <a href="/t/${tag.tagId}"  class="single-tag">${tag.tagName}</a>
+            <%}%>
+           </div>
+           <a href="/q/${bean.question.id}/tags" class="taglist"><i class="iconfont">&#xe614;</i></a>
+    </div>
+        <%}%>
+    <section class="media media-article">
+        <dl class="list clearfix" data-question-id="${bean.question.id}">
+            <dd>
+                <div class="cell">
+                    <div class="inner">
+                        <h4 class="heading">${bean.question.title}</h4>
+                        
+     			<% if(bean.question.videoId!=null && bean.question.videoId!=0){%>
+    					  <div class="vedio"  data-video-id="${bean.question.videoId}">
+    					  </div>
+    					  <%}%>
+                        <%if(bean.question.content!=null&&bean.question.content!=""){%>
+                        <div class="answer">
+                        ${bean.question.content}
+						</div>
+                        <a href="javascript:;" class="close"><i class="iconfont hide">&#xe624;</i></a>
+                        <%}%>        
+                    </div>
+                </div>
+            </dd>
+            <div class="atten-box">
+                    <div class="clearfix">
+                        <sapn class="atten-num">${bean.question.fansNumHuman}</sapn><span>人关注</span>
+                        <%if(bean.question.owner){%>
+                         <a href="/q/${bean.question.id}/up" class="modify">
+                            <i class="iconfont">&#xe601;</i><span>修改问题</span>
+                         </a>
+                         <%}else{%>
+                        <%if(bean.question.hasFollowed){%>
+                        <a href="javascript:;" class="attention active">
+                        <%}else{%>
+                         <a href="javascript:;" class="attention">
+                         <%}%>
+                        <i class="iconfont atten">&#xe606;</i><i class="iconfont atten-after">&#xe622;</i><span class="atten">关注问题</span><span class="atten-after">关注问题</span></a>
+                        <%}%>
+                        </div>
+                </div>
+        </dl>
+    </section>
+    <%if(bean.question.options !=null && bean.question.options.~size!=0){%>
+    <section class="media media-vote">
+            <div class="main-title no-border"><span class="tit-con">投票</span></div>
+            <dl class="list clearfix" block-name="votelist" data-total-count="${bean.question.totalChoosedNum}" data-has-vote="${bean.choosedOption}">
+             <%for(option in bean.question.options){%>
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                            <%if(option.img!=null && option.img != ""){%><div class="pic"><img src="${option.imgSmall}" data-big-img="${option.img}" data-count="${option.count}"></div><%}%>
+                            <label>
+                                <div class="heading" data-count="${option.count}"><span class="txt <%if(option.img==null  ||option.img == ''){%>no-pic<%}%>">${option.description}</span>
+                                    <input type="radio" value="${optionLP.index}" name="vote" class="pull-right">
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </dd>
+                <%}%>
+            </dl>
+            <div class="btn-voting" btn-action="vote">
+                <div class="inner"><i class="iconfont btn-voting">&#xe643;</i><span>投票</span></div>
+            </div>
+        </section>
+        <%}%>
+    <%if(bean.answerList!=null&&bean.answerList.~size!=0){%>
+    <div class="main-title"><span class="tit-con">回答</span><span class="right">${bean.question.answerNumHuman}条</span></div>
+    <section class="media media-question">  
+        <dl class="list clearfix" data-question-id="${bean.question.id}" data-currpage="1" data-nextpage="${bean.nextPageNo}" data-block="list">
+            <% for(answerData in bean.answerList){%>
+            <dd>
+                <div class="cell">
+                    <div class="inner">
+                        <div class="pic-mixin user-info clearfix">
+                        <a href="${answerData.user.homeUrl}" <%if(answerData.user.description !=""){%>class="vip"<%}%>>
+                        <img src='${answerData.user.avatar}' class="img-circle"><%if(answerData.user.identityString != "00"){%><i class="iconfont badge${answerData.user.identityString}-s">&#xe63${answerData.user.identityString};</i><%}%>
+                                <span>${answerData.user.nick}</span>
+                                <%if(answerData.user.description !=""){%><span class="user-brief">${answerData.user.description}</span><%}%>
+                        </a>
+                        </div>
+                        <%if(answerData.coverWapImgListSmall!=null && answerData.coverWapImgListSmall.~size!=0){%>
+                        <a href="/a/${answerData.itemId}" class="pic"><img src="${answerData.coverWapImgListSmall[0]}" data-origin-image="${answerData.coverImgListMedium[0]}"></a>
+                        <%}%>
+                        <a href="/a/${answerData.itemId}">
+                        <div class="txt">${answerData.content}</div>
+                        <p class="info">
+                        <span class="pull-right"><span>${answerData.updateTimeHuman}</span></span>
+                        <%if(answerData.commentNumHuman != '0'){%>
+                        <span class="pull-left"><i>${answerData.commentNumHuman}</i><span>评论</span></span>
+                        <%}%>
+                        <%if(answerData.likeNumHuman != '0'){%>
+                        <span class="pull-left zan"><i>${answerData.likeNumHuman}</i><span>点赞</span></span>
+                        <%}%>
+                        </p>
+                        </a>
+                    </div>
+                </div>
+                <%if(answerData.specialId !="" &&  answerData.specialId != '0'){%>
+                        <div class="vs-tag-vote">${answerData.specialLabel}</div>
+                   <%}%>
+            </dd>
+            <%}%>
+        </dl>      
+    </section>
+     <%}%>
+    <div class="btn-occupy occupy-one">
+        <div class="bottom-box">
+            <div class="contact-box">
+          <a href="/inv/${bean.question.id}/go" class="invite-ans"><span><i class="iconfont">&#xe636;</i><br><span>邀请回答</span></span></a>
+              <a href="/a/${bean.question.id}/go" class="contact-btn"><span><i class="iconfont">&#xe634;</i><br><span>我要回答</span></span></a>
+           	 </div>        
+        </div>
+    </div>
+    <a href="/decoration/iwantdec.html?signupType=2" class="label-circle free-design"></a>
+     <div class="modal-error hide">
+            <div class="inner"><i class="iconfont">&#xe62a;</i><span class="error-txt"></span></div>
+            <a href="javascript:;" class="load-cancel">朕知道了</a>
+      </div>
+      <div class="modal-backdrop bg-black hide"></div>
+</div>
+<%if (bean.admin == 10){%>
+<div class="admin">
+    <div class="btn-admin">管理</div>
+    <div class="btn-box">
+        <div btn-action="adminDelete" class="btn">删帖</div>
+        <div btn-action="adminKickOut" class="btn">封号</div>
+        <div btn-action="adminAll" class="btn">删帖封号</div>
+        <div class="admin-close"><i class="iconfont">&#xe661;</i></div>
+    </div>
+</div>
+<%}%>
+<script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/question-answer.js" charset="UTF-8"></script>
+<% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

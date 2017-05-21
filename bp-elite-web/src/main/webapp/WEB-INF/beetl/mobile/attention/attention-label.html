@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+     <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"问吧标签"}){} %> 
+    <div id="content" class="content row favor">
+    <%if(bean.tagList!=null && bean.tagList.~size!=0){%>
+      <section class="media media-horizontal">   
+        <dl class="list clearfix" data-block="list" data-nextpage="${bean.nextPageNo}" data-currpage="${bean.currPageNo}">
+          <%for(tag in bean.tagList){%>
+                    <dd>
+                     <% include("/WEB-INF/beetl/mobile/units/tag.html",{tag:tag}){} %> 
+                    	<a href="javascript:;" class="cancel-follow" btn-action="cancel-follow" data-id="${tag.tagId}">取消关注</a>
+                    </dd>
+          <%}%>
+        </dl>  
+      </section>
+       <%}else{%>
+      <section class="no-list"><i class="imgs-label-no"></i><p>这里什么都没有哦，快去问吧关注标签</p></section>
+      <%}%>
+    </div>
+  </body>
+  <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/attention-label.js" charset="UTF-8"></script>
+   <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</html>

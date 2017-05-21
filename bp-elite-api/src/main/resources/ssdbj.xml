@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ssdbj>
+	<ssdb_node id="node_master"   master="true"  host="${ssdb.host1}" port="${ssdb.port1}"  user="" password="" loginTimeout="3" tcpKeepAlive="true" protocolName="ssdb"  protocolVersion="0.9v"
+		maxTotal="200" maxIdle="50" minIdle="5" maxWaitMillis="2000"  testWhileIdle="true" testOnBorrow="false" 
+	/>
+	<ssdb_node id="node_slave1"  master="false" host="${ssdb.host2}" port="${ssdb.port2}"  user="" password="" loginTimeout="3" tcpKeepAlive="true" protocolName="ssdb"  protocolVersion="0.9v"
+		maxTotal="200" maxIdle="50" minIdle="5" maxWaitMillis="2000"  testWhileIdle="true" testOnBorrow="false"
+	/>
+	<clusters>
+		<cluster id="bp_cluster" notfound_master_retry="true" error_retry_times="3" error_master_retry="true" retry_interval="500" balance="master_slave">
+			<ssdb_node weight="1" rwMode="rw">node_master</ssdb_node>
+			<ssdb_node weight="1" rwMode="rw">node_slave1</ssdb_node>
+			<!-- 
+			<ssdb_node weight="3" rwMode="r">s_userinfo2</ssdb_node> 
+			-->
+		</cluster>
+	</clusters>
+</ssdbj>

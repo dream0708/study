@@ -1,0 +1,28 @@
+ <a href="/q/${item.questionId}">
+		                  <h4 class="heading">${item.title}</h4>
+		                </a>
+		                <%if(item.specialType != 403){%>
+		                <a href="/a/${item.itemId}">
+		                  <p class="txt">${item.content}</p>
+		                      <%if(item.content != ""){%>
+		                  <p class="info">
+		                  <%if(item.commentNumHuman != '0'){%>
+		                  	<span class="pull-left">
+		                  		<i>${item.commentNumHuman}</i>
+		                  		<span>评论</span>
+		                  	</span>
+		                  	<%}%>
+		                  	  <%if(item.likeNumHuman != '0'){%>
+		                  	<span class="pull-left zan">
+		                  		<i>${item.likeNumHuman}</i>
+		                  		<span>点赞</span>
+		                  	</span>
+		                  	<%}%>
+		                  </p>
+		                  <%}%>
+		                </a>
+		                <%}else{%>
+		                <a href="/q/${item.questionId}">
+		                  <p class="txt">${item.content}</p>
+		                </a>
+		                <%}%>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+ <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+ <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"我的粉丝"}){} %>
+    <!-- 构建用交互，请忽略。-->
+    <div id="content" class="content row search-media favor">
+    <%if(bean.userList!=null && bean.userList.~size!=0){%>
+      <section class="media media-horizontal">
+        <dl class="list clearfix" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}" data-id="${bean.user.bpId}">
+        	<% for(fan in bean.userList){ %>
+          <%if(fan.bpId!=bean.user.bpId){%>
+        	<dd>
+        		<% include("/WEB-INF/beetl/mobile/units/user.html",{user:fan}){} %>
+                  <div class="btn cancel-follow <% if(fan.hasFollowed){%>active<%}%>" data-user-id="${fan.bpId}">
+              		<span class="follow">关注</span>
+              		<span class="followed">已关注</span>
+          		
+              	</div>
+            </dd>
+            <%}%>
+        	<% } %>
+        </dl>
+      </section>
+      <%}else{%>
+      <section class="no-list"><i class="imgs-user-no"></i><p>可以通过提问或者回答吸引粉丝哦</p></section>
+      <%}%>
+    </div>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/center-fans.js" charset="UTF-8"></script>
+ <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

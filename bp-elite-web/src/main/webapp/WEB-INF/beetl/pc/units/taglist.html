@@ -1,0 +1,29 @@
+<%for(tag in tagList){%>
+<div class="rightside-atten-label">
+                        <div class="atten-label">
+                            <a target="_blank" href="/t/${tag.tagId}/">
+                                <h4>#${tag.tagName}#</h4>
+                            </a>
+                           <!--  <a href="/t/${tag.tagId}">
+                              <span>${tag.tagDesc}</span>
+                            </a> -->
+                        </div>
+                        <div class="person-tags" data-tag-id="${tag.tagId}">
+                            <ul class="items-box">
+                                <li><a target="_blank" href="/tq/${tag.tagId}"><span class="num">${tag.questionNumHuman}</span><br><span>问题</span></a></li>
+                                <li><a target="_blank" href="/ta/${tag.tagId}"><span class="num">${tag.answerNumHuman}</span><br><span>回答</span></a></li>
+                                <li class="last-li"><a target="_blank" href="/tf/${tag.tagId}"><span class="num">${tag.fansNumHuman}</span><br><span>关注度</span></a></li>
+                            </ul>               
+                                <a href="javascript:;" class="button-primary btn-label <%if(tag.hasFollowed){%>active <%}%> attention">
+                                <div class="attened">
+                                  <i class="iconfont">&#xe62ee;</i>
+                                  <span>已关注</span>
+                                </div> 
+                                <div class="attention">
+                                  <i class="iconfont">&#xe606;</i>
+                                  <span>关注标签</span>
+                                </div>  
+                            </a>
+                        </div>
+                    </div>
+                    <%}%>

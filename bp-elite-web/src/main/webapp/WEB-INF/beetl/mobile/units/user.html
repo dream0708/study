@@ -1,0 +1,12 @@
+<a href="${user.homeUrl}" class="cell">
+	                <div class="inner">
+	                  <div class="pic"><img class="img-circle" src="${user.avatar}">
+	                  <%if(user.identityString != "00"){%><i class="iconfont badge${user.identityString}-m">&#xe63${user.identityString};</i><%}%></div>
+	                  <h4 class="heading"><span class="txt">${user.nick}</span>
+                    </h4>
+	                  <p class="type">
+	                  	<span class="case"><i class="iconfont icons-article">&#xe61a;</i>${user.workTotalNumHuman}</span>
+	                  	<span class="cost"><i class="iconfont icons-money">&#xe60c;</i>${user.fansNumHuman}</span>
+	                  </p>
+	                </div>
+	            </a>

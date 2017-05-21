@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 数据缓存的配置 -->
+<CacheConfigs>
+    <client id="client-1">
+    	<factory>com.sohu.bp.cache.redis.impl.MasterStandbyClientFactory</factory>
+        <properties>
+        	<property key="servers" value="10.16.6.52:6379;10.16.6.140:6379"/>
+            <property key="timeout" value="0"/>
+            <property key="maxActive" value="500"/>
+            <property key="minIdle" value="0"/>
+            <property key="maxIdle" value="500"/>
+            <property key="maxWait" value="2000"/>
+        </properties>
+    </client>
+    
+    <client id="client-codis">
+    	<factory>com.sohu.bp.cache.redis.impl.JodisClientFactory</factory>
+        <properties>
+        	<property key="servers" value="${zookeeper.server}"/>
+        	<property key="zkPath" value="${codis.zk.path}"/>
+            <property key="zkTimeout" value="30000"/>
+            <property key="maxActive" value="500"/>
+            <property key="minIdle" value="0"/>
+            <property key="maxIdle" value="500"/>
+            <property key="maxWait" value="2000"/>
+        </properties>
+    </client>
+
+    <client id="client-cluster">
+        <factory>com.sohu.bp.cache.redis.impl.RedisClusterClientFactory</factory>
+        <properties>
+            <property key="servers" value="${redis.cluster.server}"/>
+            <property key="timeout" value="5000"/>
+            <property key="maxActive" value="500"/>
+            <property key="minIdle" value="0"/>
+            <property key="maxIdle" value="500"/>
+            <property key="maxWait" value="2000"/>
+        </properties>
+    </client>
+
+    <cache name="BP_ELITE_SESSION" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="BP_ELITE_FEATURE" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="BP_ELITE_INDEX_PAGE" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+
+	<cache name="TOTAL_ANSWER_NUM" client="client-cluster" cacheTimeSeconds="600"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_WEB_DATA" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+
+	<cache name="ELITE_FOLLOW" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="ELITE_RESTRICT" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="ELITE_INVITE" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="BP_ELITE_AD_BYSITE" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+
+	<cache name="ELITE_IDENTITY" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	<!-- 用于读取黑名单 -->
+	<cache name="" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	<!-- 用于保存推送的服务器id，用于设置读取kafka队列的groupId -->
+	<cache name="ELITE_PUSH_SERVER" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.bp.cache.impl.DefaultKeyGenerator"/>
+	<!-- 用于专家团列表，同时通server的EliteUser缓存 -->
+    <cache name="ELITE_USER" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.bp.cache.impl.DefaultKeyGenerator"/>
+    
+    <!-- 早版本的推送消息限制 -->>
+    <cache name="CELL_MSG_LIMIT" client="client-cluster" cacheTimeSeconds="86400" keyGeneratorClass="com.sohu.bp.bp.cache.impl.DefaultKeyGenerator"/>
+    <!-- 用于页面数据维护 -->
+    <cache name="ELITE_DATA" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.bp.cache.impl.DefaultKeyGenerator"/>
+
+    <cache name="PERSONAL_FEEDS" client="client-cluster" cacheTimeSeconds="300" keyGeneratorClass="com.sohu.bp.bp.cache.impl.DefaultKeyGenerator"/>
+</CacheConfigs>

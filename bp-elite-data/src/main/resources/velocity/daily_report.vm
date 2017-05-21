@@ -1,0 +1,554 @@
+<html>
+    <style type="text/css">
+        table.gridtable {
+            font-family: verdana,arial,sans-serif;
+            font-size:11px;
+            color:#333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+        }
+    </style>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    </head>
+    <body>
+        <h1 align="center">PV／UV统计-流量数据($TIME_STR)</h1>
+        <div width="100%" align="center">
+            <p><h2 align="center">总体数据</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th></th>
+                    <th width="9%">总PV</th>
+                    <th width="9%">总UV</th>
+                    <th width="9%">PV／UV</th>
+                    <th width="9%">总PV与上周同比</th>
+                    <th width="9%">总UV与上周同比</th>
+                    <th width="9%">首页PV</th>
+                    <th width="9%">首页UV</th>
+                    <th width="9%">首页PV／UV</th>
+                    <th width="9%">首页PV与上周同比</th>
+                    <th width="9%">首页UV与上周同比</th>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">PC端 </td>
+                    <td align="center">${PC_OVERALL_TOTAL_PV}</td>
+                    <td align="center">${PC_OVERALL_TOTAL_UV}</td>
+                    #if($PC_OVERALL_TOTAL_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $PC_OVERALL_TOTAL_PV * 1.0 / $PC_OVERALL_TOTAL_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+                    <td align="center">${PC_OVERALL_TOTAL_PV_DOD}</td>
+                    <td align="center">${PC_OVERALL_TOTAL_UV_DOD}</td>
+                    <td align="center">${PC_OVERALL_INDEX_PV}</td>
+                    <td align="center">${PC_OVERALL_INDEX_UV}</td>
+                    #if($PC_OVERALL_INDEX_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $PC_OVERALL_INDEX_PV * 1.0 / $PC_OVERALL_INDEX_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+                    <td align="center">${PC_OVERALL_INDEX_PV_DOD}</td>
+                    <td align="center">${PC_OVERALL_INDEX_UV_DOD}</td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">移动端 </td>
+                    <td align="center">${MOBILE_OVERALL_TOTAL_PV}</td>
+                    <td align="center">${MOBILE_OVERALL_TOTAL_UV}</td>
+                    #if($MOBILE_OVERALL_TOTAL_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $MOBILE_OVERALL_TOTAL_PV * 1.0 / $MOBILE_OVERALL_TOTAL_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+
+                    <td align="center">${MOBILE_OVERALL_TOTAL_PV_DOD}</td>
+                    <td align="center">${MOBILE_OVERALL_TOTAL_UV_DOD}</td>
+                    <td align="center">${MOBILE_OVERALL_INDEX_PV}</td>
+                    <td align="center">${MOBILE_OVERALL_INDEX_UV}</td>
+                    #if($MOBILE_OVERALL_INDEX_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $MOBILE_OVERALL_INDEX_PV * 1.0 / $MOBILE_OVERALL_INDEX_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+
+                    <td align="center">${MOBILE_OVERALL_INDEX_PV_DOD}</td>
+                    <td align="center">${MOBILE_OVERALL_INDEX_UV_DOD}</td>
+                </tr>
+            </table>
+
+            <p><h2 align="center">专题数据</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th></th>
+                    <th width="11%">专题页PV</th>
+                    <th width="11%">专题页UV</th>
+                    <th width="11%">PV／UV</th>
+                    <th width="11%">专题页平均停留时长</th>
+                    <th width="11%">PV与上周同比</th>
+                    <th width="11%">UV与上周同比</th>
+                    <th width="11%">专题列表页PV</th>
+                    <th width="11%">专题列表页UV</th>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">PC端 </td>
+                    <td align="center">${PC_SUBJECT_PV}</td>
+                    <td align="center">${PC_SUBJECT_UV}</td>
+                    #if($PC_SUBJECT_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $PC_SUBJECT_PV * 1.0/ $PC_SUBJECT_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+
+                    <td align="center">-</td>
+                    <td align="center">${PC_SUBJECT_PV_DOD}</td>
+                    <td align="center">${PC_SUBJECT_UV_DOD}</td>
+                    <td align="center">${PC_SUBJECT_LIST_PV}</td>
+                    <td align="center">${PC_SUBJECT_LIST_UV}</td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">移动端 </td>
+                    <td align="center">${MOBILE_SUBJECT_PV}</td>
+                    <td align="center">${MOBILE_SUBJECT_UV}</td>
+                    #if($MOBILE_SUBJECT_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $MOBILE_SUBJECT_PV * 1.0 / $MOBILE_SUBJECT_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+
+                    <td align="center">-</td>
+                    <td align="center">${MOBILE_SUBJECT_PV_DOD}</td>
+                    <td align="center">${MOBILE_SUBJECT_UV_DOD}</td>
+                    <td align="center">${MOBILE_SUBJECT_LIST_PV}</td>
+                    <td align="center">${MOBILE_SUBJECT_LIST_UV}</td>
+                </tr>
+            </table>
+
+            <p><h2 align="center">专题详情页数据</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th></th>
+                    #foreach($SUBJECT_ITEM in $SUBJECT_ITEM_LIST)
+                        <th width="6%">
+                            <a href="${SUBJECT_ITEM.link}" target="_blank">
+                                问题${velocityCount}PV
+                            </a>
+                        </th>
+                        <th width="6%">
+                            <a href="${SUBJECT_ITEM.link}" target="_blank">
+                                问题${velocityCount}UV
+                            </a>
+                        </th>
+                    #end
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">PC端 </td>
+                    #foreach($SUBJECT_ITEM in $SUBJECT_ITEM_LIST)
+                        <th width="6%">
+                            ${SUBJECT_ITEM.pc_pv}
+                        </th>
+                        <th width="6%">
+                            ${SUBJECT_ITEM.pc_uv}
+                        </th>
+                    #end
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">移动端 </td>
+                    #foreach($SUBJECT_ITEM in $SUBJECT_ITEM_LIST)
+                        <th width="6%">
+                            ${SUBJECT_ITEM.mobile_pv}
+                        </th>
+                        <th width="6%">
+                            ${SUBJECT_ITEM.mobile_uv}
+                        </th>
+                    #end
+                </tr>
+            </table>
+
+            <p><h2 align="center">话题数据</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th></th>
+                    <th width="15%">话题页PV</th>
+                    <th width="15%">话题页UV</th>
+                    <th width="15%">PV／UV</th>
+                    <th width="15%">话题页平均停留时长</th>
+                    <th width="15%">PV与上周同比</th>
+                    <th width="15%">UV与上周同比</th>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">PC端 </td>
+                    <td align="center">${PC_TOPIC_PV}</td>
+                    <td align="center">${PC_TOPIC_UV}</td>
+                    #if($PC_TOPIC_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $PC_TOPIC_PV * 1.0 / $PC_TOPIC_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+
+                    <td align="center">-</td>
+                    <td align="center">${PC_TOPIC_PV_DOD}</td>
+                    <td align="center">${PC_TOPIC_UV_DOD}</td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">移动端 </td>
+                    <td align="center">${MOBILE_TOPIC_PV}</td>
+                    <td align="center">${MOBILE_TOPIC_UV}</td>
+                    #if($MOBILE_TOPIC_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $MOBILE_TOPIC_PV * 1.0 / $MOBILE_TOPIC_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+
+                    <td align="center">-</td>
+                    <td align="center">${MOBILE_TOPIC_PV_DOD}</td>
+                    <td align="center">${MOBILE_TOPIC_UV_DOD}</td>
+                </tr>
+            </table>
+
+            <p><h2 align="center">专栏数据</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th></th>
+                    <th width="14%">专栏页PV</th>
+                    <th width="14%">专栏页UV</th>
+                    <th width="14%">PV／UV</th>
+                    <th width="14%">专栏列表页PV</th>
+                    <th width="14%">专栏列表页UV</th>
+                    <th width="14%">专栏问题页PV</th>
+                    <th width="14%">专栏问题页UV</th>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">PC端 </td>
+                    <td align="center">${PC_COLUMN_PV}</td>
+                    <td align="center">${PC_COLUMN_UV}</td>
+                    #if($PC_COLUMN_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $PC_COLUMN_PV * 1.0 / $PC_COLUMN_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+                    <td align="center">$PC_COLUMN_LIST_PV</td>
+                    <td align="center">$PC_COLUMN_LIST_UV</td>
+                    <td align="center">$PC_COLUMN_QUESTIONS_PV</td>
+                    <td align="center">$PC_COLUMN_QUESTIONS_UV</td>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">移动端 </td>
+                    <td align="center">${MOBILE_COLUMN_PV}</td>
+                    <td align="center">${MOBILE_COLUMN_UV}</td>
+                    #if($MOBILE_COLUMN_UV == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $MOBILE_COLUMN_PV * 1.0 / $MOBILE_COLUMN_UV)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+                    <td align="center">$MOBILE_COLUMN_LIST_PV</td>
+                    <td align="center">$MOBILE_COLUMN_LIST_UV</td>
+                    <td align="center">$MOBILE_COLUMN_QUESTIONS_PV</td>
+                    <td align="center">$MOBILE_COLUMN_QUESTIONS_UV</td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div width="100%" align="center">
+            <p><h2 align="center">入口带量统计</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="30%">入口地址</th>
+                    <th width="30%">带来pv</th>
+                    <th width="30%">带来uv</th>
+                </tr>
+                <tr bgcolor="#008B00">
+                    <td align="center">
+                        微信
+                    </td>
+                    <td align="center">${WECHAT.pv}</td>
+                    <td align="center">${WECHAT.uv}</td>
+                </tr>
+                <tr bgcolor="#FFD700">
+                    <td align="center">
+                        搜狐新闻客户端
+                    </td>
+                    <td align="center">${SOHUNEWS.pv}</td>
+                    <td align="center">${SOHUNEWS.uv}</td>
+                </tr>
+                <tr bgcolor="#FF4500">
+                    <td align="center">
+                        今日头条客户端
+                    </td>
+                    <td align="center">${NEWSARTICLE.pv}</td>
+                    <td align="center">${NEWSARTICLE.uv}</td>
+                </tr>
+                <tr bgcolor="#1E90FF">
+                    <td align="center">
+                        万能WIFI
+                    </td>
+                    <td align="center">${WIFI.pv}</td>
+                    <td align="center">${WIFI.uv}</td>
+                </tr>
+                #foreach($REFER in $REFER_LIST)
+                    <tr bgcolor="#ffffff">
+                        <td align="center">
+                            ${REFER.link}
+                        </td>
+                        <td align="center">${REFER.pv}</td>
+                        <td align="center">${REFER.uv}</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+        <div width="100%" align="center">
+            <p><h2 align="center">外部指定入口统计</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="30%">入口位置</th>
+                    <th width="30%">带来pv</th>
+                    <th width="30%">带来uv</th>
+                </tr>
+                #foreach($SOURCE in $SOURCE_LIST)
+                    <tr bgcolor="#ffffff">
+                        <td align="center">
+                            ${SOURCE.desc}
+                        </td>
+                        <td align="center">${SOURCE.pv}</td>
+                        <td align="center">${SOURCE.uv}</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+
+        <h1 align="center">问吧用户／内容统计-用户数据</h1>
+        <div width="100%" align="center">
+            <p><h2 align="center">用户数据</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="6%">新增用户</th>
+                    <th width="6%">总用户</th>
+                    <th width="6%">活跃用户</th>
+                    <th width="6%">活跃比例</th>
+                    <th width="6%">新增抓取问题</th>
+                    <th width="6%">新增人工问题</th>
+                    <th width="6%">新增问题数</th>
+                    <th width="6%">总问题数</th>
+                    <th width="6%">新增抓取回答数</th>
+                    <th width="6%">新增人工回答数</th>
+                    <th width="6%">新增回答数</th>
+                    <th width="6%">总回答数</th>
+                    <th width="6%">新增转发</th>
+                    <th width="6%">新增点赞</th>
+                    <th width="6%">新增评论</th>
+                </tr>
+                <tr bgcolor="#ffffff">
+                    <td align="center">${USER_NEW}</td>
+                    <td align="center">${USER_TOTAL}</td>
+                    <td align="center">${USER_ACTIVE}</td>
+                    #if($USER_TOTAL == 0)
+                        <td align="center">0</td>
+                    #else
+                        #set($result = $USER_ACTIVE * 1.0 / $USER_TOTAL)
+                        <td align="center">$number.format("#0.00", $result)</td>
+                    #end
+
+                    <td align="center">${QUESTION_SPIDER_NEW}</td>
+                    <td align="center">${QUESTION_WRITE_NEW}</td>
+                    <td align="center">${QUESTION_NEW}</td>
+                    <td align="center">${QUESTION_TOTAL}</td>
+                    <td align="center">${ANSWER_SPIDER_NEW}</td>
+                    <td align="center">${ANSWER_WRITE_NEW}</td>
+                    <td align="center">${ANSWER_NEW}</td>
+                    <td align="center">${ANSWER_TOTAL}</td>
+                    <td align="center">-</td>
+                    <td align="center">-</td>
+                    <td align="center">-</td>
+                </tr>
+            </table>
+            <p><h2 align="center">新增用户详细信息</h2></p>
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="33%">用户名</th>
+                    <th width="33%">注册来源</th>
+                    <th width="33%">注册时间</th>
+                </tr>
+                #foreach($NEW_USER in $NEW_USER_LIST)
+                    <tr bgcolor="#ffffff">
+                        <td><a href="${NEW_USER.link}" target="_blank">${NEW_USER.title}</a></td>
+                        <td>${NEW_USER.from}</td>
+                        <td>${NEW_USER.registerTime}</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+        <h1 align="center">受访TOP30-问题（当日）</h1>
+        <div width="100%" align="center">
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="20%">排名</th>
+                    <th width="20%">问题名称</th>
+                    <th width="20%">PV</th>
+                    <th width="20%">UV</th>
+                    <th width="20%">被关注数</th>
+                </tr>
+                #foreach($POP_QUESTION in $POP_QUESTION_LIST)
+                <tr bgcolor="#ffffff">
+                    <td align="center">${velocityCount}</td>
+                    <td align="center">
+                        <a href="${POP_QUESTION.link}" target="_blank">${POP_QUESTION.title}</a>
+                    </td>
+                    <td align="center">${POP_QUESTION.pv}</td>
+                    <td align="center">${POP_QUESTION.uv}</td>
+                    <td align="center">${POP_QUESTION.fansNum}</td>
+                </tr>
+                #end
+            </table>
+        </div>
+        <h1 align="center">受访TOP30-标签（当日）</h1>
+        <div width="100%" align="center">
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="20%">排名</th>
+                    <th width="20%">标签名称</th>
+                    <th width="20%">PV</th>
+                    <th width="20%">UV</th>
+                    <th width="20%">被关注数</th>
+                </tr>
+                #foreach($POP_TAG in $POP_TAG_LIST)
+                    <tr bgcolor="#ffffff">
+                        <td align="center">${velocityCount}</td>
+                        <td align="center">
+                            <a href="${POP_TAG.link}" target="_blank">${POP_TAG.title}</a>
+                        </td>
+                        <td align="center">${POP_TAG.pv}</td>
+                        <td align="center">${POP_TAG.uv}</td>
+                        <td align="center">${POP_TAG.fansNum}</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+        <h1 align="center">受访TOP30-用户（当日）</h1>
+        <div width="100%" align="center">
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="20%">排名</th>
+                    <th width="20%">用户名称</th>
+                    <th width="20%">PV</th>
+                    <th width="20%">UV</th>
+                    <th width="20%">粉丝数</th>
+                </tr>
+                #foreach($POP_USER in $POP_USER_LIST)
+                    <tr bgcolor="#ffffff">
+                        <td align="center">${velocityCount}</td>
+                        <td align="center">
+                            <a href="${POP_USER.link}" target="_blank">${POP_USER.title}</a>
+                        </td>
+                        <td align="center">${POP_USER.pv}</td>
+                        <td align="center">${POP_USER.uv}</td>
+                        <td align="center">${POP_USER.fansNum}</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+        <h1 align="center">搜索词TOP10-热度数据（当日）</h1>
+        <div width="100%" align="center">
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="33%">排名</th>
+                    <th width="33%">查询词</th>
+                    <th width="33%">次数</th>
+                </tr>
+                #foreach($POP_SEARCHWORD in $POP_SEARCHWORD_LIST)
+                    <tr bgcolor="#ffffff">
+                        <td align="center">${velocityCount}</td>
+                        <td align="center">
+                            ${POP_SEARCHWORD.word}
+                        </td>
+                        <td align="center">${POP_SEARCHWORD.num}</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+        <h1 align="center">新增回答数TOP100问题（当日）</h1>
+        <div width="100%" align="center">
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="14%">排名</th>
+                    <th width="14%">问题名称</th>
+                    <th width="14%">日增回答</th>
+                    <th width="14%">周增回答</th>
+                    <th width="14%">月增回答</th>
+                    <th width="14%">回答总量</th>
+                    <th width="14%">评论总数</th>
+                </tr>
+                #foreach($GROW_QUESTION in $GROW_QUESTION_LIST)
+                    <tr bgcolor="#ffffff">
+                        <td align="center">${velocityCount}</td>
+                        <td align="center">
+                            <a href="${GROW_QUESTION.link}" target="_blank">
+                                ${GROW_QUESTION.title}
+                            </a>
+                        </td>
+                        <td align="center">${GROW_QUESTION.growAnsNumD}</td>
+                        <td align="center">${GROW_QUESTION.growAnsNumW}</td>
+                        <td align="center">${GROW_QUESTION.growAnsNumM}</td>
+                        <td align="center">${GROW_QUESTION.totalAnsNum}</td>
+                        <td align="center">-</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+
+        <h1 align="center">活跃用户TOP30（当日）</h1>
+        <div width="100%" align="center">
+            <table class="gridtable" width="99%">
+                <tr>
+                    <th width="12%">排名</th>
+                    <th width="12%">账号名称</th>
+                    <th width="12%">日增问答数</th>
+                    <th width="12%">周增问答数</th>
+                    <th width="12%">月增问答数</th>
+                    <th width="12%">问答总量</th>
+                    <th width="12%">日增被点赞数</th>
+                    <th width="12%">日增被转发量</th>
+                </tr>
+                #foreach($ACTIVE_USER in $ACTIVE_USER_LIST)
+                    <tr bgcolor="#ffffff">
+                        <td align="center">${velocityCount}</td>
+                        <td align="center">
+                            <a href="${ACTIVE_USER.link}" target="_blank">
+                                ${ACTIVE_USER.name}
+                            </a>
+                        </td>
+                        <td align="center">${ACTIVE_USER.growQAD}</td>
+                        <td align="center">${ACTIVE_USER.growQAW}</td>
+                        <td align="center">${ACTIVE_USER.growQAM}</td>
+                        <td align="center">${ACTIVE_USER.totalQA}</td>
+                        <td align="center">-</td>
+                        <td align="center">-</td>
+                    </tr>
+                #end
+            </table>
+        </div>
+
+    </body>
+</html>

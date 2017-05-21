@@ -1,0 +1,76 @@
+${bean.pageWrapper.headerHtml}
+<div id="content" class="content row fanslist">
+    <div class="left-side" data-user-id="${bean.user.bpId}">
+        <div class="crumbs">
+            <ul>
+                <li><a href="/" class="first-level">问吧首页</a></li>
+                <li><span>&gt;</span></li>
+                <li><a href="javascript:;">全部关注人</a></li>
+            </ul>
+        </div>
+        <%if(bean.userList!=null && bean.userList.~size!=0){%>
+            <section class="media media-article media-fans">
+                <dl class="list clearfix" data-block="list">
+                    <% include("/WEB-INF/beetl/pc/units/userlist.html",{userList:bean.userList}){} %>
+                </dl>
+            </section>
+            <div class="pagination" data-currpage="{bean.currPageNo}" data-totalpage="${bean.totalPage}"></div>     
+            <%}else{%>
+         <div class="nothing">
+                <div class="no-user"></div>
+                <p>这里什么都没有</p>
+            </div>
+            <%}%>
+    </div>
+     <div class="right-side right-user" data-id="${bean.user.bpId}">
+        <div class="nofix-wra">
+            <div class="rightside-man">
+                <div class="person-info">
+                    <div class="pic">
+                        <img src="${bean.user.avatar}" class="img-circle">
+                        <%if(bean.user.identityString != "00"){%><i class="iconfont badge${bean.user.identityString}-m">&#xe63${bean.user.identityString};</i><%}%>
+                    </div>
+                <div class="heading">${bean.user.nick}</div>
+            </div>
+            <div class="person-tags">
+                <ul class="items-box">
+                 <%var bptype="";%>
+                <%switch(bean.user.bpUserType){%>
+                    <%case 1:%>
+                        <% bptype = "pu";%>
+                        <%break;%>
+                    <%case 11:%>
+                        <%bptype = "ps";%>
+                        <%break;%>
+                    <%case 21:%>
+                        <%bptype = "pd";%>
+                        <%break;%>
+                    <%case 22:%>
+                        <%bptype = "pf";%>
+                       <% break;%>
+                    <%case 60:%>
+                         <li><a target="_blank" href="/pcq/${bean.user.companyId}"><span class="num">${bean.user.questionNumHuman}</span><br><span>提问</span></a></li>
+                    <li><a target="_blank" href="/pca/${bean.user.companyId}"><span class="num">${bean.user.answerNumHuman}</span><br><span>回答</span></a></li>
+                        <%break;%>
+                <%}%>
+                <%if(bptype != ""){%>
+                <li><a target="_blank" href="/${bptype}q/${bean.user.bpId}"><span class="num">${bean.user.questionNumHuman}</span><br><span>提问</span></a></li>
+                    <li><a target="_blank" href="/${bptype}a/${bean.user.bpId}"><span class="num">${bean.user.answerNumHuman}</span><br><span>回答</span></a></li>
+                <%}%>
+                 <li class="last-li"><a href="/uf/${bean.user.bpId}"><span class="num">${bean.user.fansNum}</span><br><span>关注度</span></a></li>
+                </ul>
+                <a href="javascript:;" class="button-primary atten-ques <%if(bean.user.hasFollowed || bean.user.isOwner){%>active<%}%>" btn-action="attention" isowner="${bean.user.isOwner}" data-id="${bean.user.bpId}">
+                    <div class="attention"><span>关注</span></div>
+                    <div class="attened"><span>已关注</span></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div> 
+</div>
+ ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+     <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/fanslist-man.js" charset="UTF-8"></script>
+  </body>
+</html>

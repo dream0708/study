@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+   <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+<body class="main">
+    <header id="header" class="header header-ask">
+        <nav class="navbar pos-fixed clearfix">
+            <div class="inner scale"><a href="javascript:;" class="pull-right btn-menu <%if(title!''!=''){%>on<%}%>"><span>下一步</span></a><a href="javascript:;" class="pull-left btn-arrowleft"><i class="iconfont icons-arrowleft">&#xe61f;</i></a>
+                <div class="nav-tit">提问</div>
+            </div>
+        </nav>
+    </header>
+    <div id="content" class="content row pub-pic">
+        <div class="attitude">
+            <div class="inner" data="${specialId!''}">
+                <input type="radio" value="1" name="attitude" <%if(specialId!""=='1'){%>checked<%}%> class="cell-zan"   <%if(specialId!""!=""){%>disabled<%}%>><input type="radio"  value="2" name="attitude" <%if(specialId!""=='2'){%>checked<%}%>  class="cell-oppose" <%if(specialId!""!=""){%>disabled<%}%>>
+            </div>
+        </div>
+        <div class="input-ques" data-question-id="${questionId!}">
+            <div class="nav-wra">
+                <textarea placeholder="陈述你的分享或吐槽" maxlength="40" rows="3" class="wr-tit">${title!}</textarea>
+            </div>
+        </div>
+        <div class="input-ans">
+        <textarea class="wr-ans" placeholder="分享你的真实感受与经验~">${plainText!}</textarea>
+        </div>
+        <div class="add-pic">
+          <%if(imageList!""!=""){%>
+      			<%for(img in imageList){%>
+        		<span class="btn-pic"><img src="${img}"><a href="javascript:;"><i class="iconfont">+</i></a></span>
+	        	<%}%>
+	        <%}%>
+        <span class="btn-add"><input type="file"><a href="javascript:;" class="cancel-pic"><i class="iconfont">+</i></a></span>
+        </div>
+    </div>
+      <div class="content row list-label hide">
+      <div class="unit occupy-search">
+        <div class="search-unit active">
+          <section class="search-group"><a href="javascript:;" class="pull-right btn-tools">取消</a>
+            <div class="search-box">
+                <div class="inner"><span class="input-group"><a class="btn-clear"><i class="iconfont icons-close">&#xe62c;</i></a>
+                  <label class="search">
+                    <input type="search" placeholder="添加标签，让问题更快被关注和回答">
+                  </label></span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+       <div class="com-list"></div>
+      <div class="label-list">
+      <%if(tagList!""!=""){%>
+      <%for(tag in tagList){%>
+      <span class="label" tag-id="${tag.tagId}"><span>${tag.tagName}</span><a href="javascript:;" class="close"><i class="iconfont">&#xe60a;</i></a></span>
+      <%}%>
+      <%}%>
+      </div>
+    </div>
+    <div class="modal-error hide">
+          <div class="inner"><i class="iconfont">&#xe62a;</i><span class="error-txt"></span></div>
+          <a href="javascript:;" class="load-cancel">朕知道了</a>
+      </div>
+      <div class="modal-backdrop bg-black hide"></div>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/pub-vs.js"></script>
+    <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

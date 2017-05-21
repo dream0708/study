@@ -1,0 +1,87 @@
+ ${bean.pageWrapper.headerHtml}
+    <section class="media gray">
+      <dl class="list clearfix">
+        <dd>
+          <div class="cell">
+            <div class="inner">
+              <div class="pic carousel">
+                <ul class="bxslider">
+                </ul>
+                <a href="javascript:;" class="arrow-left"><i class="iconfont">&#xe61f;</i></a>
+                <a href="javascript:;" class="arrow-right"><i class="iconfont">&#xe614;</i></a>
+              </div>
+              <div class="point-box"></div>
+            </div>
+          </div>
+        </dd>
+      </dl>
+    </section>
+    <div id="content" class="content row home-topic">
+      <div class="left-side">
+        <div class="nav nav-tabs search-tag">
+        <a href="javascript:;" data-type="dynamic">
+            <div class="inner-tab">我的关注</div></a>
+             <a href="javascript:;" class="active"data-type="answer">
+            <div class="inner-tab">问吧广场<div class="new">HOT</div></div></a>
+        </div>
+        <section class="media media-article dynamic hide">
+          <dl class="list clearfix">
+          </dl>
+              <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+        </section>
+           <section class="media media-article special-answer">
+           <dl class="list clearfix">
+          </dl>
+           <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+        </section>
+      </div>
+      <div class="right-side">
+        <div class="nofix-wra">
+          <div class="rightside-man">
+          <%if(!bean.hasLogin){%>
+          <div class="person-info"><div class="pic"><img src="//avatarimg.bjcnc.img.sohucs.com/c_lfill,w_200,h_200,g_center/bp_7c93fa3df7914d6bb95bceee518c75d1" class="img-circle"></div><a href="javascript:;"><div class="heading logo-txt"></div></a></div>
+            <%}else{%>
+            <div class="person-info"><a href="${bean.user.homeUrl}" class="pic"><img src="${bean.user.avatar}" class="img-circle"><%if(bean.user.identityString != "00"){%><i class="iconfont badge${bean.user.identityString}-m">&#xe63${bean.user.identityString};</i><%}%></a><a href="${bean.user.homeUrl}"><div class="heading">${bean.user.nick}</div></a></div>
+               <%}%>   
+            <div class="person-tags">
+             <%if(bean.hasLogin){%>
+            <ul class="items-box">
+              <li><a target="_blank" href="/puq"><span class="num">${bean.user.questionNumHuman}</span><br><span>提问</span></a></li>
+              <li><a target="_blank" href="/pua"><span class="num">${bean.user.answerNumHuman}</span><br><span>回答</span></a></li>
+              <li class="last-li"><a target="_blank" href="/uf/${bean.user.bpId}"><span class="num">${bean.user.fansNumHuman}</span><br><span>粉丝</span></a></li>
+            </ul>
+             <%}%>
+            <a href="javascript:;" class="button-primary write-ques" hasphoneno="${bean.hasPhoneNo}" isrestrict="${bean.isQuestionRestrict}"><i class="iconfont">&#xe611;</i>
+            <span>提问</span>
+            </a>  
+          </div> 
+          </div>
+          <div class="label-tags">
+          </div>
+          <div class="rightside-expert" data-block="asktohim"></div>
+        </div>
+        <%if(bean.hasLogin){%>
+        <div class="right-side-title hide">
+          <div class="heading">
+            <h4>感兴趣的人</h4>
+          </div><a href="javascript:;" class="pull-right change"><i class="iconfont">&#xe635;</i><span>换一组</span></a>
+        </div>
+        <section class="media media-rightside">
+          <dl class="list clearfix">                     
+          </dl>
+        </section>
+        <%}%>
+        <div class="ad-box-right">${bean.adMap[101]}</div>
+      </div>
+    </div>
+    <div class="ad-box ad-box2 ad-box-large hide">${bean.adMap[102]}</div>
+      <% include("/WEB-INF/beetl/pc/units/modal-pub.html"){} %>
+    <!-- 发布框 -->
+    ${bean.pageWrapper.footerHtml}
+    <script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/home.js" charset="UTF-8"></script>
+</body>
+</html>    
+

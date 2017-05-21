@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 数据缓存的配置 -->
+<CacheConfigs>
+    <client id="client-codis">
+    	<factory>com.sohu.bp.cache.redis.impl.JodisClientFactory</factory>
+        <properties>
+        	<property key="servers" value="${zookeeper.server}"/>
+        	<property key="zkPath" value="${codis.zk.path}"/>
+            <property key="zkTimeout" value="30000"/>
+            <property key="maxActive" value="500"/>
+            <property key="minIdle" value="0"/>
+            <property key="maxIdle" value="500"/>
+            <property key="maxWait" value="2000"/>
+        </properties>
+    </client>
+
+    <client id="client-cluster">
+        <factory>com.sohu.bp.cache.redis.impl.RedisClusterClientFactory</factory>
+        <properties>
+            <property key="servers" value="${redis.cluster.server}"/>
+            <property key="timeout" value="5000"/>
+            <property key="maxActive" value="500"/>
+            <property key="minIdle" value="0"/>
+            <property key="maxIdle" value="500"/>
+            <property key="maxWait" value="2000"/>
+        </properties>
+    </client>
+
+    <!-- example cache config -->
+    <cache name="BP_ADMIN_SESSION" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="BP_ELITE_FEATURE" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_CRAWL_SQUARE_QUEUE" client="client-cluster" cacheTimeSeconds="0"  keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	<cache name="ELITE_IDENTITY" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_INVITE" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_USER" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+
+    <cache name="ELITE_ECOLOGY" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_DATA" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_ADMIN" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    
+</CacheConfigs>

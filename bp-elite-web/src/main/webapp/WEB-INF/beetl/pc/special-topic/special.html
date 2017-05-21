@@ -1,0 +1,73 @@
+${pageWrapper.headerHtml}
+    <div id="content" class="content row special">
+      <div class="crumbs">
+        <ul>
+          <li><a href="/" class="first-level">问吧首页</a></li>
+          <li><span>&gt;</span></li>
+          <li><a href="javascript:;">专题详情页</a></li>
+        </ul>
+      </div>
+      <div class="heading-bar noborder">
+        <h4 class="inline-head">专题介绍</h4>
+        <div class="pull-right"><a href="javascript:;" class="share"><i class="iconfont">&#xe60d;</i></a></div>
+      </div>
+      <section class="special-head">
+        <div class="special-pic"><img src="${cover}">
+          <div class="special-txt">
+            <p class="heading">${name}</p>
+            <div class="txt"><span>${brief}</span></div>
+          </div><span class="floor"></span>
+        </div>
+      </section>
+       <%if(has(detail) && detail.~size!=0){%>
+      <%for(list in detail){%>
+      <div class="designer-list special-list">
+    <div class="heading-bar">
+        <h4>${list.section_name}</h4><span>${list.section_brief}</span></div>
+    <div class="list-content clearfix">
+    <%for(item in list.section_detail){%>
+        <div class="item">
+            <div class="inner clearfix">
+                <a href="${item.user.homeUrl}" target="_blank" class="header-img img-circle"><img class="img-circle" src="${item.user.avatar}"><%if(item.user.identityString != "00"){%><i class="iconfont badge${item.user.identityString}-m">&#xe63${item.user.identityString};</i><%}%></a>
+                <a href="/a/${item.answer_id}" class="pic"><img src="${item.answer_img}"></a><a href="/q/${item.question_id}" class="name">${item.question_title}</a><a href="/a/${item.answer_id}" class="school">${item.answer_content}</a></div>
+        </div>
+        <%}%>
+    </div>
+    </div>
+      <%}%>
+      <%}%>    
+      <%if(has(recentSubject) && recentSubject.~size!=0){%>
+      <div class="carousel-special">
+        <div class="heading-bar">
+          <h4>近期专题</h4>
+        </div>
+        <div class="inner clearfix">
+          <div class="bx-wrapper">
+            <div class="bx-viewport">
+           <%for(recentlist in recentSubject){%>
+           <%if(recentlistLP.index<7){%>
+            <a href="/fs/${recentlist.id}" class="item">
+                              <div class="pic"><img src="${recentlist.cover}"></div>
+                              <div class="special-date  <%if(recentlistLP.first){%>active<%}%>">${recentlist.date}
+                                <div class="angle"></div>
+                              </div>
+                              <h4 class="heading">${recentlist.title}</h4>
+                              </a>
+                              <%}%>
+                              <%}%>                         
+            </div>
+            <a href="javascript:;" class="arrow-left"><i class="iconfont">&#xeb95;</i></a>
+            <a href="javascript:;" class="arrow-right"><i class="iconfont">&#xe63dd;</i></a>
+          </div>
+        </div>
+      </div>
+      <%}%>
+    </div>
+    <!-- footer-->
+    ${pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script src="//tv.sohu.com/upload/static/player/player.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/special.js" charset="UTF-8"></script>   
+  </body>
+</html>

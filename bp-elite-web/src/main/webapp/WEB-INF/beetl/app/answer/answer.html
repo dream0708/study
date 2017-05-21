@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+ <% include("/WEB-INF/beetl/app/units/head.html"){} %>
+<body class="main" data-json-id="${id!}">
+    <div class="content row answer">
+        <a href="/app/q/${bean.question.id}" class="answer-title">
+            <h4 class="heading" data-answer-id="${bean.answer.id}">${bean.question.title}</h4>
+        </a>
+        <section class="media media-article" block-name="ques">
+            <div class="column-head">
+                <div class="clearfix">
+                    <div class="column-user">
+                        <div class="inner">
+                            <a href="javascript:;" data-user-id="${bean.answer.user.bpId}" data-user-originid="${bean.answer.user.bpIdOrigin}" data-user-type="${bean.answer.user.bpUserType}"  class="pic"><img src="${bean.answer.user.avatar}" class="img-circle"><%if(bean.answer.user.identityString != "00"){%><i class="iconfont badge${bean.answer.user.identityString}-p icon-vip"></i><%}%></a>
+                            <a href="javascript:;" data-user-id="${bean.answer.user.bpId}" data-user-originid="${bean.answer.user.bpIdOrigin}" data-user-type="${bean.answer.user.bpUserType}"   class="info">
+                                <div class="name">${bean.answer.user.nick}</div><span class="txt">${bean.answer.user.description}</span></a>
+                                   <%if(bean.answer.owner){%>
+                                    <div class="btn-primary attention pull-right" btn-action="modify"><span class="atten">修改回答</span></div>
+                                <%}else{%>
+                            <div class="btn-primary attention pull-right <%if(bean.answer.user.hasFollowed){%>active<%}%>" btn-action="attention" data-id="${bean.answer.user.bpId}"><span class="atten">+ 关注</span><span class="atten-after">已关注</span></div>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <dl class="list clearfix">
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                            <div class="answer active">${bean.answer.content}</div>
+                        </div>
+                        <div class="report" btn-action="report">举报</div>
+                    </div>
+                </dd>
+                <div class="btn-votebox">
+                    <a class="btn-vote <%if(bean.answer.hasLiked){%>active<%}%>" btn-action="zan" data-zan-num="${bean.answer.likeNumHuman}"><i class="iconfont icon-agree"></i><span>${bean.answer.likeNumHuman}</span></a>
+                    <a class="btn-vote <%if(bean.answer.hasTreaded){%>active<%}%>" btn-action="unzan"><i class="iconfont icon-against"></i><span>${bean.answer.treadNumHuman}</span></a>
+                </div>
+            </dl>
+        </section>
+         <%if(bean.commentList!=null&&bean.commentList.~size!=0){%>
+        <div class="tit-space" id="comment"> ${bean.answer.commentNumHuman}个评论</div>
+        <section class="media media-horizontal comment">
+            <dl class="list clearfix" block-name="list" data-currpage="1" data-nextpage="${bean.nextPageNo}">
+             <%for (comment in bean.commentList){%>
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                            <a href="javascript:;" data-user-id="${comment.user.bpId}" data-user-originid="${comment.user.bpIdOrigin}" data-user-type="${comment.user.bpUserType}" class="pic img-circle"><img src="${comment.user.avatar}" class="img-circle"><%if(comment.user.identityString != "00"){%><i class="iconfont badge${comment.user.identityString}-m icon-vip"></i><%}%></a>
+                            <h4 class="heading"><span class="txt">${comment.user.nick}</span><span class="icon-box"><p class="comment-time top">${comment.updateTimeHuman}</p></span></h4>
+                            <p class="info"><span class="txt">${comment.content}</span></p>
+                        </div>
+                    </div>
+                </dd>
+               <%}%>
+            </dl>
+        </section>
+		<%}%>
+        <div class="btn-occupy">
+            <div class="write-comment comm-icon">
+            <a href="javascript:;" class="write-content" btn-action="write-comment"><i class="iconfont icon-write"></i>我要表态...</a>
+            <span>
+            	<a href="#comment" class="collect"><i class="iconfont icon-comment"></i><%if (bean.answer.commentNumHuman != '0'){%><div class="message-num"><span>${bean.answer.commentNumHuman}</span></div><%}%></a>
+            	<a href="javascript:;" class="collect <%if(bean.answer.hasFavorited){%>active<%}%>" data-id="${bean.answer.id}" btn-action="collection"><i class="iconfont collected icon-favored"></i><i class="iconfont col icon-favor"></i></a>
+            	<a href="javascript:;" class="share" btn-action="share"><i class="iconfont icon-share"></i></a>
+            </span>
+        </div>
+    </div>
+    </div> 
+     <% include("/WEB-INF/beetl/app/units/tail.html"){} %>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteapp/${appStaticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="//${ux_domain!}/bpeliteapp/${appStaticVersionCode!}/scripts/answer.js" charset="UTF-8"></script>
+</body>
+</html>

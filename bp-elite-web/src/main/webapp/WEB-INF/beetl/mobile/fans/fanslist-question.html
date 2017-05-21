@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+ <% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+  <body class="main">
+  <% include("/WEB-INF/beetl/mobile/units/header.html",{text:"全部关注人"}){} %>
+    <!-- 构建用交互，请忽略。-->
+    <div id="content" class="content row search-media favor">
+    <%if(bean.userList!=null && bean.userList.~size!=0){%>
+      <section class="media media-horizontal">
+        <dl class="list clearfix" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}" data-id="{bean.question.id}" data-block="list">
+        	<% include("/WEB-INF/beetl/mobile/fans/parts/userlist.html",{list:bean.userList}){} %>
+        </dl>
+      </section>
+      <%}else{%>
+      <section class="no-list"><i class="imgs-user-no"></i><p>这里什么都没有</p></section>
+      <%}%>
+    </div>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/fanslist-question.js" charset="UTF-8"></script>
+  <% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+  </body>
+</html>

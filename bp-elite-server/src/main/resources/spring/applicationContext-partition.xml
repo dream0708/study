@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	  http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!--问题及关联表-->
+	<bean id="eliteQuestionPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_question"/>
+		<property name="tbPartiCol" value="id"/>
+	</bean>
+
+	<bean id="eliteQuestionBybpidPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_question_bybpid"/>
+		<property name="tbPartiCol" value="bp_id"/>
+	</bean>
+	
+	<bean id="eliteQuestionBySpecialPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_question_byspecial"/>
+		<property name="tbPartiCol" value="special_id"/>
+	</bean>
+
+	<!--回答-->
+	<bean id="eliteAnswerPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_answer"/>
+		<property name="tbPartiCol" value="id"/>
+	</bean>
+	<bean id="eliteAnswerByBpIdPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_answer_bybpid"/>
+		<property name="tbPartiCol" value="bp_id"/>
+	</bean>
+	<bean id="eliteAnswerByQuestionIdPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_answer_byquestionid"/>
+		<property name="tbPartiCol" value="question_id"/>
+	</bean>
+
+	<!--用户-->
+	<bean id="eliteUserPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_user"/>
+		<property name="tbPartiCol" value="id"/>
+	</bean>
+	
+	<!-- 多媒体 -->
+	<bean id="eliteMediaPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_media"/>
+		<property name="tbPartiCol" value="id"/>
+	</bean>
+	
+	<bean id="eliteMediaByQuestionIdPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_media_byquestionid"/>
+		<property name="tbPartiCol" value="question_id"/>
+	</bean>
+	
+	<bean id="eliteMediaByAnswerIdPartitioner" class="com.sohu.bp.elite.db.partitioner.TableNormalPartitioner">
+		<property name="tbName" value="elite_media_byanswerid"/>
+		<property name="tbPartiCol" value="answer_id"/>
+	</bean>
+</beans>

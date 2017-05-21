@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 数据缓存的配置 -->
+<CacheConfigs>
+    <client id="client-1">
+    	<factory>com.sohu.bp.cache.redis.impl.MasterStandbyClientFactory</factory>
+        <properties>
+        	<property key="servers" value="10.16.6.52:6379;10.16.6.140:6379"/>
+            <property key="timeout" value="0"/>
+            <property key="maxActive" value="500"/>
+            <property key="minIdle" value="0"/>
+            <property key="maxIdle" value="500"/>
+            <property key="maxWait" value="2000"/>
+        </properties>
+    </client>
+    
+    <client id="client-codis">
+    	<factory>com.sohu.bp.cache.redis.impl.JodisClientFactory</factory>
+        <properties>
+        	<property key="servers" value="${zookeeper.server}"/>
+        	<property key="zkPath" value="${codis.zk.path}"/>
+            <property key="zkTimeout" value="30000"/>
+            <property key="maxActive" value="500"/>
+            <property key="minIdle" value="0"/>
+            <property key="maxIdle" value="500"/>
+            <property key="maxWait" value="2000"/>
+        </properties>
+    </client>
+
+    <client id="client-cluster">
+        <factory>com.sohu.bp.cache.redis.impl.RedisClusterClientFactory</factory>
+        <properties>
+            <property key="servers" value="${redis.cluster.server}"/>
+            <property key="timeout" value="5000"/>
+            <property key="maxActive" value="500"/>
+            <property key="minIdle" value="0"/>
+            <property key="maxIdle" value="500"/>
+            <property key="maxWait" value="2000"/>
+        </properties>
+    </client>
+
+    <cache name="ELITE_QUESTION" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_ANSWER" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_USER" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    
+    <cache name="ELITE_MEDIA" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_MEDIA_BYQUESTION" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_MEDIA_BYANSWER" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    
+    <cache name="ELITE_MEDIA_BYANSWER" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="ELITE_FRAGMENT_MUTEX_LOCK" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="ELITE_SUBJECT_MUTEX_LOCK" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="ELITE_TOPIC_MUTEX_LOCK" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="BP_ELITE_FEATURE_SUBJECT" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	<cache name="BP_ELITE_FEATURE_TOPIC" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	<cache name="BP_ELITE_FEATURE_FRAGMENT" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="ELITE_FOLLOW" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="ELITE_COLUMN" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	
+	<cache name="ELITE_EXPERT_TEAM" client="client-cluster" cacheTimeSeconds="259200" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+
+    <cache name="ELITE_ADMIN_STATUS" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <cache name="ELITE_ADMIN" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+	<cache name="ELITE_MSG_LIMIT" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.cache.impl.DefaultKeyGenerator"/>
+    <!-- 用于保存投票和站队数据的缓存 -->
+    <cache name="ELITE_OPTION" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.bp.cache.impl.DefaultKeyGenerator"/>
+    <!-- 用于保存专家分组信息 -->
+    <cache name="ELITE_EXPERT_TEAM_INFO" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.bp.cache.impl.DefaultKeyGenerator"/>
+    <!-- 广场 -->>
+    <cache name="ELITE_SQUARE" client="client-cluster" cacheTimeSeconds="0" keyGeneratorClass="com.sohu.bp.bp.cache.impl.DefaultKeyGenerator"/>
+</CacheConfigs>

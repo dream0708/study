@@ -1,0 +1,98 @@
+${bean.pageWrapper.headerHtml}
+    <div id="content" class="content row column">
+    <div class="crumbs">
+            <ul>
+                <li><a href="/" class="first-level">问吧首页</a></li>
+                <li><span>&gt;</span></li>
+                <li><a href="javascript:;">专栏详情页</a></li>
+            </ul>
+        </div>
+        <section class="column-head">
+            <div class="clearfix">
+                <div class="column-pic"><img src="${bean.cover}">
+                    <a class="heading">
+                        <h4 data-brief="${bean.description}">${bean.name}</h4></a>
+                    <div class="column-txt">
+                        <div class="inner"><a target="_blank" href="${bean.userInfo.homeUrl}" class="name">${bean.userInfo.nick}</a><span class="txt">${bean.userInfo.description}</span><a data-invitedUserid="${bean.userInfo.bpId}" data-specialtype="471" data-specialid="${bean.id}" class="button-primary write-ques"><span>我要提问</span></a>
+                            <a target="_blank" href="${bean.userInfo.homeUrl}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-m">&#xe63${bean.userInfo.identityString};</i><%}%></a>
+                        </div><span class="floor"></span></div><a href="/fc" class="all-column"><span>查看全部专栏</span><span class="floor"></span></a></div>
+            </div>
+        </section>
+        <!--左侧-->
+        <div class="left-side">
+            <section class="colu-content">
+                <div class="inner">
+                <%if(bean.tags!=null && bean.tags.~size>0){%>
+                    <div class="label-list">
+                    <%for(tag in bean.tags){%>
+                    <a href="/t/${tag.id}" class="label">${tag.name}</a>
+                    <%}%>
+                    </div>
+                    <%}%>
+                    <div class="the-front" id="column0" data-column="column0">
+                        ${bean.brief}
+                    </div>
+                </div>
+                 <%if(bean.content!=null && bean.content.~size>0){%>
+                 <%for(column in bean.content){%>
+                <div class="colu-heading" id="column${columnLP.index}" data-column="column${columnLP.index}">
+                    <h4>${column.title}</h4></div>
+                <div class="inner">
+                    <div class="colu-txt">
+                        ${column.detail}
+                    </div>
+                </div>
+                <%}%>
+                <%}%>
+                <div class="inner">
+                    <div class="share-txt"><span class="colu-time">创建于：${bean.publishTime}</span>
+                        <div class="pull-right"><span>分享：</span><a href="javascript:;" class="share"><i class="iconfont">&#xe60d;</i></a></div>
+                    </div>
+                </div>
+            </section>
+            <%if(bean.questionList.~size>0){%>
+            <div class="column-ask">
+                <div class="head-bar"><span>大家都在问</span><a href="/fc/${bean.id}/q" class="pull-right colu-more"><span>查看全部</span><i class="iconfont off">&#xe61a;</i><i class="iconfont on">&#xe63dd;</i></a></div>
+                <section class="media media-article">
+                    <dl class="list clearfix" data-block="list">
+                        <% include("/WEB-INF/beetl/pc/units/questionlist.html",{questionList:bean.questionList}){} %>   
+                      </dl>
+                </section>
+            </div>
+            <%}%>
+        </div>
+        <div class="right-side">
+            <div class="nofix-wra">
+                <!-- <div class="field">
+                    <div class="inner">
+                        <div class="heading">设计师领域</div><span>此处是简介此处是简介此处是简介此处是简介此处是简介限制40个字yyyyyyyyyyyyyyyyyyyyyyyyyy</span></div>
+                </div> -->
+                <div class="expert-intro hide">
+                    <div class="inner">
+                        <div class="intro-box">
+                            <a href="${bean.userInfo.homeUrl}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-m">&#xe63${bean.userInfo.identityString};</i><%}%></a>
+                            <div class="info"><a href="javascript:;" class="heading">${bean.userInfo.nick}</a>
+                                <p class="major">搜狐焦点家居问吧专家</p>
+                            </div>
+                        </div><a  data-invitedUserId="${bean.userInfo.bpId}" data-specialType="471" data-specialId="${bean.id}" class="button-primary write-ques"><span>我要提问</span></a></div>
+                </div>
+                <section class="progress-step">
+                    <div class="title">目录</div>
+                    <dl>
+                        <dd class="first active"><span class="dot"><i class="iconfont">&#xe61a;</i></span><a href="#column0" data-index="0">前言</a></dd>
+                        <%if(bean.content!=null && bean.content.~size>0){%>
+                 		<%for(title in bean.content){%>
+                        <dd <%if(titleLP.last){%>class="last"<%}%>><span class="dot"><i class="iconfont">&#xe61a;</i></span><a href="#column${titleLP.index}" data-index="${titleLP.index}">${title.title}</a></dd>
+                        <%}%>
+                        <%}%>
+                    </dl>
+                </section>
+            </div>
+        </div>
+    </div>
+    ${bean.pageWrapper.footerHtml}
+   <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+   <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/column.js" charset="UTF-8"></script>
+</body>
+</html>

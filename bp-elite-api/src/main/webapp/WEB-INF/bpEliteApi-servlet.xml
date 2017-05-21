@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/aop
+      	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd ">
+
+    <mvc:annotation-driven/>
+	<context:component-scan base-package="com.sohu.bp.elite.api"/>
+
+	<bean id="defaultJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/m/**"/>
+			<bean class="com.sohu.bp.elite.api.auth.ApiAuthInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+<!--
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+ -->
+ 
+ <!-- 可以配置自己的config的，config可以自定义标签  -->
+	<!--<bean id="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration" init-method="init">
+		<property name="errorHandler" ref="beetlLogErrorHandler"></property>
+		<property name="configProperties" value="/WEB-INF/classes/beetl.properties"></property>
+	</bean>
+	
+	<bean id="defaultJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+	
+	&lt;!&ndash; Beetl视图解析器1 &ndash;&gt;
+	<bean name="beetlViewResolver" class="org.beetl.ext.spring.BeetlSpringViewResolver">
+	        &lt;!&ndash; 多视图解析器，需要设置viewNames和order &ndash;&gt;
+	        &lt;!&ndash;  配置了这个之后，只有定向到这个目录下的前端页面会依赖这个viewResolver
+	        <property name="viewNames">
+	                <list>
+	                        <value>/btl/**</value>
+	                </list>
+	        </property>
+	         &ndash;&gt;
+	        <property name="suffix" value=".html"/>
+	        <property name="prefix" value="/WEB-INF/btl/"/>
+	        <property name="contentType" value="text/html;charset=UTF-8"/>
+	        <property name="order" value="0"/>
+	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+	</bean> 
+		
+	<bean name="beetlLogErrorHandler" class="org.beetl.ext.web.WebErrorHandler"></bean>  -->  <!-- 调试的时候用这个，可以将错误打印到前端页面 -->
+   <!--  <bean name="beetlLogErrorHandler" class="com.sohu.bp.beetl.LogErrorHandler"></bean>  -->   <!-- 用这个将错误打印到日志 -->
+
+</beans>

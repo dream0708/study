@@ -1,0 +1,65 @@
+${bean.pageWrapper.toolbarHtml}
+    <!-- header.jade-->
+    <header id="header" class="header">
+        <div class="wrap-head-big wrap-head-person">
+            <div class="wrap-inner">
+                <div class="pull-left">
+                    <a target="_blank" href="http://home.focus.cn"><i class="img-logo"></i></a>
+                </div>
+                <div class="com-info"><img src="${bean.user.avatar}">
+                    <div class="com-tit"><a href="javascript:;" class="com-title">${bean.user.nick}</a>
+                    </div>
+                    <div class="com-botton" isowner="${bean.user.isOwner}">
+                    <a href="javascript:;" class="attention <%if(bean.user.isOwner || bean.user.hasFollowed){%>active<%}%>" data-user-id="${bean.user.bpId}" isowner="${bean.user.isOwner}">
+                    <i class="iconfont">&#xe606;</i>
+                    <span class="atten">关注</span>
+                    <span class="atten-after" >已关注</span>
+                </a>
+		          		<a href="javascript:;" class="share">
+	                      <i class="iconfont">&#xe60d;</i>
+	                      <span>分享</span>
+	                    </a>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        <div class="nav-occupy">
+            <div class="nav tab-head tab-head-bar">
+                <div class="tab-inner">
+                    <a href="#" class="link active"><span>问吧</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="content" class="content row person">
+        <div class="left-side">
+            <div class="nav nav-tabs tab-three">
+                <a href="/pu/${bean.user.bpId}" target="_self" class="active">
+                    <div class="inner-tab">问吧动态</div>
+                </a>
+                <a href="/puq/${bean.user.bpId}" target="_self">
+                    <div class="inner-tab">TA的提问</div>
+                </a>
+                <a href="/pua/${bean.user.bpId}" target="_self">
+                    <div class="inner-tab">TA的回答</div>
+                </a>
+            </div>
+            <section class="media media-article">
+                <dl class="list clearfix">
+                </dl>
+                <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+            </section>
+        </div>
+        <% include("/WEB-INF/beetl/pc/home/parts/right-side.html",{type:"u",user:bean.user}){} %>
+    </div>
+    <!--免费设计-->
+  
+    <!-- footer-->
+    ${bean.pageWrapper.footerHtml}
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/polyfill.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteweb/${staticVersionCode!}/scripts/person-home.js" charset="UTF-8"></script>
+</body>
+
+</html>

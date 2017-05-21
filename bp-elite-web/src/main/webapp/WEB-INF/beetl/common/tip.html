@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<% include("/WEB-INF/beetl/mobile/units/head.html"){} %>
+	<body>
+		<% include("/WEB-INF/beetl/mobile/units/header.html"){} %>
+		<div class="content row feedback">
+			<div class="feed-type"><i class="iconfont ${bean.tipType}"></i></div>
+			<div class="feed-txt">
+				<p>${bean.tipTitle}</p>
+				<span>${bean.tipContent}</span>
+			</div>
+			<a href="/" target="_self" class="btn-info btn-full">返回首页</a>
+		</div>
+		<div data-finish='finish' style="display:none"></div>
+	<script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/vendors.js"></script>
+	<script type="text/javascript" src="//${ux_domain}/bpelite/${staticVersionCode}/scripts/feedback.js"></script>
+	</body>
+</html>

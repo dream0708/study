@@ -1,0 +1,184 @@
+<html>
+<style type="text/css">
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size:11px;
+        color:#333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+    }
+</style>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+<body>
+    <h1 align="center">家居主站访问数据($TIME_STR)</h1>
+    <div width="100%" align="center">
+        <p><h2 align="center">入口带量统计</h2></p>
+        <table class="gridtable" width="99%">
+            <tr>
+                <th width="10%">序号</th>
+                <th width="30%">入口地址</th>
+                <th width="30%">带来pv</th>
+                <th width="30%">带来uv</th>
+            </tr>
+            <tr bgcolor="#008B00">
+                <td>-</td>
+                <td align="center">
+                    微信
+                </td>
+                <td align="center">${WECHAT.pv}</td>
+                <td align="center">${WECHAT.uv}</td>
+            </tr>
+            <tr bgcolor="#FFD700">
+                <td>-</td>
+                <td align="center">
+                    搜狐新闻客户端
+                </td>
+                <td align="center">${SOHUNEWS.pv}</td>
+                <td align="center">${SOHUNEWS.uv}</td>
+            </tr>
+            <tr bgcolor="#FF7F00">
+                <td>-</td>
+                <td align="center">
+                    UC客户端回源
+                </td>
+                <td align="center">${UCAPP.pv}</td>
+                <td align="center">${UCAPP.uv}</td>
+            </tr>
+            #foreach($REFER in $REFER_LIST)
+                <tr bgcolor="#ffffff">
+                    <td>${velocityCount}</td>
+                    <td align="center">
+                        ${REFER.link}
+                    </td>
+                    <td align="center">${REFER.pv}</td>
+                    <td align="center">${REFER.uv}</td>
+                </tr>
+            #end
+        </table>
+    </div>
+    <div width="100%" align="center">
+        <p><h2 align="center">外部指定入口统计</h2></p>
+        <table class="gridtable" width="99%">
+            <tr>
+                <th width="10%">序号</th>
+                <th width="30%">入口位置</th>
+                <th width="30%">带来pv</th>
+                <th width="30%">带来uv</th>
+            </tr>
+            #foreach($SOURCE in $SOURCE_LIST)
+                <tr bgcolor="#ffffff">
+                    <td>${velocityCount}</td>
+                    <td align="center">
+                        ${SOURCE.desc}
+                    </td>
+                    <td align="center">${SOURCE.pv}</td>
+                    <td align="center">${SOURCE.uv}</td>
+                </tr>
+            #end
+        </table>
+    </div>
+    <div width="100%" align="center">
+        <p><h2 align="center">访问最高TOP-50地址</h2></p>
+        <table class="gridtable" width="99%">
+            <tr>
+                <th width="10%">序号</th>
+                <th width="30%">地址</th>
+                <th width="30%">pv</th>
+                <th width="30%">uv</th>
+            </tr>
+            #foreach($POP_PAGE in $POP_PAGE_LIST)
+                <tr bgcolor="#ffffff">
+                    <td>${velocityCount}</td>
+                    <td align="center">
+                        ${POP_PAGE.url}
+                    </td>
+                    <td align="center">${POP_PAGE.pv}</td>
+                    <td align="center">${POP_PAGE.uv}</td>
+                </tr>
+            #end
+        </table>
+    </div>
+    <div width="100%" align="center">
+        <p><h2 align="center">访问最高TOP-50文章地址</h2></p>
+        <table class="gridtable" width="99%">
+            <tr>
+                <th width="10%">序号</th>
+                <th width="30%">地址</th>
+                <th width="30%">pv</th>
+                <th width="30%">uv</th>
+            </tr>
+            #foreach($POP_ARTICLE_PAGE in $POP_ARTICLE_PAGE_LIST)
+                <tr bgcolor="#ffffff">
+                    <td>${velocityCount}</td>
+                    <td align="center">
+                        ${POP_ARTICLE_PAGE.url}
+                    </td>
+                    <td align="center">${POP_ARTICLE_PAGE.pv}</td>
+                    <td align="center">${POP_ARTICLE_PAGE.uv}</td>
+                </tr>
+            #end
+        </table>
+    </div>
+
+    <h1 align="center">问吧访问数据($TIME_STR)</h1>
+    <div width="100%" align="center">
+        <p><h2 align="center">外部指定入口统计</h2></p>
+        <table class="gridtable" width="99%">
+            <tr>
+                <th width="10%">序号</th>
+                <th width="30%">入口位置</th>
+                <th width="30%">带来pv</th>
+                <th width="30%">带来uv</th>
+            </tr>
+            #foreach($ASK_SOURCE in $ASK_SOURCE_LIST)
+                <tr bgcolor="#ffffff">
+                    <td>${velocityCount}</td>
+                    <td align="center">
+                        ${ASK_SOURCE.desc}
+                    </td>
+                    <td align="center">${ASK_SOURCE.pv}</td>
+                    <td align="center">${ASK_SOURCE.uv}</td>
+                </tr>
+            #end
+        </table>
+    </div>
+
+    <h1 align="center">内容输出渠道统计</h1>
+    <div width="100%" align="center">
+        <table class="gridtable" width="99%">
+            <tr>
+                <th width="10%">序号</th>
+                <th width="30%">渠道</th>
+                <th width="30%">带来pv</th>
+                <th width="30%">带来uv</th>
+            </tr>
+            #foreach($pvuv in $RSS.entrySet())
+                <tr bgcolor="#ffffff">
+                    <td>${velocityCount}</td>
+                    <td align="center">
+                        ${pvuv.key}
+                    </td>
+                    <td align="center">${pvuv.value.get(0)}</td>
+                    <td align="center">${pvuv.value.get(1)}</td>
+                </tr>
+            #end
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	  http://www.springframework.org/schema/beans/spring-beans.xsd 
+	  http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- redis缓存数据存储服务  -->
+    <bean id="redisCacheManager" class="com.sohu.bp.cache.redis.impl.RedisCacheManagerImpl" init-method="init" destroy-method="destroy">
+    	<property name="configFile" value="redis-cache.xml"/>
+    </bean>
+    
+    <bean id="ssdbCacheManager" class="com.sohu.bp.cache.ssdb.impl.SsdbCacheManagerImpl" init-method="init" destroy-method="destroy">
+    	<property name="configFile" value="ssdb-cache.xml"></property>
+    </bean>
+    
+	<bean id="eliteFeatureDao" class="com.sohu.bp.elite.api.dao.impl.EliteFeatureDaoImpl" init-method="init">
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+		<property name="ssdbCacheManager" ref="ssdbCacheManager"/>
+	</bean>
+	
+	<bean id="identityDao" class="com.sohu.bp.elite.api.dao.impl.IdentityDaoImpl" init-method="init">
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+	</bean>
+	
+	<bean id="dataDao" class="com.sohu.bp.elite.api.dao.impl.EliteDataDaoImpl" init-method="init">
+	   <property name="redisCacheManager" ref="redisCacheManager"/>
+	</bean>
+	
+	<bean id="adminDao" class="com.sohu.bp.elite.api.dao.impl.EliteAdminDaoImpl" init-method="init">
+		<property name="redisCacheManager" ref="redisCacheManager"/>
+	</bean>
+</beans>

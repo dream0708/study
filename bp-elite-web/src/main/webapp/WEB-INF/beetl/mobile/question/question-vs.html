@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <title>${bean.question.title}_问吧_搜狐焦点家居</title>
+    <meta name="keywords" content="<%if(bean.question.tagList!=null && bean.question.tagList.~size!=0){%><%for(tag in bean.question.tagList){%>${tag.tagName}、<%}%><%}%>装修问答、装修知识、装修攻略">
+    <meta name="description" content="${bean.question.title}:${bean.question.plainText}">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!--－ 当网站添加到主屏幕后再点击进行启动时，可隐藏地址栏（从浏览器跳转或输入链接进入并没有此效果）-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="apple-mobile-web-app-title" content="家居问答">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="icon" href="//${ux_domain!}/bphomewap/focus.ico" mce_href="//${ux_domain!}/bphomewap/focus.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//${ux_domain!}/bpelite/${staticVersionCode!}/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="//${ux_domain!}/bpelite/${staticVersionCode!}/styles/page.css">
+    <script  src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/jquery.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" charset="UTF-8"></script>
+    <script>
+      $(function(){
+          (function(){
+            if($('[data-finish]').length==0){
+              var url = window.location.href.split('?');
+              if(url[1]){
+                var reg = /^bpdebug=/;
+                if(reg.test(url[1])){
+                  return;
+                }
+              }
+             $.post('/common/error?errorUrl='+url[0]);
+            window.location.href = '/common/404?errorUrl='+url[0];
+          }
+          })()   
+    });
+</script>
+</head>
+<body class="main">
+    <% include("/WEB-INF/beetl/mobile/units/header.html",{share:true}){} %>
+    <div id="content" class="content row qes-ans answer">
+    <%if(bean.question.tagList!=null && bean.question.tagList.~size!=0){%>
+        <div class="tag-box">
+            <div class="tag-bottom">
+            	 <%for(tag in bean.question.tagList){%>
+            	<a href="/t/${tag.tagId}"  class="single-tag">${tag.tagName}</a>
+            	<%}%>
+            	</div>
+            	<a href="/q/${bean.question.id}/tags" class="taglist"><i class="iconfont">&#xe614;</i></a>
+            </div>
+            <%}%>
+        <div class="ans-tit">
+            <h4 class="heading" data-question-id="${bean.question.id}" data-vstype= "${bean.question.specialId}">${bean.question.title}</h4></div>
+        <div class="ans-man">
+            <a href="${bean.question.user.homeUrl}">
+                <div class="pic"><img src="${bean.question.user.avatar}" class="img-circle"><%if(bean.question.user.identityString != "00"){%><i class="iconfont badge${bean.question.user.identityString}-m">&#xe6301;</i><%}%></div>
+                <div class="info">
+                    <p class="heading">${bean.question.user.nick}</p><span>${bean.question.user.description}</span></div>
+            </a>
+             <%if(bean.question.user.owner){%>
+              <%}else{%>
+            <div class="btn atten <%if(bean.question.user.hasFollowed){%>active<%}%>" btn-action="attention" data-id="${bean.question.user.bpId}"><span class="attention">关注</span><span class="attened">已关注</span></div>
+            <%}%>
+        </div>
+        <section class="media media-article">
+            <dl class="list clearfix">
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                        <%if(bean.question.plainText != ""){%>
+                            <div class="answer">${bean.question.plainText}</div>
+                        <%}%>
+                          <div class="pic-nine" data-big-imglist="img">
+                          <%if(bean.question.imageSmallList!=null && bean.question.imageSmallList.~size>0){%>
+                               <%for(imgs in bean.question.imageSmallList){%>
+                                <div class="pic">
+                            	<img src="${imgs}" data-index="${imgsLP.index}" data-big-img="${bean.question.imageList[imgsLP.index-1]}">
+                                </div>
+                           		<%}%>
+                            <%}%>
+                            </div>
+                            <div class="vs-box" data-choose-option="${bean.choosedOption}">
+                                <div class="vs-title"></div>
+                                <div class="vs-inner">
+                                    <div class="clearfix">
+                                       <%for(option in bean.question.options){%>
+                                        <div class="vs-cell"  data-count="${option.count}"><img src="${option.img}">
+                                            <div class="vs-txt">
+                                               ${option.description}
+                                            </div>
+                                        </div>
+                                        <%}%>
+                                        <div class="vs-logo"><span>VS</span></div>
+                                    </div>
+                                </div>
+                                <div class="vs-stand">
+                                    <div class="pic-box pull-left">
+                                     <%if(bean.question.choosedUsers!=null && bean.question.choosedUsers.~size>0){%>
+                                        <%for(avatar1 in bean.question.choosedUsers[0]){%>
+                                        <img src="${avatar1.avatar}" class="img-circle">
+                                        <%}%>
+                                        <%}%>
+                                    </div>
+                                    <span>已有<i bolck-name="totalchoosednum">${bean.question.totalChoosedNum}</i>人加入站队</span>
+                                    <div class="pic-box pull-right">
+                                    <%if(bean.question.choosedUsers!=null && bean.question.choosedUsers.~size>1){%>
+                                     <%for(avatar2 in bean.question.choosedUsers[1]){%>
+                                        <img src="${avatar2.avatar}" class="img-circle">
+                                        <%}%>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </section>
+          <%if(bean.question.answerNumHuman!= '0'){%>
+         <div class="main-title"><span class="tit-con">评论</span><span class="right">${bean.question.answerNumHuman}条</span></div>
+        <div class="tabs-occupy">
+            <div class="nav nav-tabs tab-four">
+	            <a href="javascript:;" class="active" data-ans-type="-1">全部</a>
+	            <a href="javascript:;" data-ans-type="1">赞同(${bean.question.answerCounts[0]})</a>
+	            <a href="javascript:;" data-ans-type="2">反对(${bean.question.answerCounts[1]})</a><a href="javascript:;" data-ans-type="0">不站队(${bean.question.answerCounts[2]})</a>
+            </div>
+        </div>
+        <section class="media media-question">
+            <dl class="list clearfix" data-currpage="1" data-nextpage="${bean.nextPageNo}" data-block="list">
+            <% for(answerData in bean.answerList){%>
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                            <div class="pic-mixin user-info clearfix">
+                                 <a href="${answerData.user.homeUrl}" <%if(answerData.user.description !=""){%>class="vip"<%}%>>
+                        			<img src='${answerData.user.avatar}' class="img-circle"><%if(answerData.user.identityString != "00"){%><i class="iconfont badge${answerData.user.identityString}-s">&#xe63${answerData.user.identityString};</i><%}%><span>${answerData.user.nick}</span>
+                                      <%if(answerData.user.description !=""){%><span class="user-brief">${answerData.user.description}</span><%}%>
+                        		</a>
+                            </div>
+                             <%if(answerData.coverWapImgListSmall!=null && answerData.coverWapImgListSmall.~size!=0){%>
+                        	<a href="javascript:;" class="pic"><img src="${answerData.coverWapImgListSmall[0]}" data-origin-image="${answerData.coverImgListMedium[0]}"></a>
+                        <%}%>
+                            <a href="javascript:;">
+                        		<div class="txt">${answerData.content}</div>
+                        		<!-- <p class="info">
+                        			<span class="pull-right"><span>${answerData.updateTimeHuman}</span></span>
+                        			<span class="pull-left"><i class="iconfont">&#xe608;</i><span>${answerData.commentNumHuman}</span></span>
+                        			<span class="pull-left zan"><i class="iconfont">&#xe617;</i><span>${answerData.likeNumHuman}</span></span>
+                        		</p> -->
+                        	</a>
+                        </div>
+                    </div>
+                     <%switch(answerData.specialId){%>
+						<%case '100':%>
+							<div class="vs-tag-A">${answerData.specialLabel}</div>
+							<%break;%>
+						<%case '201':%>
+						<div class="vs-tag-B">${answerData.specialLabel}</div>
+						<%break;%>
+						<%default:%>
+						<%break;%>
+				    <%}%>	
+                </dd>
+                <%}%>
+             </dl>
+        </section>
+        <%}%>
+        <div class="btn-occupy occupy-one">
+            <div class="bottom-box">
+            <div class="contact-box">
+          <a href="/inv/${bean.question.id}/go" class="invite-ans"><span><i class="iconfont">&#xe636;</i><br><span>邀请站队</span></span></a>
+              <a href="/a/${bean.question.id}/go" class="contact-btn"><span><i class="iconfont">&#xe634;</i><br><span>我要评论</span></span></a>
+           	 </div>        
+        </div>
+        </div>
+        <div class="modal-error hide">
+            <div class="inner"><i class="iconfont">&#xe62a;</i><span class="error-txt"></span></div>
+            <a href="javascript:;" class="load-cancel">朕知道了</a>
+      </div>
+      <div class="modal-backdrop bg-black hide"></div>
+    </div>
+    <%if (bean.admin == 10){%>
+<div class="admin">
+    <div class="btn-admin">管理</div>
+    <div class="btn-box">
+        <div btn-action="adminDelete" class="btn">删帖</div>
+        <div btn-action="adminKickOut" class="btn">封号</div>
+        <div btn-action="adminAll" class="btn">删帖封号</div>
+        <div class="admin-close"><i class="iconfont">&#xe661;</i></div>
+    </div>
+</div>
+<%}%>
+<script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+<script type="text/javascript" src="//${ux_domain!}/bpelite/${staticVersionCode!}/scripts/question-vs.js" charset="UTF-8"></script>
+<% include("/WEB-INF/beetl/mobile/units/tail.html"){} %>
+</body>
+</html>

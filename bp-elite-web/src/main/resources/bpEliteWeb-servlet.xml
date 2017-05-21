@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop
+      	http://www.springframework.org/schema/aop/spring-aop.xsd ">
+    <aop:aspectj-autoproxy/>
+	<mvc:annotation-driven/>
+	<context:component-scan base-package="com.sohu.bp"/>
+	<bean name="beetlViewResolver" class="org.beetl.ext.spring.BeetlSpringViewResolver">
+		<!-- 多视图解析器，需要设置viewNames和order -->
+		<!--  配置了这个之后，只有定向到这个目录下的前端页面会依赖这个viewResolver
+        <property name="viewNames">
+                <list>
+                        <value>/btl/**</value>
+                </list>
+        </property>
+         -->
+		<property name="suffix" value=".html"/>
+		<property name="prefix" value="/WEB-INF/beetl/"/>
+		<property name="contentType" value="text/html;charset=UTF-8"/>
+		<property name="order" value="0"/>
+	</bean>
+
+	<bean id="defaultJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+
+	<bean id="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration" init-method="init">
+		<property name="errorHandler" ref="beetlLogErrorHandler"/>
+		<property name="configProperties" value="classpath:beetl.properties"/>
+	</bean>
+	
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+
+ 	<!--<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+            	<prop key="com.sohu.bp.exceptions.NoPermException">error</prop>
+                <prop key="java.lang.Exception">error</prop>
+                <prop key="java.lang.Throwable">error</prop>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <props>
+                <prop key="commons/error">500</prop>
+                <prop key="commons/404">404</prop>
+                <prop key="commons/404">400</prop>
+            </props>
+        </property>
+        <property name="warnLogCategory" value="WARN"></property>
+        <property name="defaultErrorView" value="commons/error"></property>
+
+        <property name="defaultStatusCode" value="500"></property>
+    </bean>-->
+		
+	<bean name="beetlLogErrorHandler" class="org.beetl.ext.web.WebErrorHandler"></bean>    <!-- 调试的时候用这个，可以将错误打印到前端页面 -->
+   <!--  <bean name="beetlLogErrorHandler" class="com.sohu.bp.beetl.LogErrorHandler"></bean>  -->   <!-- 用这个将错误打印到日志 -->
+
+	<mvc:default-servlet-handler/>
+</beans>

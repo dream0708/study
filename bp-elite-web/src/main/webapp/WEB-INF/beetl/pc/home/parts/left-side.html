@@ -1,0 +1,40 @@
+<div class="left-side" page-name="person">
+            <div class="nav nav-tabs tab-three">
+                <a href="/p${type}/${bean.user.bpId}" target="_self" <%if(qaType == "p"){%>class="active"<%}%>>
+                    <div class="inner-tab">问吧动态</div>
+                </a>
+                <a href="/p${type}q/${bean.user.bpId}" target="_self" <%if(qaType == "q"){%>class="active"<%}%>>
+                    <div class="inner-tab">TA的提问</div>
+                </a>
+                <a href="/p${type}a/${bean.user.bpId}" target="_self" <%if(qaType == "a"){%>class="active"<%}%>>
+                    <div class="inner-tab">TA的回答</div>
+                </a>
+            </div>
+            <% if(qaType != "p"){%>
+            <% if(bean.feedItemList!=null && bean.feedItemList.~size!=0){ %>
+            <section class="media media-article" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+                <dl class="list clearfix">
+                <%switch(qaType){%>
+                    <%case "p":%>
+                        break;
+                    <%case "q":%>
+                    <% include("/WEB-INF/beetl/pc/units/questionlist.html",{questionList:bean.feedItemList}){} %>  
+                        <%break;%>
+                    <%case "a":%>
+                    <% include("/WEB-INF/beetl/pc/units/answerlist.html",{answerList:bean.feedItemList}){} %>  
+                        <%break;%>  
+                    <%}%>  
+                </dl>
+                <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+            </section>
+           <%}else{%>
+        <div class="nothing"><div class="no-question"></div><p>这里什么都没有</p></div>
+        <%}%>
+        <%}else{%>
+         <section class="media media-article">
+         <dl class="list clearfix">
+          </dl>
+                <a href="javascript:;" class="loadmore"><span class="beforeload">加载更多</span><span class="loadwait"><span class="loadgif"></span><span>正在努力加载中，请稍候...</span></span></a>
+            </section>
+            <%}%>
+        </div>

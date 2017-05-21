@@ -1,0 +1,79 @@
+ <div class="pull-left sidebar">
+        <div class="coil info">
+        	<a href="/decoration/profile/aut/update.html" class="avatar-edit">
+        		<i class="mask"></i><span class="mask">编辑头像</span>
+        		<img src="${bean.user.avatar}">
+        	</a>
+          <h4 class="title">${bean.user.nick}</h4>
+          <p class="txt-center"><a href="/decoration/profile/aut/update.html">编辑个人资料</a></p>
+        </div>
+        <div class="coil location">
+          <h5 class="title">
+          	<% if(bean.user.isAccountSafe){ %>
+          	<span class="pull-right">安全</span>
+          	<% }else{ %>
+          	<span class="pull-right txt-alert">异常</span>
+          	<% } %>
+          	<span>上次登录</span>
+          </h5>
+          <p>${bean.user.lastLoginInfo}</p>
+        </div>
+        <div class="coil nav-list">
+         <% if(bean.user.bpUserType > 1){%>
+          <section>
+            <h4 class="title">
+              <a href="javascript:;" class="active"><span class="pull-right"><i class="iconfont icons-arrowup">&#xe6366;</i>
+              <i class="iconfont icons-arrowdown">&#xe602;</i></span>
+              <% if(bean.user.bpUserType == 11){%>
+              自媒体
+              <% }else if(bean.user.bpUserType == 21){ %>
+              设计师
+              <% }else if(bean.user.bpUserType == 22){ %>
+              工长
+              <% }else if(bean.user.bpUserType == 60){ %>
+              公司
+              <% }%>
+              </a></h4>
+            <ul class="box hide">
+              <li class="first"><span class="ico-dot"><i></i></span><a href="/decoration/profile/publish.html">内容管理</a></li>
+              <%if(bean.user.bpUserType == 60){ %>
+                 <li><span class="ico-dot"><i></i></span><a href="/decoration/profile/manage/expert.html">员工管理</a></li>
+              <li class="last"><span class="ico-dot"><i></i></span><a href="/decoration/profile/manage/company.html">公司设置</a></li>
+              <% }%>
+              <li class="last"><span class="ico-dot"><i></i></span><a href="/decoration/profile/aut/update.html">信息管理</a></li>
+            </ul>
+          </section>
+          <% } %>
+        <section>
+            <h4 class="title"><a href="javascript:;" class="active"><span class="pull-right"><i class="iconfont icons-arrowup">&#xe6366;</i>
+            <i class="iconfont icons-arrowdown">&#xe602;</i></span>我的账户</a></h4>
+            <ul class="box hide">
+              <li class="first"><span class="ico-dot"><i></i></span><a href="/decoration/profile/security.html">账号安全</a></li>
+              <li class="last"><span class="ico-dot"><i></i></span><a href="/decoration/profile/bind.html">账号绑定</a></li>
+            </ul>
+          </section>
+           <section>
+            <h4 class="title"><a href="javascript:;" class="active"><span class="pull-right"><i class="iconfont icons-arrowup">&#xe6366;</i>
+            <i class="iconfont icons-arrowdown">&#xe602;</i></span>我的服务</a></h4>
+            <ul class="box hide">
+              <li class="first"><span class="ico-dot"><i></i></span><a href="/decoration/profile/manage/signup.html">我的装修</a></li>
+              <li class="last"><span class="ico-dot"><i></i></span><a href="/decoration/profile/message.html">我的消息</a></li>
+            </ul>
+          </section>
+              <section>
+            <h4 class="title"><a href="javascript:;" class="active"><span class="pull-right"><i class="iconfont icons-arrowup">&#xe6366;</i>
+            <i class="iconfont icons-arrowdown">&#xe602;</i></span>关注收藏</a></h4>
+            <ul class="box hide">
+              <li class="first"><span class="ico-dot"><i></i></span><a href="/decoration/profile/follow/company.html">我的关注</a></li>
+              <li class="last"><span class="ico-dot"><i></i></span><a href="/decoration/profile/favorite/works.html">我的收藏</a></li>
+            </ul>
+          </section>
+          <section>
+            <h4 class="title"><a href="/decoration/profile/diary/list.html">发布装修日记</a></h4>
+          </section>
+          <% if(bean.user.bpUserType == 1){ %>
+          <section>
+            <h4 class="title"><a href="/decoration/profile/publish.html">合作入驻</a></h4>
+          </section>
+          <% } %>
+         

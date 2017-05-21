@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+ <% include("/WEB-INF/beetl/app/units/head.html"){} %>
+<body class="main" data-json-id="${id!}">
+   <section class="header-avatar">
+        <div class="clearfix">
+            <div class="pic"><img src="${bean.wapCover}">
+                <div class="inner">
+                    <div class="heading" data-column-id="${bean.id}">${bean.name}</div>
+                    <div class="txt">${bean.publishTime}</div>
+                    <div class="btn-box">
+                        <div class="btn-trans collection <%if(bean.hasFavorited){%>active<%}%>" btn-action="collection"><span class="col">收藏</span><span class="colled">已收藏</span></div>
+                        <div class="btn-trans share" btn-action="share">分享</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="content row column">
+        <section class="column-head">
+            <div class="clearfix">
+                <div class="column-user column-usercard">
+                    <div class="inner">
+                        <a href="javascript:;" data-user-id="${bean.userInfo.bpId}" data-user-originid="${bean.userInfo.bpIdOrigin}" data-user-type="${bean.userInfo.bpUserType}" class="pic"><img src="${bean.userInfo.avatar}" class="img-circle"><%if(bean.userInfo.identityString != "00"){%><i class="iconfont badge${bean.userInfo.identityString}-p icon-vip"></i><%}%></a>
+                        <a href="javascript:;" class="info">
+                            <div class="name">${bean.userInfo.nick}</div><span class="txt">${bean.userInfo.description}</span></a>
+                           <%if(!bean.userInfo.isOwner){%>
+                        <div class="btn-primary attention pull-right <%if(bean.userInfo.hasFollowed){%>active<%}%>" btn-action="attention" data-id="${bean.userInfo.bpId}"><span class="atten">+ 关注</span><span class="atten-after">已关注</span></div>
+                        <%}%>
+                    </div>
+                </div>
+                <div class="the-front" id="column0">
+                     ${bean.brief}
+                </div>
+                <div class="column-txt">
+                <%for(column in bean.content){%>
+                    <div class="colu-heading" id="column${columnLP.index}"><h4>${column.title}</h4></div>
+                    <div class="inner">
+                        <div class="colu-txt">
+                           ${column.wapDetail}
+                        </div>
+                    </div>
+                <%}%>
+                  <div class="report" btn-action="report">举报</div>
+                </div>
+                <%if(bean.tags!=null && bean.tags.~size>0){%>
+                <div class="tag-box">
+                    <div class="tag-bottom">
+                    <%for(tag in bean.tags){%>
+                    <a href="javascript:;" data-tag-id="${tag.id}" class="label">${tag.name}</a>
+                    <%}%>
+                   </div>
+                </div>
+                <%}%>
+            </div>
+        </section>
+          <%if(bean.questionList.~size>0){%>
+        <div class="tit-space">${bean.total}个提问</div>
+        <section class="media media-question">
+            <dl class="list clearfix" data-block="list" data-currpage="${bean.currPageNo}" data-nextpage="${bean.nextPageNo}">
+            <%for(question in bean.questionList){%>
+                <dd>
+                    <div class="cell">
+                        <div class="inner">
+                            <div class="pic-mixin user-info clearfix">
+                                <a href="javascript:;" data-user-id="${question.user.bpId}" data-user-originid="${question.user.bpIdOrigin}" data-user-type="${question.user.bpUserType}"><img src="${question.user.avatar}" class="img-circle"><%if(question.user.identityString != "00"){%><i class="iconfont icon-vip badge${question.user.identityString}-m"></i><%}%><span>${question.user.nick}</span></a><span class="txt-date pull-right">${question.updateTimeHuman}</span></div>
+                            <a href="/app/q/${question.itemId}">
+                                <div class="heading">${question.title}</div>
+                            </a>
+                        </div>
+                    </div>
+                </dd>
+                <%}%>
+            </dl>
+        </section>
+        <%}%>
+        <div class="catalog">
+            <div class="info">目录</div><i class="iconfont pull-right icon-right"></i></div>
+        <div class="btn-circle" btn-action="pub"><i class="iconfont icon-add"></i></div>
+    </div>
+    <section class="progress-step hide" block-list="catalog">
+        <div class="inner">
+            <div class="progress-tit">目录</div>
+            <a href="#column0">简介</a>
+             <%if(bean.content!=null && bean.content.~size>0){%>
+             <%for(title in bean.content){%>
+            <a href="#column${titleLP.index}">${title.title}</a>
+          <%}%>
+          <%}%>
+            <div class="btn-delete" btn-action="delete-catalog"><i class="iconfont icon-close"></i></div>
+        </div> 
+    </section> 
+         <% include("/WEB-INF/beetl/app/units/tail.html"){} %>
+     <script type="text/javascript" src="//${ux_domain!}/bpeliteapp/${appStaticVersionCode!}/scripts/vendors.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="//${ux_domain!}/bpeliteapp/${appStaticVersionCode!}/scripts/column.js" charset="UTF-8"></script>
+</body>
+</html>
